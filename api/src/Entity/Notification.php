@@ -69,5 +69,82 @@ class Notification
      */
     private $idcar;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIduser(): ?int
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(int $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getNotificationdate(): ?\DateTimeInterface
+    {
+        return $this->notificationdate;
+    }
+
+    public function setNotificationdate(\DateTimeInterface $notificationdate): self
+    {
+        $this->notificationdate = $notificationdate;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIdnotificationtype(): ?NotificationTypes
+    {
+        return $this->idnotificationtype;
+    }
+
+    public function setIdnotificationtype(?NotificationTypes $idnotificationtype): self
+    {
+        $this->idnotificationtype = $idnotificationtype;
+
+        return $this;
+    }
+
+    public function getIdcar(): ?Car
+    {
+        return $this->idcar;
+    }
+
+    public function setIdcar(?Car $idcar): self
+    {
+        $this->idcar = $idcar;
+
+        return $this;
+    }
+
 
 }

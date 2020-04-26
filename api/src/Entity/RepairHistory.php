@@ -55,5 +55,58 @@ class RepairHistory
      */
     private $idfacture;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDescription(): ?int
+    {
+        return $this->description;
+    }
+
+    public function setDescription(int $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIdcar(): ?Car
+    {
+        return $this->idcar;
+    }
+
+    public function setIdcar(?Car $idcar): self
+    {
+        $this->idcar = $idcar;
+
+        return $this;
+    }
+
+    public function getIdfacture(): ?CostHistory
+    {
+        return $this->idfacture;
+    }
+
+    public function setIdfacture(?CostHistory $idfacture): self
+    {
+        $this->idfacture = $idfacture;
+
+        return $this;
+    }
+
 
 }

@@ -72,5 +72,82 @@ class TankHistory
      */
     private $idfacture;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getPetrolstation(): ?string
+    {
+        return $this->petrolstation;
+    }
+
+    public function setPetrolstation(string $petrolstation): self
+    {
+        $this->petrolstation = $petrolstation;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIdpetroltype(): ?PetrolTypes
+    {
+        return $this->idpetroltype;
+    }
+
+    public function setIdpetroltype(?PetrolTypes $idpetroltype): self
+    {
+        $this->idpetroltype = $idpetroltype;
+
+        return $this;
+    }
+
+    public function getIdcar(): ?Car
+    {
+        return $this->idcar;
+    }
+
+    public function setIdcar(?Car $idcar): self
+    {
+        $this->idcar = $idcar;
+
+        return $this;
+    }
+
+    public function getIdfacture(): ?CostHistory
+    {
+        return $this->idfacture;
+    }
+
+    public function setIdfacture(?CostHistory $idfacture): self
+    {
+        $this->idfacture = $idfacture;
+
+        return $this;
+    }
+
 
 }

@@ -80,5 +80,106 @@ class Car
      */
     private $iduser;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMark(): ?string
+    {
+        return $this->mark;
+    }
+
+    public function setMark(string $mark): self
+    {
+        $this->mark = $mark;
+
+        return $this;
+    }
+
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    public function setModel(string $model): self
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getEnginemileage(): ?int
+    {
+        return $this->enginemileage;
+    }
+
+    public function setEnginemileage(int $enginemileage): self
+    {
+        $this->enginemileage = $enginemileage;
+
+        return $this;
+    }
+
+    public function getImgpath(): ?string
+    {
+        return $this->imgpath;
+    }
+
+    public function setImgpath(string $imgpath): self
+    {
+        $this->imgpath = $imgpath;
+
+        return $this;
+    }
+
+    public function getCreationdate(): ?\DateTimeInterface
+    {
+        return $this->creationdate;
+    }
+
+    public function setCreationdate(\DateTimeInterface $creationdate): self
+    {
+        $this->creationdate = $creationdate;
+
+        return $this;
+    }
+
+    public function getPurchasedate(): ?\DateTimeInterface
+    {
+        return $this->purchasedate;
+    }
+
+    public function setPurchasedate(?\DateTimeInterface $purchasedate): self
+    {
+        $this->purchasedate = $purchasedate;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
 
 }

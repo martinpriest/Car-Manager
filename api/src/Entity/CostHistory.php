@@ -73,5 +73,94 @@ class CostHistory
      */
     private $idcosttype;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdcar(): ?int
+    {
+        return $this->idcar;
+    }
+
+    public function setIdcar(int $idcar): self
+    {
+        $this->idcar = $idcar;
+
+        return $this;
+    }
+
+    public function getFactureimagepath(): ?string
+    {
+        return $this->factureimagepath;
+    }
+
+    public function setFactureimagepath(string $factureimagepath): self
+    {
+        $this->factureimagepath = $factureimagepath;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): self
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getExchangerate(): ?float
+    {
+        return $this->exchangerate;
+    }
+
+    public function setExchangerate(float $exchangerate): self
+    {
+        $this->exchangerate = $exchangerate;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIdcosttype(): ?CostTypes
+    {
+        return $this->idcosttype;
+    }
+
+    public function setIdcosttype(?CostTypes $idcosttype): self
+    {
+        $this->idcosttype = $idcosttype;
+
+        return $this;
+    }
+
 
 }
