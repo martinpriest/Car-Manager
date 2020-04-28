@@ -1,0 +1,1985 @@
+{
+	"info": {
+		"_postman_id": "c78acf71-ed88-41cf-9a3f-dd3539d886a7",
+		"name": "Car Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create some users",
+					"item": [
+						{
+							"name": "Create user1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user1\",\n\t\"password\" : \"aaaaa\",\n\t\"email\" : \"user2@mail.pl\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user2\",\n\t\"password\" : \"aaaaa\",\n\t\"email\" : \"user2@mail.pl\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "df92bc50-1444-4843-95cf-cece2869e0e6",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user3\",\n\t\"password\" : \"aaaaa\",\n\t\"email\" : \"user3@mail.pl\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Edit user",
+					"item": [
+						{
+							"name": "Logout if loged in",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/logout",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login user1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user1\",\n\t\"password\" : \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"login"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "jkis3",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "aaaaa",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: change login",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"newLogin\" : \"user11\",\n\t\"password\" : \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/edit",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"edit"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "kolouiy",
+											"disabled": true
+										},
+										{
+											"key": "mail",
+											"value": "kolouiy@int.pl",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Update user1 login to user11"
+							},
+							"response": [
+								{
+									"name": "Update user1 login",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"newLogin\" : \"user11\",\n\t\"password\" : \"aaaaa\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/user/edit",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"user",
+												"edit"
+											],
+											"query": [
+												{
+													"key": "login",
+													"value": "kolouiy",
+													"disabled": true
+												},
+												{
+													"key": "mail",
+													"value": "kolouiy@int.pl",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-store, no-cache, must-revalidate"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 28 Apr 2020 15:00:09 GMT"
+										},
+										{
+											"key": "Expires",
+											"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.3.4"
+										},
+										{
+											"key": "X-Robots-Tag",
+											"value": "noindex"
+										},
+										{
+											"key": "Content-Length",
+											"value": "26"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"User updated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "User 1: change email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "157324b1-b156-4812-8190-ded94d03686b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"newEmail\" : \"newEmail@email.pl\",\n\t\"password\" : \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/edit",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"edit"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "kolouiy",
+											"disabled": true
+										},
+										{
+											"key": "mail",
+											"value": "kolouiy@int.pl",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: change password",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\" : \"aaaaa\"\n\t\"newPassword\" : \"aaaaa1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/edit",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"edit"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "kolouiy",
+											"disabled": true
+										},
+										{
+											"key": "mail",
+											"value": "kolouiy@int.pl",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/logout",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/user/delete/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/user/status",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "User 1: add some cars",
+					"item": [
+						{
+							"name": "Logout",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/logout",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login user1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user1\",\n\t\"password\" : \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"login"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "jkis3",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "aaaaa",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: add Car 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/Auto1/Seat/Cordoba/aaaaaa/51200",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"Auto1",
+										"Seat",
+										"Cordoba",
+										"aaaaaa",
+										"51200"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: add Car 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/Kangur/Renault/Kangoo/aaaaaa/83000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"Kangur",
+										"Renault",
+										"Kangoo",
+										"aaaaaa",
+										"83000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: add Car 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/Sej/Fiat/Seicento/aaaaaa/150000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"Sej",
+										"Fiat",
+										"Seicento",
+										"aaaaaa",
+										"150000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: add Car 4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/Prywatne/Porsche/CaymanS/aaaaaa/25000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"Prywatne",
+										"Porsche",
+										"CaymanS",
+										"aaaaaa",
+										"25000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User 1: add Car 5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/Pracownicze/Renault/Laguna/aaaaaa/125000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"Pracownicze",
+										"Renault",
+										"Laguna",
+										"aaaaaa",
+										"125000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show user1 Cars",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get car id 11",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c0cea0b9-93f4-475d-964f-f38e83b83d17",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/car/11",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"car",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User 2: try access some user1 data",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User 1: delete car 5",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/car/11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"car",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CostHistory",
+			"item": [
+				{
+					"name": "User 1: create some cost history",
+					"item": [
+						{
+							"name": "Logout if loged in",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/logout",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login user1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\" : \"user1\",\n\t\"password\" : \"aaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"login"
+									],
+									"query": [
+										{
+											"key": "login",
+											"value": "jkis3",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "aaaaa",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Car 1: Add cost history 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 11,\n\t\"idCostType\" : 4,\n\t\"amount\" : 13,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"date\" : \"05-01-2020\",\n\t\"description\" : \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Car 1: Add cost history 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 11,\n\t\"idCostType\" : 4,\n\t\"amount\" : 13,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"date\" : \"05-01-2020\",\n\t\"description\" : \"Choinka zapachowa\"\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Car 2: Add cost history 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idCostType\" : 4,\n\t\"amount\" : 50,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"date\" : \"05-01-2020\",\n\t\"description\" : \"Ladowarka\"\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Car 2: Add cost history 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 11,\n\t\"idCostType\" : 4,\n\t\"amount\" : 13,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"date\" : \"05-01-2020\",\n\t\"description\" : \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all user cost history",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show cost history with id 5",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/cost_history/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"cost_history",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User 2: try steal data",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User 1: try insert non full data",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "User 1: Make some notification",
+					"item": [
+						{
+							"name": "Notification 1: Change car 1 tires",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idNotificationType\" : 3,\n\t\"date\" : \"01-06-2020\",\n\t\"description\" : \"Wazne\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/notification/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"notification",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Notification 2: Przelad car 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idNotificationType\" : 1,\n\t\"date\" : \"01-06-2020\",\n\t\"description\" : \"Zrobic przeglad u Zenka :)\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/notification/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"notification",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all user 1 notification",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/notification",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"notification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show notification with id 4",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/notification/4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"notification",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "delete notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/notification/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "RepairHistory",
+			"item": [
+				{
+					"name": "User 1: Create some repair history",
+					"item": [
+						{
+							"name": "Repair history 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"amount\" : 160,\n\t\"currency\" : \"PLN\",\n\t\"exchangeRate\" : 1,\n\t\"description\" : \"Wymiana prawego nadkola\",\n\t\"date\" : \"03-01-2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Repair history 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"amount\" : 1160,\n\t\"currency\" : \"PLN\",\n\t\"exchangeRate\" : 1,\n\t\"description\" : \"Wymiana Sprzegla\",\n\t\"date\" : \"03-01-2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all repair history",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get repair history with id 2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get repair history by idCar",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete repair history",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/repair_history/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"repair_history",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "LocalizationHistory",
+			"item": [
+				{
+					"name": "User 1: add some localization history",
+					"item": [
+						{
+							"name": "Create localization history 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"startLocalizationLink\" : \"google maps 1\",\n\t\"endLocalizationLink\" : \"google maps 1\",\n\t\"startLocalizationName\" : \"Kraków\",\n\t\"endLocalizationName\" : \"Wrocław\",\n\t\"distance\" : 170,\n\t\"description\" : \"podroz sluzbowa do Kowalskiego\",\n\t\"date\" : \"20-04-2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/localization_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"localization_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create localization history 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"startLocalizationLink\" : \"google maps 1\",\n\t\"endLocalizationLink\" : \"google maps 1\",\n\t\"startLocalizationName\" : \"Wroclaw\",\n\t\"endLocalizationName\" : \"Krakow\",\n\t\"distance\" : 180,\n\t\"description\" : \"powrot z podrozy sluznbowej\",\n\t\"date\" : \"20-04-2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/localization_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"localization_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read all localization records",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/localization_history/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"localization_history",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read all localization records by idCar",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/localization_history/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"localization_history",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read localization by id 2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/localization_history/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"localization_history",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CostTypes",
+			"item": [
+				{
+					"name": "Get all cost types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/cost_types",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"cost_types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cost type by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/cost_types/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"cost_types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "NotificationTypes",
+			"item": [
+				{
+					"name": "Get all notification types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/notification_types/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"notification_types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get notification type by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/notification_types/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"notification_types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PetrolTypes",
+			"item": [
+				{
+					"name": "Get all petrol types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/petrol_types/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"petrol_types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get petrol type by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/petrol_types/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"petrol_types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TankHsitory",
+			"item": [
+				{
+					"name": "User 1: add some tank history",
+					"item": [
+						{
+							"name": "Tank 1: for Car 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idPetrolType\" : 2,\n\t\"petrolStation\" : \"Orlen\",\n\t\"date\" : \"20-10-2020\",\n\t\"fuelAmount\" : 20,\n\t\"priceAmount\" : 80,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"description\" : \"Tankowanie szybko\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tank 2: for Car 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idPetrolType\" : 2,\n\t\"petrolStation\" : \"Petrol\",\n\t\"date\" : \"20-10-2020\",\n\t\"fuelAmount\" : 20,\n\t\"priceAmount\" : 80,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"description\" : \"Tankowanie szybko\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tank 3: for Car 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10,\n\t\"idPetrolType\" : 2,\n\t\"petrolStation\" : \"Circle K\",\n\t\"date\" : \"20-10-2020\",\n\t\"fuelAmount\" : 20,\n\t\"priceAmount\" : 80,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"description\" : \"Tankowanie szybko\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tank 1: for Car 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 11,\n\t\"idPetrolType\" : 2,\n\t\"petrolStation\" : \"Orlen\",\n\t\"date\" : \"20-10-2020\",\n\t\"fuelAmount\" : 20,\n\t\"priceAmount\" : 80,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"description\" : \"Tankowanie szybko\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tank 2: for Car 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 11,\n\t\"idPetrolType\" : 2,\n\t\"petrolStation\" : \"Orlen\",\n\t\"date\" : \"20-10-2020\",\n\t\"fuelAmount\" : 20,\n\t\"priceAmount\" : 80,\n\t\"exchangeRate\" : 1,\n\t\"currency\" : \"PLN\",\n\t\"description\" : \"Tankowanie szybko\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all tank history",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all tank history by idCar",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"idCar\" : 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get tank history by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/tank_history/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"tank_history",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
