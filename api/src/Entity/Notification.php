@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Notification
  *
- * @ORM\Table(name="notification", indexes={@ORM\Index(name="idNotificationType", columns={"idNotificationType"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idUser", columns={"idUser"})})
+ * @ORM\Table(name="notification", indexes={@ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idNotificationType", columns={"idNotificationType"})})
  * @ORM\Entity
  */
 class Notification

@@ -32,6 +32,7 @@ class CarController extends AbstractController
         foreach($cars as $car) {
             array_push($response, [
                 'id' => $car->getId(),
+                'name' => $car->getName(),
                 'mark' => $car->getMark(),
                 'model' => $car->getModel(),
                 'color' => $car->getColor(),
@@ -46,37 +47,38 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", methods={"GET"}, name="car_showById")
+     * @Route("/{idCar}", methods={"GET"}, name="car_showById")
      */
-    public function show(int $id)
+    public function show(int $idCar)
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
 
         $car = $this->getDoctrine()->getRepository(Car::class)
-        ->findById($id);
+        ->find($idCar);
 
         if(!$car) return $this->json(['message' => 'No cars with id'], 404);
-        if($car[0]->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'Its not your car'], 400);
+        if($car->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'Its not your car'], 400);
 
         $response = [
-            'id' => $car[0]->getId(),
-            'mark' => $car[0]->getMark(),
-            'model' => $car[0]->getModel(),
-            'color' => $car[0]->getColor(),
-            'engineMileage' => $car[0]->getEnginemileage(),
-            'imgPath' => $car[0]->getImgpath(),
-            'creationDate' => $car[0]->getCreationdate(),
-            'purchaseDate' => $car[0]->getPurchasedate()
+            'id' => $car->getId(),
+            'mark' => $car->getMark(),
+            'name' => $car->getName(),
+            'model' => $car->getModel(),
+            'color' => $car->getColor(),
+            'engineMileage' => $car->getEnginemileage(),
+            'imgPath' => $car->getImgpath(),
+            'creationDate' => $car->getCreationdate(),
+            'purchaseDate' => $car->getPurchasedate()
         ];
 
         return $this->json($response, 200);
     }
 
     /**
-     * @Route("/{mark}/{model}/{color}/{engineMileage}", methods={"POST"}, name="car_new")
+     * @Route("/{name}/{mark}/{model}/{color}/{engineMileage}", methods={"POST"}, name="car_new")
      */
-    public function create($mark, $model, $color, $engineMileage)
+    public function create($name, $mark, $model, $color, $engineMileage)
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
@@ -86,6 +88,7 @@ class CarController extends AbstractController
 
         $car = new Car();
         $car->setIduser($user[0])
+            ->setName($name)
             ->setMark($mark)
             ->setModel($model)
             ->setColor($color)

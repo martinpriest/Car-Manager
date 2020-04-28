@@ -24,6 +24,13 @@ class Car
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mark", type="string", length=128, nullable=false)
      */
     private $mark;
@@ -83,6 +90,18 @@ class Car
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getMark(): ?string

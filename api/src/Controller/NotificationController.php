@@ -10,6 +10,7 @@ use App\Entity\NotificationTypes;
 use App\Entity\Car;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/notification", name="notification_")
@@ -69,24 +70,26 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/{idCar}/{idNotificationType}/{description}/{date}", methods={"POST"}, name="create")
+     * @Route("/create", methods={"POST"}, name="create")
      */
-    public function create($idCar, $idNotificationType, $description, $date)
+    public function create(Request $request)
     {
         session_start();
+        $entityManager = $this->getDoctrine()->getManager();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No logged in'], 400);
         
-        $car = $this->getDoctrine()->getRepository(Car::class)->find($idCar);
-        $notificationType = $this->getDoctrine()->getRepository(NotificationTypes::class)->find($idNotificationType);
-        if(!$car) return $this->json(['message' => 'No car with this ID'], 400);
-        if($car->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to this car'], 400);
+        $data = json_decode($request->getContent(), true);
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($data['idCar']);
+        if(!$car || $car->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access']);
+
+        $notificationType = $this->getDoctrine()->getRepository(NotificationTypes::class)->find($data['idNotificationType']);
+
         $notification = new Notification();
         $notification->setIdcar($car)
             ->setIdnotificationtype($notificationType)
-            ->setDescription($description)
-            ->setNotificationdate(new \DateTime($date))
+            ->setDescription($data['description'])
+            ->setNotificationdate(new \DateTime($data['date']))
             ->setIduser($_SESSION['idUser'])
             ->setStatus(1);
 

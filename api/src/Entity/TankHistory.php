@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TankHistory
  *
- * @ORM\Table(name="tank_history", indexes={@ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idPetrolType", columns={"idPetrolType"}), @ORM\Index(name="idFacture", columns={"idFacture"})})
+ * @ORM\Table(name="tank_history", indexes={@ORM\Index(name="idPetrolType", columns={"idPetrolType"}), @ORM\Index(name="idFacture", columns={"idFacture"}), @ORM\Index(name="idCar", columns={"idCar"})})
  * @ORM\Entity
  */
 class TankHistory
@@ -20,6 +20,13 @@ class TankHistory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idUser", type="integer", nullable=false)
+     */
+    private $iduser;
 
     /**
      * @var float
@@ -75,6 +82,18 @@ class TankHistory
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIduser(): ?int
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(int $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
     }
 
     public function getAmount(): ?float
