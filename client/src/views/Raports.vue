@@ -1,14 +1,13 @@
 <template>
-<div>
-
-  <h1>Logout</h1>
-  
-</div>
+  <div>
+      <h1>Raports</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Logout',
+
+    name: 'Raports'
 }
 </script>
 
