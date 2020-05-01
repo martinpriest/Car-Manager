@@ -2,23 +2,57 @@
 <div class="login-box">
       <img src="./../../assets/logocar.jpg" class="avatar" alt="Car logo">
       <h1>Login Here</h1>
-      <form>
         <label for="username">Username</label>
-        <input type="text" placeholder="Enter Username">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Enter Password">
-        <input type="submit" value="Log In">
-      </form>
+        <input id="username" type="text" placeholder="Enter Username">
+        <label  for="password">Password</label>
+        <input id="password" type="password" placeholder="Enter Password">
+        <input type="submit" value="Log In" v-on:click="checkLogin()">
     </div>
 </template>
 
 <script>
 export default {
-    name: 'LoginForm'
+    name: 'LoginForm',
+    methods: {
+      checkLogin: function() {
+        let username = document.querySelector("#username");
+        let password = document.querySelector("#password");
+
+        console.log(username.value)
+        console.log(password.value)
+
+        var json = {
+          login: username.value,
+          password: password.value
+        };
+
+        var requestOptions = {
+          method: 'POST',
+          body: JSON.stringify(json),
+          redirect: 'follow',
+          credentials: 'include'
+        };
+
+        fetch("http://marcin.innome.pl:8000/user/login", requestOptions)
+        .then(response => response.json())
+        .then((result) => {
+          console.log(result);
+          this.$router.push({ path: '/dashboard' }).catch(err => {console.log(err)})
+        })
+        .catch(error => console.log('error', error));
+      }
+    },
+    data: function() {
+        return {
+            jakasZmienna : "Siema",
+            login: Boolean
+        }
+    }
+
 }
 </script>
 
-/*<style>
+<style>
 .login-box {
   width: 320px;
   height: 420px;
@@ -83,6 +117,5 @@ export default {
 .login-box input[type="submit"]:hover {
   cursor: pointer;
   background: #ffc107;
-  color: #000;
 }
-</style>*/
+</style>

@@ -1,10 +1,10 @@
 <template>
-    <h1>Car menu</h1>
+    <h1>CarAction</h1>
 </template>
 
 <script>
 export default {
-    name: 'CarMenu'
+    name: 'CarAction'
 }
 </script>
 

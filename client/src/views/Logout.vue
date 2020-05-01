@@ -1,6 +1,6 @@
 <template>
 <div class="app">
-  <img src="./../assets/transportation.svg" style="width: 100px" alt="">
+  <img src="./../assets/logo.png" style="width: 300px" alt="">
   <LoginForm/>
   <RegisterForm/>
 </div>
@@ -21,7 +21,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background: url(./../assets/tlo.jpg) no-repeat center top;
+  background: url("./../assets/tlo.jpg") no-repeat center top;
   background-size: cover;
   font-family: sans-serif;
   height: 100vh;

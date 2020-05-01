@@ -2,30 +2,61 @@
 <div class="register-box">
       <img src="./../../assets/logocar.jpg" class="avatar" alt="Car logo">
       <h1>Register Here</h1>
-      <form>
-        <label for="username">Username</label>
-        <input type="text" placeholder="Enter Username">
-        <label for="username">E-mail</label>
-        <input type="text" placeholder="Enter E-mail">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Create Password">
-        <label for="password">Repeat password</label>
-        <input type="password" placeholder="Repeat Password">
-        <input type="submit" value="Create an account">
-      </form>
+        <label for="register-username">Username</label>
+        <input id="register-username" type="text" placeholder="Enter Username">
+        <label for="register-email">E-mail</label>
+        <input id="register-email" type="text" placeholder="Enter E-mail">
+        <label for="register-password">Password</label>
+        <input id="register-password" type="password" placeholder="Create Password">
+        <label for="register-password2">Repeat password</label>
+        <input id="register-password2" type="password" placeholder="Repeat Password">
+        <input type="submit" value="Create an account" v-on:click="register()">
     </div>
 </template>
 
 <script>
 export default {
-    name: 'RegisterForm'
+    name: 'RegisterForm',
+    methods: {
+      register: function() {
+        let username = document.querySelector("#register-username");
+        let email = document.querySelector("#register-email");
+        let password = document.querySelector("#register-password");
+        // let password2 = document.querySelector("#register-password2");
+
+        var json = {
+          login: username.value,
+          email: email.value,
+          password: password.value
+        };
+
+        var requestOptions = {
+          method: 'POST',
+          body: JSON.stringify(json),
+          redirect: 'follow',
+          credentials: 'include'
+        };
+
+        fetch("http://marcin.innome.pl:8000/user/create", requestOptions)
+        .then(response => response.json())
+        .then((result) => {
+          alert(result.message);
+        })
+        .catch(error => console.log('error', error));
+      }
+    },
+    data: function() {
+        return {
+            counter: 0
+        }
+    }
 }
 </script>
 
-/*<style>
+<style>
 .register-box {
   width: 320px;
-  height: 420px;
+  height: auto;
   background: #000;
   color: #fff;
   top: 50%;
@@ -89,4 +120,4 @@ export default {
   background: #ffc107;
   color: #000;
 }
-</style>*/
+</style>

@@ -18,22 +18,31 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Dashboard,
+      component: Dashboard
     },
     {
       path: '/cars',
       name: 'Cars',
       component: Cars,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/setting',
       name: 'Setting',
       component: Setting,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/raports',
       name: 'Raports',
       component: Raports,
+      meta: {
+        requiresAuth: true
+      }
     },
   ],
 });
