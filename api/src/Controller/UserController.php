@@ -137,7 +137,7 @@ class UserController extends AbstractController
         if(isset($data['newPassword'])) $user->setPassword(password_hash($data['newPassword'], PASSWORD_BCRYPT));
         if(isset($data['newMail'])) {
             $isMail = $this->getDoctrine()->getRepository(User::class)->findByEmail($data['newEmail']);
-            $user->setEmail($data['newMail']);
+            if(!$isMail) $user->setEmail($data['newMail']);
         }
 
         $entityManager->flush();
