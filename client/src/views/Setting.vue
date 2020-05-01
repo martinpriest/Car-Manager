@@ -1,13 +1,18 @@
 <template>
-  <div>
+  <div class="app">
       <h1>Setting</h1>
+      <UserSetting/>
   </div>
 </template>
 
 <script>
+import UserSetting from './../components/setting/UserSetting'
 export default {
 
-    name: 'Setting'
+    name: 'Setting',
+    components: {
+      UserSetting
+    }
 }
 </script>
 
