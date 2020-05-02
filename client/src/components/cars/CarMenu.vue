@@ -1,6 +1,6 @@
 <template>
 <ul>
-    <li v-for="car in cars" :key ="car.id">{{car.name}}</li>
+    <li v-for="car in cars" :key ="car.id" v-on:click="pickCar(car.id)">{{car.name}}</li>
 </ul>
 </template>
 
@@ -8,8 +8,13 @@
 export default {
     name: 'CarMenu',
     props: {
-        cars: Array,
-        actualCar: Object
+        cars: Array
+    },
+    methods: {
+        pickCar(car) {
+            console.log(car);
+            this.$emit("carId", car);
+        }
     }
 }
 </script>

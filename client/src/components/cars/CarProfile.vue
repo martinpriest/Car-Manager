@@ -1,11 +1,5 @@
 <template>
     <div class="car-profile-box">
-        <h1>Car profile</h1>
-        <p>
-            <label for="car-id">ID:</label>
-            <input type="number" id="car-id">
-            <input type="submit" id="submit" value="Submit" v-on:click="getData()">
-        </p>
         <p>
             <img :src="carImageUrl" alt="Car image">
         </p>
@@ -30,10 +24,12 @@ export default {
             carImageUrl: ""
         }
     },
-    methods: {
-        getData: function() {
-            let carId = document.querySelector("#car-id");
-            console.log(carId.value);
+    props: {
+        actualCar: Number
+    },
+    watch: {
+        actualCar: function() {
+            console.log(this.actualCar);
 
             var requestOptions = {
                 method: 'GET',
@@ -41,7 +37,7 @@ export default {
                 credentials: 'include'
             };
 
-            fetch(`http://marcin.innome.pl:8000/car/${carId.value}`, requestOptions)
+            fetch(`http://marcin.innome.pl:8000/car/${this.actualCar}`, requestOptions)
                 .then(response => response.json())
                 .then((result) => {
                     console.log(result);

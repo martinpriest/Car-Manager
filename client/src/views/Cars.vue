@@ -1,12 +1,12 @@
 <template>
   <div id="cars">
     <div class="car-menu">
-      <CarMenu v-bind:cars="cars"/>
+      <CarMenu v-bind:cars="cars" @carId="updateCarId"/>
     </div>
     <div class="car-container">
       <div class="car-profile-container">
         <div class="car-profile">
-          <CarProfile/>
+          <CarProfile v-bind:actualCar="actualCar"/>
         </div>
         <div class="car-map">
           <GoogleMap/>
@@ -33,7 +33,8 @@ export default {
     },
     data: function() {
       return {
-        cars: []
+        cars: [],
+        actualCar: Number
       }
     },
     created: function() {
@@ -51,7 +52,12 @@ export default {
           this.cars = result;
         })
         .catch(error => console.log('error', error));
+      },
+    methods: {
+      updateCarId(carId) {
+        this.actualCar = carId;
       }
+    }
 }
 </script>
 
