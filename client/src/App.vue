@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div id="app">
 
 <nav v-show="this.loginStatus" id="main-nav" class="navbar navbar-expand-lg navbar-light bg-light text-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,12 +97,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
+  background: rgb(80, 77, 77);
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 .nav {
-  padding: 20px;
-  margin: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;

@@ -1,13 +1,19 @@
 <template>
-    <h1>CarAction</h1>
+  <div id="car-action">
+      <CarTankHistory />
+  </div>
 </template>
 
 <script>
+import CarTankHistory from './CarAction/CarTankHistory'
+
 export default {
-    name: 'CarAction'
+    name: 'Cars',
+    components: {
+      CarTankHistory
+    },
 }
 </script>
 
 <style>
-
 </style>

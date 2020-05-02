@@ -23,7 +23,6 @@
 import CarMenu from './../components/cars/CarMenu'
 import CarProfile from './../components/cars/CarProfile'
 import GoogleMap from './../components/cars/GoogleMap'
-// import AddCarModal from './../components/cars/AddCarModal'
 import CarAction from './../components/cars/CarAction'
 
 export default {
