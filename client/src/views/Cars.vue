@@ -1,10 +1,21 @@
 <template>
-  <div>
-      <CarMenu/>
-      <CarProfile/>
-      <GoogleMap/>
-      <CarAction/>
-      <AddCarModal cars="cars"  class="car-modal"/>
+  <div id="cars">
+    <div class="car-menu">
+      <CarMenu v-bind:cars="cars"/>
+    </div>
+    <div class="car-container">
+      <div class="car-profile-container">
+        <div class="car-profile">
+          <CarProfile/>
+        </div>
+        <div class="car-map">
+          <GoogleMap/>
+        </div>
+      </div>
+      <div class="car-actions">
+        <CarAction/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,13 +23,13 @@
 import CarMenu from './../components/cars/CarMenu'
 import CarProfile from './../components/cars/CarProfile'
 import GoogleMap from './../components/cars/GoogleMap'
-import AddCarModal from './../components/cars/AddCarModal'
+// import AddCarModal from './../components/cars/AddCarModal'
 import CarAction from './../components/cars/CarAction'
 
 export default {
     name: 'Cars',
     components: {
-      CarMenu, CarProfile, GoogleMap, AddCarModal, CarAction
+      CarMenu, CarProfile, GoogleMap, CarAction
     },
     data: function() {
       return {
@@ -37,7 +48,7 @@ export default {
         .then(response => response.json())
         .then((result) => {
           console.log(result);
-          // this.$router.push({ path: '/cars' }).catch(err => {console.log(err)})
+          this.cars = result;
         })
         .catch(error => console.log('error', error));
       }
@@ -45,7 +56,54 @@ export default {
 </script>
 
 <style>
-  .car-modal {
-    display: none;
+  #cars {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    border: blue solid 4px;
+  }
+
+  .car-menu {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    width: 20%;
+    height: 100%;
+    border: pink solid 2px;
+  }
+
+  .car-container {
+    display: flex;
+    flex-direction: column;
+    border: yellow solid 3px;
+    height: 100%;
+    width: 100%;
+    
+  }
+    
+  .car-profile-container {
+      width: 100%;
+      height: 50%;
+      border: red solid 2px;
+      display: flex;
+      flex-direction: row;
+  }
+
+  .car-profile {
+    width: 30%;
+    height: 100%;
+    border: blue 2px solid;
+  }
+
+  .car-map {
+    width: 70%;
+    height: 100%;
+  }
+
+  .car-actions {
+    width: 100%;
+    height: 50%;
+    border: purple solid 3px;
   }
 </style>
