@@ -1,23 +1,18 @@
 <template>
   <div id="car-action">
-      <div class="tank-history">
-          <CarTankHistory v-bind:actualCar="actualCar"/>
-      </div>
-      <div class="repair-history">
-          <CarRepairHistory v-bind:actualCar="actualCar"/>
-      </div>
+      <CarLocalizationHistory v-bind:actualCar="actualCar"/>
+      <CarTankHistory v-bind:actualCar="actualCar"/>
   </div>
 </template>
 
 <script>
 import CarTankHistory from './CarAction/TankHistory/CarTankHistory'
-import CarRepairHistory from "./CarAction/RepairHistory/CarRepairHistory"
+import CarLocalizationHistory from './CarAction/LocalizationHistory/CarLocalizationHistory'
 
 export default {
     name: 'CarAction',
     components: {
-      CarTankHistory,
-      CarRepairHistory
+      CarTankHistory, CarLocalizationHistory
     },
     props: {
       actualCar: Number
@@ -27,17 +22,11 @@ export default {
 
 <style>
 #car-action {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-
-.tank-history {
-    flex: 1;
-}
-
-.repair-history {
-    flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  align-items: center;
 }
 </style>
