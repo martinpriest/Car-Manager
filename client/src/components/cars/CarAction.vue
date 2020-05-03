@@ -1,17 +1,20 @@
 <template>
   <div id="car-action">
-      <CarTankHistory />
+      <CarTankHistory v-bind:actualCar="actualCar"/>
   </div>
 </template>
 
 <script>
-import CarTankHistory from './CarAction/CarTankHistory'
+import CarTankHistory from './CarAction/TankHistory/CarTankHistory'
 
 export default {
-    name: 'Cars',
+    name: 'CarAction',
     components: {
       CarTankHistory
     },
+    props: {
+      actualCar: Number
+    }
 }
 </script>
 

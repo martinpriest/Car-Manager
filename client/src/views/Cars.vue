@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="car-actions">
-        <CarAction/>
+        <CarAction v-bind:actualCar="actualCar"/>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@ export default {
         .then((result) => {
           console.log(result);
           this.cars = result;
+          this.actualCar = result[0].id;
         })
         .catch(error => console.log('error', error));
       },

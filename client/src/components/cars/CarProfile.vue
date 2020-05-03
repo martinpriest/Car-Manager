@@ -46,7 +46,7 @@ export default {
                     this.carModel = result.model;
                     this.carColor = result.color;
                     this.carMileage = result.engineMileage;
-                    this.carImageUrl = `http://marcin.innome.pl:8000/${result.imgPath}`;
+                    this.carImageUrl = `${result.imgPath}`;
                 })
                 .catch(error => console.log('error', error));
         }
