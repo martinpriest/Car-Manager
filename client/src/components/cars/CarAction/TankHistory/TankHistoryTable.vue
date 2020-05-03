@@ -1,6 +1,6 @@
 <template>
   <div>
-      <table>
+      <table v-if="tankHistory.length">
           <tr>
               <th>Gdzie</th>
               <th>Kiedy</th>
@@ -14,20 +14,26 @@
               <td>{{ tank.idPetrolType }}</td>
           </tr>
       </table>
+      <p v-else>No tank history</p>
   </div>
-</template><AddCarModal v-if="showModal" @close="showModal = false">
+<!-- <AddCarModal v-if="showModal" @close="showModal = false">
         <h3 slot="header">custom header</h3>
-      </AddCarModal>
+      </AddCarModal> -->
+</template>
 
 <script>
 export default {
     name: 'TankHistoryTable',
     props: {
         tankHistory: Array
+    },
+    watch: {
+        tankHistory: function(newVal, oldVal) {
+        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+        }
     }
 }
 </script>
 
 <style>
-
 </style>

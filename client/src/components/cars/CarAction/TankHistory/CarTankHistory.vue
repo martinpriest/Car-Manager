@@ -31,9 +31,9 @@ export default {
         var json = {
           idCar: this.actualCar
         };
-        
+
         var requestOptions = {
-          method: 'GET',
+          method: 'POST',
           body: JSON.stringify(json),
           redirect: 'follow',
           credentials: 'include'
@@ -46,6 +46,29 @@ export default {
           this.tankHistory = result;
         })
         .catch(error => console.log('error', error));
+    },
+    watch: {
+      actualCar: function(newVal, oldVal) {
+        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+        var json = {
+          idCar: this.actualCar
+        };
+
+        var requestOptions = {
+          method: 'POST',
+          body: JSON.stringify(json),
+          redirect: 'follow',
+          credentials: 'include'
+        };
+
+        fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
+        .then(response => response.json())
+        .then((result) => {
+          console.log(result);
+          this.tankHistory = result;
+        })
+        .catch(error => console.log('error', error));
+      }
     }
 }
 </script>

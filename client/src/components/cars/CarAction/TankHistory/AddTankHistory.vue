@@ -13,15 +13,13 @@
  
               <div class="modal-body">
                 <slot name="body">
-                  <input id="" class="form-control" type="text" placeholder="Petrol station">
-                  <SelectPetrolType/>
-                  <input type="text" placeholder="Amount">
-                  <input type="text" placeholder="Price">
-                  <input type="text" placeholder="Currency">
-                  <input type="text" placeholder="Descrption">
-                  <input type="text" placeholder="Petrol type">
-                  <input type="text" placeholder="Exchange rate">
-                  <input type="date">
+                  <input id="petrolStation" v-model="petrolStation" class="form-control" type="text" placeholder="Petrol station">
+                  <SelectPetrolType v-bind:actualPetrolType="actualPetrolType" @petrolTypeId="updatePetrolId"/>
+                  <SelectCurrency v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency"/>
+                  <input v-model="fuelAmount" type="number" placeholder="Amount">
+                  <input v-model="priceAmount" type="number" placeholder="Price">
+                  <input v-model="description" type="text" placeholder="Descrption">
+                  <input v-model="date" type="date">
                 </slot>
               </div>
  
@@ -44,15 +42,27 @@
 
 <script>
 import SelectPetrolType from './SelectPetrolType'
+import SelectCurrency from './SelectCurrency'
 export default {
     name: 'AddTankHistory',
     data: function() {
         return {
+            idCar: this.actualCar,
+            actualPetrolType: Object,
+            petrolStation: "Orlen",
+            actualCurrency: {
+              code: String,
+              mid: Number
+            },
+            date: "2020-10-05",
+            fuelAmount: Number,
+            priceAmount: Number,
+            description: "Default desc",
             showModal: false
         }
     },
     components: {
-        SelectPetrolType
+        SelectPetrolType, SelectCurrency
     },
     props: {
         actualCar: Number
@@ -64,27 +74,21 @@ export default {
     },
     methods: {
         addTank: function() {
-            let idCar = this.actualCar();
-            let idPetrolType = document.querySelector("#idPetrolType");
-            let petrolStation = document.querySelector("#petrolStation");
-            let date = document.querySelector("#date");
-            let fuelAmount = document.querySelector("#fuelAmount");
-            let priceAmount = document.querySelector("#priceAmount");
-            let exchangeRate = document.querySelector("#exchangeRate");
-            let currency = document.querySelector("#currency");
-            let description = document.querySelector("#description");
 
             var json = {
-                idCar: idCar,
-                idPetrolType: idPetrolType.value,
-                petrolStation: petrolStation.value,
-                date: date.value,
-                fuelAmount: fuelAmount.value,
-                priceAmount: priceAmount.value,
-                exchangeRate: exchangeRate.value,
-                currency: currency.value,
-                description: description.value
+                idCar: this.idCar,
+                idPetrolType: this.actualPetrolType,
+                petrolStation: this.petrolStation,
+                date: this.date,
+                fuelAmount: parseInt(this.fuelAmount),
+                priceAmount: parseInt(this.priceAmount),
+                exchangeRate: this.actualCurrency.mid,
+                currency: this.actualCurrency.code,
+                description: this.description
             };
+
+            console.log("AddTankhistory ")
+            console.log(json)
 
             var requestOptions = {
                 method: 'POST',
@@ -93,14 +97,20 @@ export default {
                 credentials: 'include'
             };
 
-            fetch("http://marcin.innome.pl:8000/tank_history", requestOptions)
+            fetch("http://marcin.innome.pl:8000/tank_history/create", requestOptions)
             .then(response => response.json())
             .then((result) => {
-            console.log(result);
-            this.tankHistory = result;
-            // $emit('close')
+              alert(result.message);
+              this.$emit('close')
             })
             .catch(error => console.log('error', error));
+        },
+        updatePetrolId: function(petrolTypeId) {
+          this.actualPetrolType = petrolTypeId;
+        },
+        updateCurrency: function(tempCurrency) {
+          this.actualCurrency.code = tempCurrency.code;
+          this.actualCurrency.mid = tempCurrency.mid;
         }
     }
 }
