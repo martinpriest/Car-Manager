@@ -1,8 +1,17 @@
 <template>
 <div class="dashboard">
-    <CarTable v-bind:cars="cars"/>
-<!--    <CostChart/>-->
-    <Notification v-bind:cars="cars"/>
+    <div class="car-chart-container">
+        <div class="car-table">
+            <CarTable v-bind:cars="cars"/>
+        </div>
+        <div class="cost-chart">
+            <h1>Cost chart</h1>
+            <!--<CostChart/>-->
+        </div>
+    </div>
+    <div class="notification">
+        <Notification v-bind:cars="cars"/>
+    </div>
 </div>
 </template>
 
@@ -43,8 +52,43 @@ export default {
 }
 </script>
 
-<style>
-    h1 {
-        color: white;
-    }
+<style scoped>
+h1 {
+    color: white;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.car-chart-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.car-table {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    flex: 1;
+}
+
+.cost-chart {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    flex: 1;
+}
+
+.notification {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    flex: 1;
+}
 </style>
