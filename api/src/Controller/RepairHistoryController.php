@@ -13,12 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 /**
- * @Route("/repair_history", methods={"GET"}, name="repair_history_")
+ * @Route("/repair_history", name="repair_history_")
  */
 class RepairHistoryController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="all")
+     * @Route("/", methods={"GET", "POST"}, name="all")
      */
     public function index(Request $request)
     {

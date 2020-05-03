@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CostHistoryController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="allByUser")
+     * @Route("/", methods={"GET", "POST"}, name="allByUser")
      */
     public function index(Request $request)
     {

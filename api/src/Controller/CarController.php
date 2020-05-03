@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Car;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/car")
@@ -76,9 +77,9 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{name}/{mark}/{model}/{color}/{engineMileage}", methods={"POST"}, name="car_new")
+     * @Route("/create", methods={"POST"}, name="car_new")
      */
-    public function create($name, $mark, $model, $color, $engineMileage)
+    public function create(Request $request)
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
@@ -86,13 +87,16 @@ class CarController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)
          ->findById($_SESSION['idUser']);
 
+        
+        $data = json_decode($request->getContent(), true);
+
         $car = new Car();
         $car->setIduser($user[0])
-            ->setName($name)
-            ->setMark($mark)
-            ->setModel($model)
-            ->setColor($color)
-            ->setEnginemileage($engineMileage)
+            ->setName($data['name'])
+            ->setMark($data['mark'])
+            ->setModel($data['model'])
+            ->setColor($data['color'])
+            ->setEnginemileage($data['engineMileage'])
             ->setImgpath('img/car/car-default.png')
             ->setCreationdate(new \DateTime());
 

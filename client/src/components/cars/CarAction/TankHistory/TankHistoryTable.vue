@@ -15,7 +15,9 @@
           </tr>
       </table>
   </div>
-</template>
+</template><AddCarModal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">custom header</h3>
+      </AddCarModal>
 
 <script>
 export default {
