@@ -24,31 +24,23 @@ class RepairHistoryController extends AbstractController
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No access'], 404);
-        
-        $carList = $this->getDoctrine()->getRepository(Car::class)->findByIduser($_SESSION['idUser']);
         $data = json_decode($request->getContent(), true);
-        if(!isset($data['idCar'])) $carList = $this->getDoctrine()->getRepository(Car::class)->findByIduser($_SESSION['idUser']);
-        else $carList = $this->getDoctrine()->getRepository(Car::class)->find($data['idCar']);
+        
+        if(!isset($data['idCar'])) $repairHistory = $this->getDoctrine()->getRepository(RepairHistory::class)->findByIduser($_SESSION['idUser']);
+        else $repairHistory = $this->getDoctrine()->getRepository(RepairHistory::class)->findByIdcar($data['idCar']);
 
-        if(!$carList) return $this->json(['message' => 'No cars'], 200);
+        if(!$repairHistory) return $this->json(['message' => 'No repair history'], 200);
 
         $response = [];
 
-        foreach($carList as $car) {
-            $repairList = $this->getDoctrine()->getRepository(RepairHistory::class)
-            ->findByIdcar($car->getId());
-
-            if($repairList) {
-                foreach($repairList as $repair) {
-                    array_push($response, [
-                        'id' => $repair->getId(),
-                        'idCar' => $repair->getIdcar()->getId(),
-                        'description' => $repair->getDescription(),
-                        'idFacture' => $repair->getIdfacture()->getId(),
-                        'date' => $repair->getDate()
-                    ]);
-                }
-            }
+        foreach($repairHistory as $repair) {
+            array_push($response, [
+                'id' => $repair->getId(),
+                'idCar' => $repair->getIdcar()->getId(),
+                'description' => $repair->getDescription(),
+                'idFacture' => $repair->getIdfacture()->getId(),
+                'date' => $repair->getDate()
+            ]);
         }
 
         return $this->json($response, 200);

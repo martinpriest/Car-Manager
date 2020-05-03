@@ -4,7 +4,6 @@
 <select name="currency-type" id="currency-type" v-model="actualCurrency" @change="pickCurrency()">
     <option v-for="record in currency" :value="{mid: record.mid, code: record.code}" :key ="record.id">{{record.code}}</option>
 
-    <!-- <option v-for="record in currency" :value="record.mid" :key ="record.id">{{record.code}}</option> -->
 </select>
 </div>
 
@@ -39,7 +38,6 @@ export default {
     },
     methods: {
       pickCurrency() {
-        // console.log(event.target)
         let tempCurrency = {
           code: this.actualCurrency.code,
           mid: this.actualCurrency.mid,

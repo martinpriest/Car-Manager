@@ -1,7 +1,7 @@
 <template>
   <div class="tank-history">
       <span>Tank history</span>
-      <TankHistoryTable  v-bind:tankHistory="tankHistory"/>
+      <TankHistoryTable v-bind:tankHistory="tankHistory"/>
       <AddTankHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add tank record</h3>
       </AddTankHistory>
@@ -23,7 +23,7 @@ export default {
     },
     data: function() {
         return {
-            tankHistory: [],
+            tankHistory: Array || Object,
             showModal: false
         }
     },
@@ -42,14 +42,12 @@ export default {
         fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.tankHistory = result;
         })
         .catch(error => console.log('error', error));
     },
     watch: {
-      actualCar: function(newVal, oldVal) {
-        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+      actualCar: function() {
         var json = {
           idCar: this.actualCar
         };
@@ -64,7 +62,6 @@ export default {
         fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.tankHistory = result;
         })
         .catch(error => console.log('error', error));

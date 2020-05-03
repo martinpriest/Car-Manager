@@ -16,20 +16,16 @@
       </table>
       <p v-else>No tank history</p>
   </div>
-<!-- <AddCarModal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">custom header</h3>
-      </AddCarModal> -->
 </template>
 
 <script>
 export default {
     name: 'TankHistoryTable',
     props: {
-        tankHistory: Array
+        tankHistory: Array || Object
     },
     watch: {
-        tankHistory: function(newVal, oldVal) {
-        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+        tankHistory: function() {
         }
     }
 }

@@ -23,7 +23,7 @@ export default {
     },
     data: function() {
         return {
-            repairHistory: Array,
+            repairHistory: [],
             showModal: false
         }
     },
@@ -48,8 +48,7 @@ export default {
         .catch(error => console.log('error', error));
     },
     watch: {
-      actualCar: function(newVal, oldVal) {
-        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+      actualCar: function() {
         var json = {
           idCar: this.actualCar
         };
@@ -64,8 +63,8 @@ export default {
         fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
-          // this.repairHistory = result;
+          console.log(`Repair history: ${result}`);
+          this.repairHistory = result;
         })
         .catch(error => console.log('error', error));
       }

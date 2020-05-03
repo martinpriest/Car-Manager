@@ -21,15 +21,17 @@ export default {
             carModel: "",
             carColor: "",
             carMileage: "",
-            carImageUrl: ""
+            carImageUrl: "",
         }
     },
     props: {
         actualCar: Number
     },
+    created() {
+        // this.actualCar = 1;
+    },
     watch: {
         actualCar: function() {
-            console.log(this.actualCar);
 
             var requestOptions = {
                 method: 'GET',
@@ -40,7 +42,6 @@ export default {
             fetch(`http://marcin.innome.pl:8000/car/${this.actualCar}`, requestOptions)
                 .then(response => response.json())
                 .then((result) => {
-                    console.log(result);
                     this.carName = result.name;
                     this.carMake = result.mark;
                     this.carModel = result.model;

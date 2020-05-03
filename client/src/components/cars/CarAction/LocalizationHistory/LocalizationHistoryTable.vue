@@ -1,6 +1,6 @@
 <template>
   <div>
-      <table>
+      <table v-if="localizationHistory.length">
           <tr>
               <th>Skąd</th>
               <th>Do</th>
@@ -14,6 +14,7 @@
               <td> {{ record.date.date }} </td>
           </tr>
       </table>
+      <p v-else>No records</p>
   </div>
 </template>
 

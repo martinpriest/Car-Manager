@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         pickCar(car) {
-            console.log(car);
             this.$emit("carId", car);
         }
     }

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
 
-<nav v-show="this.loginStatus" id="main-nav" class="navbar navbar-expand-lg navbar-light bg-light text-light">
+<nav>
+  <div v-show="this.loginStatus" id="main-nav" class="navbar navbar-expand-lg navbar-light bg-light text-light">
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -14,6 +16,7 @@
       <router-link to="/"><a class="nav-item nav-link" href="#" v-on:click="logout()">Logout</a></router-link>
     </div>
   </div>
+  </div>
 </nav>
 
 
@@ -22,7 +25,6 @@
 </template>
 
 <script>
-// import LoginForm from './components/LoginForm.vue'
 
 export default {
   name: 'App',
@@ -31,11 +33,10 @@ export default {
   }, 
   data: function() {
     return {
-      loginStatus: this.getStatus()
+      loginStatus: Boolean
     }
   },
-  methods: {
-    getStatus: function() {
+  created() {
 
       var requestOptions = {
         method: 'GET',
@@ -43,29 +44,22 @@ export default {
         credentials: 'include'
       };
 
-      fetch("http://marcin.innome.pl:8000/user/status", requestOptions)
+    fetch("http://marcin.innome.pl:8000/user/status", requestOptions)
       .then(response => response.json())
       .then((data) => {
         let login = data.status;
-        let nav = document.querySelector("#main-nav");
         if (!login) {
-          console.log("Nie zalogowany!!!");
-          // nav.style.display = "none";
-          this.$router.push({ path: '/' }).catch(err => {console.log(err)})
-          // this.$router.next({ replace: true, name: 'Logout' }).catch(err => {console.log(err)})
           this.loginStatus = false;
+          alert("Nie zalogowales sie");
           return false;
         } else {
-          console.log("Zalogowany!!!");
           this.$router.push({ path: '/cars' }).catch(err => {console.log(err)})
-          // this.$router.next({ replace: true, name: 'Dashboard' }).catch(err => {console.log(err)})
-          nav.style.display = "flex";
           this.loginStatus = true;
           return true;
         }
       })
-      .catch(error => console.log('error', error));
-    },
+  },
+  methods: {
     logout: function() {
       var requestOptions = {
         method: 'GET',
@@ -75,15 +69,9 @@ export default {
 
       fetch("http://marcin.innome.pl:8000/user/logout", requestOptions)
       .then(response => response.json())
-      .then((data) => {
-
-        console.log(data)
-        this.loginStatus = false;
+      .then(() => {
         this.$router.push({ path: '/' }).catch(err => {console.log(err)})
         this.loginStatus = false;
-
-        // let nav = document.querySelector("#main-nav");
-        // nav.style.display = "none";
       })
       .catch(error => console.log('error', error));
     }

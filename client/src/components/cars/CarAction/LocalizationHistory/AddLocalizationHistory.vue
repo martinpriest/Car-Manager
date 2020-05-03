@@ -68,9 +68,6 @@ export default {
                 date: this.date,
             };
 
-            console.log("Add localization history body ")
-            console.log(json)
-
             var requestOptions = {
                 method: 'POST',
                 body: JSON.stringify(json),

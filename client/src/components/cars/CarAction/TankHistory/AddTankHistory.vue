@@ -87,9 +87,6 @@ export default {
                 description: this.description
             };
 
-            console.log("AddTankhistory ")
-            console.log(json)
-
             var requestOptions = {
                 method: 'POST',
                 body: JSON.stringify(json),

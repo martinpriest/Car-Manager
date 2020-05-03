@@ -18,9 +18,6 @@ export default {
         let username = document.querySelector("#username");
         let password = document.querySelector("#password");
 
-        console.log(username.value)
-        console.log(password.value)
-
         var json = {
           login: username.value,
           password: password.value
@@ -35,8 +32,7 @@ export default {
 
         fetch("http://marcin.innome.pl:8000/user/login", requestOptions)
         .then(response => response.json())
-        .then((result) => {
-          console.log(result);
+        .then(() => {
           this.$router.push({ path: '/dashboard' }).catch(err => {console.log(err)})
         })
         .catch(error => console.log('error', error));

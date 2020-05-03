@@ -9,7 +9,7 @@
           <CarProfile v-bind:actualCar="actualCar"/>
         </div>
         <div class="car-map">
-          <GoogleMap/>
+          <!-- <GoogleMap/> -->
         </div>
       </div>
       <div class="car-actions">
@@ -22,18 +22,18 @@
 <script>
 import CarMenu from './../components/cars/CarMenu'
 import CarProfile from './../components/cars/CarProfile'
-import GoogleMap from './../components/cars/GoogleMap'
+// import GoogleMap from './../components/cars/GoogleMap'
 import CarAction from './../components/cars/CarAction'
 
 export default {
     name: 'Cars',
     components: {
-      CarMenu, CarProfile, GoogleMap, CarAction
+      CarMenu, CarProfile, CarAction //GoogleMap,
     },
     data: function() {
       return {
         cars: [],
-        actualCar: Number
+        actualCar: 1
       }
     },
     created: function() {
@@ -47,9 +47,9 @@ export default {
         fetch("http://marcin.innome.pl:8000/car", requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.cars = result;
           this.actualCar = result[0].id;
+          console.log(`Acutal car: ${this.actualCar}`)
         })
         .catch(error => console.log('error', error));
       },

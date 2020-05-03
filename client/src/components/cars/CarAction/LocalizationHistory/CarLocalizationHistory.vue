@@ -57,10 +57,9 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
+        fetch(`http://marcin.innome.pl:8000/localization_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.localizationHistory = result;
         })
         .catch(error => console.log('error', error));
