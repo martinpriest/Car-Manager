@@ -11,12 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 /**
-     * @Route("/tank_history", name="tank_history_")
+* @Route("/tank_history", name="tank_history_")
 */
 class TankHistoryController extends AbstractController
 {
     /**
-     * @Route("/create", name="create")
+     * @Route("/create", methods={"POST"} name="create")
      */
     public function create(Request $request)
     {
@@ -59,7 +59,7 @@ class TankHistoryController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"GET"}, name="readAll")
+     * @Route("/", methods={"GET", "POST"}, name="readAll")
      */
     public function index(Request $request)
     {

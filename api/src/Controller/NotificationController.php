@@ -18,15 +18,17 @@ use Symfony\Component\HttpFoundation\Request;
 class NotificationController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="showAll")
+     * @Route("/", methods={"GET", "POST"}, name="showAll")
      */
-    public function index()
+    public function index(Request $request)
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No logged in'], 400);
-        
-        $notificationList = $this->getDoctrine()->getRepository(Notification::class)
-        ->findByIduser($_SESSION['idUser']);
+
+        $data = json_decode($request->getContent(), true);
+
+        if(isset($data['idCar'])) $notificationList = $this->getDoctrine()->getRepository(Notification::class)->findByIdcar($data['idCar']);
+        else $notificationList = $this->getDoctrine()->getRepository(Notification::class)->findByIduser($_SESSION['idUser']);
         if(!$notificationList) return $this->json(['message' => 'No active notification'], 400);
 
         $response = [];

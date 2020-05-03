@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class LocalizationHistoryController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="showAllByUser")
+     * @Route("/", methods={"GET", "POST"}, name="showAllByUser")
      */
     public function index(Request $request)
     {
