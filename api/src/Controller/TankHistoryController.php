@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TankHistoryController extends AbstractController
 {
     /**
-     * @Route("/create", methods={"POST"} name="create")
+     * @Route("/create", methods={"POST"}, name="create")
      */
     public function create(Request $request)
     {
