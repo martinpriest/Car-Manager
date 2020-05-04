@@ -1,9 +1,7 @@
 <template>
 <div>
-<label for="currency-type">Currency:</label>
-<select name="currency-type" id="currency-type" v-model="actualCurrency" @change="pickCurrency()">
+<select class="form-control w-100" name="currency-type" id="currency-type" v-model="actualCurrency" @change="pickCurrency()">
     <option v-for="record in currency" :value="{mid: record.mid, code: record.code}" :key ="record.id">{{record.code}}</option>
-
 </select>
 </div>
 

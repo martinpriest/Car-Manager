@@ -25,7 +25,7 @@
                     Close
                   </button>
                   <button class="btn btn-success" @click="addCar()">
-                    ADD
+                    Add car
                   </button>
                 </slot>
               </div>

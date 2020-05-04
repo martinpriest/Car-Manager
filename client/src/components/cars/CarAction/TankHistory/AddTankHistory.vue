@@ -13,13 +13,13 @@
  
               <div class="modal-body">
                 <slot name="body">
-                  <input id="petrolStation" v-model="petrolStation" class="form-control" type="text" placeholder="Petrol station">
+                  <input class="form-control w-100" id="petrolStation" v-model="petrolStation" type="text" placeholder="Petrol station">
                   <SelectPetrolType v-bind:actualPetrolType="actualPetrolType" @petrolTypeId="updatePetrolId"/>
                   <SelectCurrency v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency"/>
-                  <input v-model="fuelAmount" type="number" placeholder="Amount">
-                  <input v-model="priceAmount" type="number" placeholder="Price">
-                  <input v-model="description" type="text" placeholder="Descrption">
-                  <input v-model="date" type="date">
+                  <input class="form-control w-100" v-model="fuelAmount" type="number" placeholder="Amount">
+                  <input class="form-control w-100" v-model="priceAmount" type="number" placeholder="Price">
+                  <input class="form-control w-100" v-model="description" type="text" placeholder="Descrption">
+                  <input class="form-control w-100" v-model="date" type="date">
                 </slot>
               </div>
  
