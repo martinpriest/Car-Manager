@@ -1,6 +1,6 @@
 <template>
     <div class="car-table-box">
-        <table>
+        <table class="table table-dark">
             <thead>
             <tr>
                 <th>Name</th>
