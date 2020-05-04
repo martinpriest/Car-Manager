@@ -1,8 +1,10 @@
 <template>
 <div class="app">
-  <img src="./../assets/logo.png" style="width: 300px" alt="">
-  <LoginForm/>
-  <RegisterForm/>
+  <div class="logo"><img src="./../assets/logo.png" style="width: 300px" alt=""></div>
+  <div class="container">
+    <LoginForm/>
+    <RegisterForm/>
+  </div>
 </div>
 </template>
 
@@ -35,5 +37,15 @@ body {
     margin: 0 auto;
     align-content: center;
     align-items: center;
+    /* border: black solid 1px; */
+  }
+
+  .logo {
+    /* border: black solid 1px; */
+  }
+
+  .container {
+    
+    /* border: black solid 1px; */
   }
 </style>

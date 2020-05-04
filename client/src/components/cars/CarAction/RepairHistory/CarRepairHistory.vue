@@ -1,11 +1,13 @@
 <template>
   <div class="repair-history">
       <span>Repair history</span>
-      <RepairHistoryTable v-bind:repairHistory="repairHistory"/>
+      <div class="action-table">
+        <RepairHistoryTable v-bind:repairHistory="repairHistory"/>
+      </div>
       <AddRepairHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add repair record</h3>
       </AddRepairHistory>
-      <button id="show-modal" @click="showModal = true">Add repair</button>
+      <button class="btn btn-success w-50 m-auto" id="show-modal" @click="showModal = true">Add repair</button>
   </div>
 </template>
 
@@ -23,7 +25,7 @@ export default {
     },
     data: function() {
         return {
-            repairHistory: Array,
+            repairHistory: [],
             showModal: false
         }
     },
@@ -42,14 +44,12 @@ export default {
         fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.repairHistory = result;
         })
         .catch(error => console.log('error', error));
     },
     watch: {
-      actualCar: function(newVal, oldVal) {
-        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+      actualCar: function() {
         var json = {
           idCar: this.actualCar
         };
@@ -64,8 +64,7 @@ export default {
         fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
-          // this.repairHistory = result;
+          this.repairHistory = result;
         })
         .catch(error => console.log('error', error));
       }
@@ -73,12 +72,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .repair-history {
     color: white;
+    height: 100%;
+    overflow: auto;
 
   }
-
+  .action-table {
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+  }
   span {
     color: white;
   }

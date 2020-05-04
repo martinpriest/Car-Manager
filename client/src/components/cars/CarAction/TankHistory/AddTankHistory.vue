@@ -13,23 +13,23 @@
  
               <div class="modal-body">
                 <slot name="body">
-                  <input id="petrolStation" v-model="petrolStation" class="form-control" type="text" placeholder="Petrol station">
+                  <input class="form-control w-100" id="petrolStation" v-model="petrolStation" type="text" placeholder="Petrol station">
                   <SelectPetrolType v-bind:actualPetrolType="actualPetrolType" @petrolTypeId="updatePetrolId"/>
                   <SelectCurrency v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency"/>
-                  <input v-model="fuelAmount" type="number" placeholder="Amount">
-                  <input v-model="priceAmount" type="number" placeholder="Price">
-                  <input v-model="description" type="text" placeholder="Descrption">
-                  <input v-model="date" type="date">
+                  <input class="form-control w-100" v-model="fuelAmount" type="number" placeholder="Amount">
+                  <input class="form-control w-100" v-model="priceAmount" type="number" placeholder="Price">
+                  <input class="form-control w-100" v-model="description" type="text" placeholder="Descrption">
+                  <input class="form-control w-100" v-model="date" id="date-picker-1" type="date">
                 </slot>
               </div>
  
               <div class="modal-footer">
                 <slot name="footer">
-                  default footer
-                  <!-- <button class="modal-default-button" @click="$emit('close')"> -->
-                      
-                  <button class="modal-default-button" @click="addTank()">
-                    OK
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addTank()">
+                    Add tank
                   </button>
                 </slot>
               </div>
@@ -54,7 +54,7 @@ export default {
               code: String,
               mid: Number
             },
-            date: "2020-10-05",
+            date: "",
             fuelAmount: Number,
             priceAmount: Number,
             description: "Default desc",
@@ -86,9 +86,6 @@ export default {
                 currency: this.actualCurrency.code,
                 description: this.description
             };
-
-            console.log("AddTankhistory ")
-            console.log(json)
 
             var requestOptions = {
                 method: 'POST',

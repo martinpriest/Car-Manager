@@ -1,9 +1,11 @@
 <template>
-  <div>
-      <h3>Localization History</h3>
+  <div class="localization-history">
+      <span>Localization History</span>
+      <div class="action-table">
       <LocalizationHistoryTable v-bind:localizationHistory="localizationHistory"/>
+      </div>
       <AddLocalizationHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false"/>
-      <button id="show-localization-modal" @click="showModal = true">Add Localization</button>
+      <button class="btn btn-success w-50 m-auto" id="show-localization-modal" @click="showModal = true">Add localization</button>
   </div>
 </template>
 
@@ -57,10 +59,9 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
+        fetch(`http://marcin.innome.pl:8000/localization_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.localizationHistory = result;
         })
         .catch(error => console.log('error', error));
@@ -71,4 +72,15 @@ export default {
 
 <style>
 
+  .localization-history {
+    
+    color: white;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .action-table {
+    height: 80%;
+    overflow: auto;
+  }
 </style>

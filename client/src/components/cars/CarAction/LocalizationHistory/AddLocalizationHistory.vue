@@ -7,26 +7,29 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  Dodaj lokalizacje
+                  <h3>Add localization</h3>
                 </slot>
               </div>
 
               <div class="modal-body">
                 <slot name="body">
-                  <input v-model="startLocalizationLink" type="text" placeholder="Google maps link1">
-                  <input v-model="endLocalizationLink" type="text" placeholder="Google maps link2">
-                  <input v-model="startLocalizationName" type="text" placeholder="Start location">
-                  <input v-model="endLocalizationName" type="text" placeholder="End location">
-                  <input v-model="distance" type="number" placeholder="Google maps link1">
-                  <input v-model="description" type="text" placeholder="Google maps link1">
-                  <input v-model="date" type="date" placeholder="">
+                  <input class="form-control w-100" v-model="startLocalizationLink" type="text" placeholder="Google maps link1">
+                  <input class="form-control w-100" v-model="endLocalizationLink" type="text" placeholder="Google maps link2">
+                  <input class="form-control w-100" v-model="startLocalizationName" type="text" placeholder="Start location">
+                  <input class="form-control w-100" v-model="endLocalizationName" type="text" placeholder="End location">
+                  <input class="form-control w-100" v-model="distance" type="number" placeholder="Google maps link1">
+                  <input class="form-control w-100" v-model="description" type="text" placeholder="Google maps link1">
+                  <input class="form-control w-100" v-model="date" type="date" placeholder="">
                 </slot>
               </div>
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="addLocalizationHistory">
-                    Add
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addLocalizationHistory">
+                    Add localization
                   </button>
                 </slot>
               </div>
@@ -67,9 +70,6 @@ export default {
                 description: this.description,
                 date: this.date,
             };
-
-            console.log("Add localization history body ")
-            console.log(json)
 
             var requestOptions = {
                 method: 'POST',

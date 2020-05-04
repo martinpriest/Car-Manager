@@ -1,6 +1,6 @@
 <template>
 <div class="register-box">
-      <img src="./../../assets/logocar.jpg" class="avatar" alt="Car logo">
+      <img src="./../../assets//user-icon/user-create.svg" class="avatar" alt="Car logo">
       <h1>Register Here</h1>
         <label for="register-username">Username</label>
         <input id="register-username" type="text" placeholder="Enter Username">
@@ -22,7 +22,12 @@ export default {
         let username = document.querySelector("#register-username");
         let email = document.querySelector("#register-email");
         let password = document.querySelector("#register-password");
-        // let password2 = document.querySelector("#register-password2");
+        let password2 = document.querySelector("#register-password2");
+
+        if(password.value != password2.value) {
+          alert("Zle powtorzyles haslo");
+          return 0;
+        }
 
         var json = {
           login: username.value,
@@ -74,6 +79,8 @@ export default {
   position: absolute;
   top: -50px;
   left: calc(50% - 50px);
+  color: white;
+  background-color: white;
 }
 
 .register-box h1 {

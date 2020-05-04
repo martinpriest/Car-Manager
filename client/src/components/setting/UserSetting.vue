@@ -36,7 +36,6 @@ export default {
           newPassword: newPassword.value
         };
 
-        console.log(json);
         var requestOptions = {
           method: 'PUT',
           body: JSON.stringify(json),
