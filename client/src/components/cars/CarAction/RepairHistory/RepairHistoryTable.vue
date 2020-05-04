@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-hover table-dark w-75 overflow-auto m-auto" v-if="repairHistory.length">
+    <table class="table table-hover table-bordered table-dark w-75 overflow-auto m-auto" v-if="repairHistory.length">
       <thead>
         <tr>
           <th>Data</th>

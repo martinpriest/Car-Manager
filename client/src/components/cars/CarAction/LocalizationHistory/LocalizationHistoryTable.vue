@@ -1,7 +1,7 @@
 <template>
   <div>
     <table
-      style="padding" class="table table-hover table-dark w-75 overflow-auto m-auto"
+      style="padding" class="table table-bordered table-hover table-dark w-75 overflow-auto m-auto"
       v-if="localizationHistory.length"
     >
       <thead>
@@ -21,7 +21,7 @@
         >
           <td>{{ record.startLocalizationName }}</td>
           <td>{{ record.endLocalizationName }}</td>
-          <td>{{ record.distance }}</td>
+          <td>{{ record.distance }} km</td>
           <td>{{ record.date.date }}</td>
         </tr>
       </tbody>

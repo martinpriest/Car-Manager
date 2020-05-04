@@ -7,7 +7,7 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  <h3>Dodaj lokalizacje</h3>
+                  <h3>Add localization</h3>
                 </slot>
               </div>
 

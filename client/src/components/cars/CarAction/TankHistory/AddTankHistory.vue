@@ -19,7 +19,7 @@
                   <input class="form-control w-100" v-model="fuelAmount" type="number" placeholder="Amount">
                   <input class="form-control w-100" v-model="priceAmount" type="number" placeholder="Price">
                   <input class="form-control w-100" v-model="description" type="text" placeholder="Descrption">
-                  <input class="form-control w-100" v-model="date" type="date">
+                  <input class="form-control w-100" v-model="date" id="date-picker-1" type="date">
                 </slot>
               </div>
  
@@ -54,7 +54,7 @@ export default {
               code: String,
               mid: Number
             },
-            date: "2020-10-05",
+            date: "",
             fuelAmount: Number,
             priceAmount: Number,
             description: "Default desc",

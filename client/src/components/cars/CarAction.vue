@@ -40,17 +40,32 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 90%;
+    height: 90%;
+    background: rgb(36, 36, 36);
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .tank-history {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 90%;
+    height: 90%;
+    background: rgb(36, 36, 36);
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .repair-history {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 90%;
+    height: 90%;
+    background: rgb(36, 36, 36);
+    border-radius: 5px;
+    margin: 10px;
 }
 </style>

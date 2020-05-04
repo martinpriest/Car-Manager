@@ -44,7 +44,6 @@ export default {
         fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(result);
           this.repairHistory = result;
         })
         .catch(error => console.log('error', error));
@@ -65,7 +64,6 @@ export default {
         fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          console.log(`Repair history: ${result}`);
           this.repairHistory = result;
         })
         .catch(error => console.log('error', error));
@@ -74,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .repair-history {
     color: white;
     height: 100%;
@@ -82,12 +80,9 @@ export default {
 
   }
   .action-table {
-    width: 90%;
+    width: 100%;
     height: 80%;
     overflow: auto;
-    display: flex;
-    align-content: center;
-    justify-content: center;
   }
   span {
     color: white;

@@ -134,8 +134,8 @@ body {
   width: 100%;
   height: 54px;
 }
-#main-nav > .nav-link {
-  padding: 0px;
+#main-nav .nav-link {
+  padding-top: 0px;
 }
 
 .menu-icon {

@@ -72,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   
 
   .tank-history {
@@ -83,9 +83,11 @@ export default {
   }
 
   .action-table {
+    width: 100%;
     height: 80%;
     overflow: auto;
   }
+  
   span {
     color: white;
   }

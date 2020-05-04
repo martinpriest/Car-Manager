@@ -5,7 +5,7 @@
       <LocalizationHistoryTable v-bind:localizationHistory="localizationHistory"/>
       </div>
       <AddLocalizationHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false"/>
-      <button class="btn btn-success w-50 m-auto" id="show-localization-modal" @click="showModal = true">Add Localization</button>
+      <button class="btn btn-success w-50 m-auto" id="show-localization-modal" @click="showModal = true">Add localization</button>
   </div>
 </template>
 
