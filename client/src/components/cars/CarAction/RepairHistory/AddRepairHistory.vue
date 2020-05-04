@@ -22,11 +22,11 @@
  
               <div class="modal-footer">
                 <slot name="footer">
-                  default footer
-                  <!-- <button class="modal-default-button" @click="$emit('close')"> -->
-                      
-                  <button class="modal-default-button" @click="addRepair()">
-                    OK
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addRepair()">
+                    Add repair
                   </button>
                 </slot>
               </div>
@@ -76,9 +76,6 @@ export default {
                 currency: this.actualCurrency.code,
                 description: this.description
             };
-
-            console.log("AddRepairhistory ")
-            console.log(json)
 
             var requestOptions = {
                 method: 'POST',

@@ -25,8 +25,11 @@
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="addLocalizationHistory">
-                    Add
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addLocalizationHistory">
+                    Add localization
                   </button>
                 </slot>
               </div>

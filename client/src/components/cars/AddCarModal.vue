@@ -12,16 +12,19 @@
               </div>
 
               <div class="adding-box form-group">
-                <input class="w-100" v-model="name" type="text" placeholder="Enter car's name">
-                <input class="w-100" v-model="mark" type="text" placeholder="Enter car's brand">
-                <input class="w-100" v-model="model" type="text" placeholder="Enter car's model">
-                <br/><input class="w-100" type="color" v-model="color" name="favcolor" value="#ff0000"><br/>
-                <input class="w-100" v-model="engineMileage" type="number" value="10000">
+                <input class="form-control w-100" v-model="name" type="text" placeholder="Enter car's name">
+                <input class="form-control w-100" v-model="mark" type="text" placeholder="Enter car's brand">
+                <input class="form-control w-100" v-model="model" type="text" placeholder="Enter car's model">
+                <input class="form-control w-100" type="color" v-model="color" name="favcolor" value="#ff0000">
+                <input class="form-control w-100" v-model="engineMileage" type="number" placeholder="Mileage" value="10000">
               </div>
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="addCar()">
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addCar()">
                     ADD
                   </button>
                 </slot>
