@@ -35,6 +35,8 @@ export default {
         .then((data) => {
           if(data.message == "Logged in") this.$router.push({ path: '/cars' }).catch(err => {console.log(err)})
           else alert("Nieprawidłowe dane");
+          
+          location.reload();
         })
         .catch(error => console.log('error', error));
       }
