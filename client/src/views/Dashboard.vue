@@ -42,7 +42,6 @@ export default {
         fetch("http://marcin.innome.pl:8000/car", requestOptions)
             .then(response => response.json())
             .then((result) => {
-                console.log(result);
                 this.cars = result;
             })
             .catch(error => console.log('error', error));

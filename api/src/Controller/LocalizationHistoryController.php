@@ -109,7 +109,7 @@ class LocalizationHistoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"}, name="create")
+     * @Route("/{id}", methods={"DELETE"}, name="delete")
      */
     public function delete(int $id)
     {

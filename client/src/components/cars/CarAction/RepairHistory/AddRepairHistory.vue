@@ -14,19 +14,19 @@
               <div class="modal-body">
                 <slot name="body">
                   <SelectCurrency v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency"/>
-                  <input v-model="amount" type="number" placeholder="Amount">
-                  <input v-model="description" type="text" placeholder="Descrption">
-                  <input v-model="date" type="date">
+                  <input class="form-control w-100" v-model="amount" type="number" placeholder="Amount">
+                  <input class="form-control w-100" v-model="description" type="text" placeholder="Descrption">
+                  <input class="form-control w-100" v-model="date" type="date">
                 </slot>
               </div>
  
               <div class="modal-footer">
                 <slot name="footer">
-                  default footer
-                  <!-- <button class="modal-default-button" @click="$emit('close')"> -->
-                      
-                  <button class="modal-default-button" @click="addRepair()">
-                    OK
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addRepair()">
+                    Add repair
                   </button>
                 </slot>
               </div>
@@ -76,9 +76,6 @@ export default {
                 currency: this.actualCurrency.code,
                 description: this.description
             };
-
-            console.log("AddRepairhistory ")
-            console.log(json)
 
             var requestOptions = {
                 method: 'POST',

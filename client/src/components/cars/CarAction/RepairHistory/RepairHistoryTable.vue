@@ -1,34 +1,30 @@
 <template>
   <div>
-      <table v-if="repairHistory.length">
-          <tr>
-              <th>Data</th>
-              <th>Opis</th>
-          </tr>
-          <tr v-for="repair in repairHistory" :key ="repair.id">
-              <td>{{ repair.date.date }}</td>
-              <td>{{ repair.description }}</td>
-          </tr>
-      </table>
-      <p v-else>No repair history</p>
+    <table class="table table-hover table-bordered table-dark w-75 overflow-auto m-auto" v-if="repairHistory.length">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Opis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="repair in repairHistory" :key="repair.id">
+          <td>{{ repair.date.date }}</td>
+          <td>{{ repair.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p v-else>No repair history</p>
   </div>
-<!-- <AddCarModal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">custom header</h3>
-      </AddCarModal> -->
 </template>
 
 <script>
 export default {
-    name: 'RepairHistoryTable',
-    props: {
-        repairHistory: Array
-    },
-    watch: {
-        repairHistory: function(newVal, oldVal) {
-        console.log('Prop changed: ', newVal, ' | was: ', oldVal);
-        }
-    }
-}
+  name: "RepairHistoryTable",
+  props: {
+    repairHistory: Array
+  }
+};
 </script>
 
 <style>

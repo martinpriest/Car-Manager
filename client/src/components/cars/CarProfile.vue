@@ -1,13 +1,14 @@
 <template>
     <div class="car-profile-box">
         <p>
-            <img :src="carImageUrl" alt="Car image">
+            <img src="./../../assets/car-default.svg" alt="Car image">
         </p>
         <p>Name: {{ carName }}</p>
         <p>Make: {{ carMake }}</p>
         <p>Model: {{ carModel }}</p>
         <p>Color: {{ carColor }}</p>
         <p>Mileage: {{ carMileage }} km</p>
+        <button class="btn btn-success">Add notification</button>
     </div>
 </template>
 
@@ -21,15 +22,17 @@ export default {
             carModel: "",
             carColor: "",
             carMileage: "",
-            carImageUrl: ""
+            carImageUrl: "",
         }
     },
     props: {
         actualCar: Number
     },
+    created() {
+        // this.actualCar = 1;
+    },
     watch: {
         actualCar: function() {
-            console.log(this.actualCar);
 
             var requestOptions = {
                 method: 'GET',
@@ -40,7 +43,6 @@ export default {
             fetch(`http://marcin.innome.pl:8000/car/${this.actualCar}`, requestOptions)
                 .then(response => response.json())
                 .then((result) => {
-                    console.log(result);
                     this.carName = result.name;
                     this.carMake = result.mark;
                     this.carModel = result.model;

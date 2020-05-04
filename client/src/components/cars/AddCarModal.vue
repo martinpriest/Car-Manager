@@ -11,23 +11,21 @@
                 </slot>
               </div>
 
-              <div class="adding-box">
-                <label for="carname">Common name of the car</label>
-                <input id="carname" type="text" placeholder="Enter car's name">
-                <label for="carbrand">The car brand</label>
-                <input id="carbrand" type="text" placeholder="Enter car's brand">
-                <label for="carmodel">Car model</label>
-                <input id="carmodel" type="text" placeholder="Enter car's model">
-                <label for="carcolor">Car color</label>
-                <input id="carcolor" type="text" placeholder="Enter car's color">
-                <label for="enginemileage">Engine mileage</label>
-                <input id="enginemileage" type="number" placeholder="Enter car's color">
+              <div class="adding-box form-group">
+                <input class="form-control w-100" v-model="name" type="text" placeholder="Enter car's name">
+                <input class="form-control w-100" v-model="mark" type="text" placeholder="Enter car's brand">
+                <input class="form-control w-100" v-model="model" type="text" placeholder="Enter car's model">
+                <input class="form-control w-100" type="color" v-model="color" name="favcolor" value="#ff0000">
+                <input class="form-control w-100" v-model="engineMileage" type="number" placeholder="Mileage" value="10000">
               </div>
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="$emit('close')">
-                    ADD
+                  <button class="btn btn-danger" @click="$emit('close')">
+                    Close
+                  </button>
+                  <button class="btn btn-success" @click="addCar()">
+                    Add car
                   </button>
                 </slot>
               </div>
@@ -42,11 +40,41 @@
 <script>
 export default {
     name: 'AddCarModal',
-        data: function() {
-            return {
-                addCar: false
-            }
+    data: function() {
+        return {
+            name: "",
+            mark: "",
+            model: "",
+            color: "",
+            engineMileage: ""
         }
+    },
+    methods: {
+      addCar() {
+         var json = {
+                name: this.name,
+                mark: this.mark,
+                model: this.model,
+                color: this.color,
+                engineMileage: parseInt(this.engineMileage)
+            };
+
+            var requestOptions = {
+                method: 'POST',
+                body: JSON.stringify(json),
+                redirect: 'follow',
+                credentials: 'include'
+            };
+
+            fetch("http://marcin.innome.pl:8000/car/create", requestOptions)
+            .then(response => response.json())
+            .then((result) => {
+              alert(result.message);
+              this.$emit('close')
+            })
+            .catch(error => console.log('error', error));
+      }
+    }
 }
 </script>
 
