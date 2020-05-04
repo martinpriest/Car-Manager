@@ -1,7 +1,7 @@
 <template>
   <div>
     <table
-      class="table table-hover table-dark w-75 overflow-auto"
+      style="padding" class="table table-hover table-dark w-75 overflow-auto m-auto"
       v-if="localizationHistory.length"
     >
       <thead>

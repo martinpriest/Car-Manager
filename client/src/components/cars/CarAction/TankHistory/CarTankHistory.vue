@@ -7,7 +7,7 @@
       <AddTankHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add tank record</h3>
       </AddTankHistory>
-      <button class="btn btn-success w-75" id="show-modal" @click="showModal = true">Add tank</button>
+      <button class="btn btn-success w-50 m-auto" id="show-modal" @click="showModal = true">Add tank</button>
   </div>
 </template>
 

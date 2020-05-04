@@ -38,13 +38,19 @@ export default {
 
 .localization-history {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tank-history {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .repair-history {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 </style>

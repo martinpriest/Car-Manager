@@ -7,7 +7,7 @@
       <AddRepairHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add repair record</h3>
       </AddRepairHistory>
-      <button class="btn btn-success w-75" id="show-modal" @click="showModal = true">Add repair</button>
+      <button class="btn btn-success w-50 m-auto" id="show-modal" @click="showModal = true">Add repair</button>
   </div>
 </template>
 

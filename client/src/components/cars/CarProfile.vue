@@ -8,6 +8,7 @@
         <p>Model: {{ carModel }}</p>
         <p>Color: {{ carColor }}</p>
         <p>Mileage: {{ carMileage }} km</p>
+        <button class="btn btn-success">Add notification</button>
     </div>
 </template>
 
