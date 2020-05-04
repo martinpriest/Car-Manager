@@ -1,9 +1,11 @@
 <template>
-  <div>
-      <h3>Localization History</h3>
+  <div class="localization-history">
+      <span>Localization History</span>
+      <div class="action-table">
       <LocalizationHistoryTable v-bind:localizationHistory="localizationHistory"/>
+      </div>
       <AddLocalizationHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false"/>
-      <button id="show-localization-modal" @click="showModal = true">Add Localization</button>
+      <button class="btn btn-success w-75" id="show-localization-modal" @click="showModal = true">Add Localization</button>
   </div>
 </template>
 
@@ -70,4 +72,15 @@ export default {
 
 <style>
 
+  .localization-history {
+    
+    color: white;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .action-table {
+    height: 80%;
+    overflow: auto;
+  }
 </style>

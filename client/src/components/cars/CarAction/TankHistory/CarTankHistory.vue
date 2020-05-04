@@ -1,11 +1,13 @@
 <template>
   <div class="tank-history">
       <span>Tank history</span>
+      <div class="action-table">
       <TankHistoryTable v-bind:tankHistory="tankHistory"/>
+      </div>
       <AddTankHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add tank record</h3>
       </AddTankHistory>
-      <button id="show-modal" @click="showModal = true">Add tank</button>
+      <button class="btn btn-success w-75" id="show-modal" @click="showModal = true">Add tank</button>
   </div>
 </template>
 
@@ -71,11 +73,19 @@ export default {
 </script>
 
 <style>
-  .tank-history {
-    color: white;
+  
 
+  .tank-history {
+    
+    color: white;
+    height: 100%;
+    overflow: auto;
   }
 
+  .action-table {
+    height: 80%;
+    overflow: auto;
+  }
   span {
     color: white;
   }

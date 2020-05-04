@@ -1,6 +1,6 @@
 <template>
   <div>
-      <table v-if="repairHistory.length">
+      <table class="table table-dark w-75 overflow-auto" v-if="repairHistory.length">
           <tr>
               <th>Data</th>
               <th>Opis</th>

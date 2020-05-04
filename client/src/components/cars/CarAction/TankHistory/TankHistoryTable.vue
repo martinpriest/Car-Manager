@@ -1,6 +1,6 @@
 <template>
   <div>
-      <table v-if="tankHistory.length">
+      <table class="table table-dark w-75 overflow-auto" v-if="tankHistory.length">
           <tr>
               <th>Gdzie</th>
               <th>Kiedy</th>

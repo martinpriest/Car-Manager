@@ -1,7 +1,7 @@
 <template>
     <div class="car-profile-box">
         <p>
-            <img :src="carImageUrl" alt="Car image">
+            <img src="./../../assets/car-default.svg" alt="Car image">
         </p>
         <p>Name: {{ carName }}</p>
         <p>Make: {{ carMake }}</p>

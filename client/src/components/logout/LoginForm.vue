@@ -1,6 +1,6 @@
 <template>
 <div class="login-box">
-      <img src="./../../assets/logocar.jpg" class="avatar" alt="Car logo">
+      <img src="./../../assets/user-icon/user-login.svg" class="avatar" alt="Car logo">
       <h1>Login Here</h1>
         <label for="username">Username</label>
         <input id="username" type="text" placeholder="Enter Username">
@@ -32,8 +32,9 @@ export default {
 
         fetch("http://marcin.innome.pl:8000/user/login", requestOptions)
         .then(response => response.json())
-        .then(() => {
-          this.$router.push({ path: '/dashboard' }).catch(err => {console.log(err)})
+        .then((data) => {
+          if(data.message == "Logged in") this.$router.push({ path: '/cars' }).catch(err => {console.log(err)})
+          else alert("Nieprawidłowe dane");
         })
         .catch(error => console.log('error', error));
       }
@@ -69,6 +70,8 @@ export default {
   position: absolute;
   top: -50px;
   left: calc(50% - 50px);
+  color: white;
+  background-color: white;
 }
 
 .login-box h1 {

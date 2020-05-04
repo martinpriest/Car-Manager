@@ -1,11 +1,13 @@
 <template>
   <div class="repair-history">
       <span>Repair history</span>
-      <RepairHistoryTable v-bind:repairHistory="repairHistory"/>
+      <div class="action-table">
+        <RepairHistoryTable v-bind:repairHistory="repairHistory"/>
+      </div>
       <AddRepairHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
         <h3 slot="header">Add repair record</h3>
       </AddRepairHistory>
-      <button id="show-modal" @click="showModal = true">Add repair</button>
+      <button class="btn btn-success w-75" id="show-modal" @click="showModal = true">Add repair</button>
   </div>
 </template>
 
@@ -75,9 +77,18 @@ export default {
 <style>
   .repair-history {
     color: white;
+    height: 100%;
+    overflow: auto;
 
   }
-
+  .action-table {
+    width: 90%;
+    height: 80%;
+    overflow: auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
   span {
     color: white;
   }

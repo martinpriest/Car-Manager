@@ -1,6 +1,6 @@
 <template>
   <div>
-      <table v-if="localizationHistory.length">
+      <table class="table table-dark w-75 overflow-auto" v-if="localizationHistory.length">
           <tr>
               <th>Skąd</th>
               <th>Do</th>
