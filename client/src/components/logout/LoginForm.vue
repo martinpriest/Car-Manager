@@ -30,7 +30,7 @@ export default {
           credentials: 'include'
         };
 
-        fetch("http://marcin.innome.pl:8000/user/login", requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/user/login`, requestOptions)
         .then(response => response.json())
         .then((data) => {
           if(data.message == "Logged in") this.$router.push({ path: '/cars' }).catch(err => {console.log(err)})

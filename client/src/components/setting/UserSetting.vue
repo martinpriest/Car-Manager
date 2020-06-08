@@ -43,7 +43,7 @@ export default {
           credentials: 'include'
         };
 
-        fetch("http://marcin.innome.pl:8000/user/edit", requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/user/edit`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           alert(result.message);

@@ -42,7 +42,7 @@ export default {
           credentials: 'include'
         };
 
-        fetch("http://marcin.innome.pl:8000/user/create", requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/user/create`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           alert(result.message);

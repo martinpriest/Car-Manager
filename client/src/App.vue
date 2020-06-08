@@ -59,7 +59,7 @@ export default {
   components: {},
   data: function() {
     return {
-      loginStatus: Boolean
+      loginStatus: false
     };
   },
   created() {
@@ -69,7 +69,7 @@ export default {
       credentials: "include"
     };
 
-    fetch("http://marcin.innome.pl:8000/user/status", requestOptions)
+    fetch(`${process.env.VUE_APP_API_URL}/user/status`, requestOptions)
       .then(response => response.json())
       .then(data => {
         let login = data.status;
@@ -94,7 +94,7 @@ export default {
         credentials: "include"
       };
 
-      fetch("http://marcin.innome.pl:8000/user/logout", requestOptions)
+      fetch(`${process.env.VUE_APP_API_URL}/user/logout`, requestOptions)
         .then(response => response.json())
         .then(() => {
           this.$router.push({ path: "/" }).catch(err => {

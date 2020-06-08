@@ -11,7 +11,7 @@ export default {
     name: 'GoogleMap',
     created: function () {
         const options = {/* todo */};
-        const loader = new Loader('AIzaSyBVQ_ZkgMCr2uif70QRnqRsEUEiq7A23d8', options);
+        const loader = new Loader(`${process.env.VUE_APP_GOOGLE_API_KEY}`, options);
         var uluru = {lat: -25.344, lng: 131.036};
         loader.load().then(function (google) {
             const map = new google.maps.Map(document.getElementById('map'), {

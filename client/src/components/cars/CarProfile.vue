@@ -40,7 +40,7 @@ export default {
                 credentials: 'include'
             };
 
-            fetch(`http://marcin.innome.pl:8000/car/${this.actualCar}`, requestOptions)
+            fetch(`${process.env.VUE_APP_API_URL}/car/${this.actualCar}`, requestOptions)
                 .then(response => response.json())
                 .then((result) => {
                     this.carName = result.name;

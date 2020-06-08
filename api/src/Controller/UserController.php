@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\User;
+use App\Entity\File;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Return_;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,11 +69,14 @@ class UserController extends AbstractController
             ->findByEmail($email);
         if ($isEmail) return $this->json(['message' => 'Email is used.'], 400);
 
+        $avatarFile = $this->getDoctrine()->getRepository(File::class)
+        ->find(1);
+
         $user = new User();
         $user->setLogin($login)
             ->setPassword($hashedPassword)
             ->setEmail($email)
-            ->setIdavatarfile(2)
+            ->setIdavatarfile($avatarFile)
             ->setCreationdate(new \DateTime());
 
         $entityManager->persist($user);

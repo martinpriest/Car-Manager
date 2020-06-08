@@ -118,9 +118,13 @@ class CarController extends AbstractController
         return $this->json(['message' => 'New car created'], 200);
     }
 
+    /**
+     * @Route("/{idCar}", methods={"PUT"}, name="car_update")
+     */
     public function update(int $id)
     {
         session_start();
+        $data = json_decode($request->getContent(), true);
         if(!isset($_SESSION['idUser'])) $this->json(['message' => 'No access'], 400);
         $entityManager = $this->getDoctrine()->getManager();
         $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
