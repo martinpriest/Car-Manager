@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TankHistory
  *
- * @ORM\Table(name="tank_history", indexes={@ORM\Index(name="idPetrolType", columns={"idPetrolType"}), @ORM\Index(name="idFacture", columns={"idFacture"}), @ORM\Index(name="idCar", columns={"idCar"})})
+ * @ORM\Table(name="tank_history", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idPetrolType", columns={"idPetrolType"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idFacture", columns={"idFacture"})})
  * @ORM\Entity
  */
 class TankHistory
@@ -20,13 +20,6 @@ class TankHistory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     */
-    private $iduser;
 
     /**
      * @var float
@@ -50,14 +43,14 @@ class TankHistory
     private $date = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \PetrolTypes
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="PetrolTypes")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPetrolType", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
      * })
      */
-    private $idpetroltype;
+    private $iduser;
 
     /**
      * @var \Car
@@ -79,21 +72,19 @@ class TankHistory
      */
     private $idfacture;
 
+    /**
+     * @var \PetrolTypes
+     *
+     * @ORM\ManyToOne(targetEntity="PetrolTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPetrolType", referencedColumnName="id")
+     * })
+     */
+    private $idpetroltype;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
     }
 
     public function getAmount(): ?float
@@ -132,14 +123,14 @@ class TankHistory
         return $this;
     }
 
-    public function getIdpetroltype(): ?PetrolTypes
+    public function getIduser(): ?User
     {
-        return $this->idpetroltype;
+        return $this->iduser;
     }
 
-    public function setIdpetroltype(?PetrolTypes $idpetroltype): self
+    public function setIduser(?User $iduser): self
     {
-        $this->idpetroltype = $idpetroltype;
+        $this->iduser = $iduser;
 
         return $this;
     }
@@ -164,6 +155,18 @@ class TankHistory
     public function setIdfacture(?CostHistory $idfacture): self
     {
         $this->idfacture = $idfacture;
+
+        return $this;
+    }
+
+    public function getIdpetroltype(): ?PetrolTypes
+    {
+        return $this->idpetroltype;
+    }
+
+    public function setIdpetroltype(?PetrolTypes $idpetroltype): self
+    {
+        $this->idpetroltype = $idpetroltype;
 
         return $this;
     }

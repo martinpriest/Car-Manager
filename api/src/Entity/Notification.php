@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Notification
  *
- * @ORM\Table(name="notification", indexes={@ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idNotificationType", columns={"idNotificationType"})})
+ * @ORM\Table(name="notification", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idNotificationType", columns={"idNotificationType"})})
  * @ORM\Entity
  */
 class Notification
@@ -20,13 +20,6 @@ class Notification
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     */
-    private $iduser;
 
     /**
      * @var string
@@ -50,14 +43,14 @@ class Notification
     private $status;
 
     /**
-     * @var \NotificationTypes
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="NotificationTypes")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idNotificationType", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
      * })
      */
-    private $idnotificationtype;
+    private $iduser;
 
     /**
      * @var \Car
@@ -69,21 +62,19 @@ class Notification
      */
     private $idcar;
 
+    /**
+     * @var \NotificationTypes
+     *
+     * @ORM\ManyToOne(targetEntity="NotificationTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idNotificationType", referencedColumnName="id")
+     * })
+     */
+    private $idnotificationtype;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -122,14 +113,14 @@ class Notification
         return $this;
     }
 
-    public function getIdnotificationtype(): ?NotificationTypes
+    public function getIduser(): ?User
     {
-        return $this->idnotificationtype;
+        return $this->iduser;
     }
 
-    public function setIdnotificationtype(?NotificationTypes $idnotificationtype): self
+    public function setIduser(?User $iduser): self
     {
-        $this->idnotificationtype = $idnotificationtype;
+        $this->iduser = $iduser;
 
         return $this;
     }
@@ -142,6 +133,18 @@ class Notification
     public function setIdcar(?Car $idcar): self
     {
         $this->idcar = $idcar;
+
+        return $this;
+    }
+
+    public function getIdnotificationtype(): ?NotificationTypes
+    {
+        return $this->idnotificationtype;
+    }
+
+    public function setIdnotificationtype(?NotificationTypes $idnotificationtype): self
+    {
+        $this->idnotificationtype = $idnotificationtype;
 
         return $this;
     }

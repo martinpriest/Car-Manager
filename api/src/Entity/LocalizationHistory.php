@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LocalizationHistory
  *
- * @ORM\Table(name="localization_history", indexes={@ORM\Index(name="idCar", columns={"idCar"})})
+ * @ORM\Table(name="localization_history", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idEndAddress", columns={"idEndAddress"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idStartAddress", columns={"idStartAddress"})})
  * @ORM\Entity
  */
 class LocalizationHistory
@@ -20,41 +20,6 @@ class LocalizationHistory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     */
-    private $iduser;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="startLocalizationLink", type="string", length=1024, nullable=false)
-     */
-    private $startlocalizationlink;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="endLocalizationLink", type="string", length=1024, nullable=false)
-     */
-    private $endlocalizationlink;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="startLocalizationName", type="string", length=64, nullable=false)
-     */
-    private $startlocalizationname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="endLocalizationName", type="string", length=64, nullable=false)
-     */
-    private $endlocalizationname;
 
     /**
      * @var int
@@ -78,6 +43,16 @@ class LocalizationHistory
     private $date;
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \Car
      *
      * @ORM\ManyToOne(targetEntity="Car")
@@ -87,69 +62,29 @@ class LocalizationHistory
      */
     private $idcar;
 
+    /**
+     * @var \Address
+     *
+     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStartAddress", referencedColumnName="id")
+     * })
+     */
+    private $idstartaddress;
+
+    /**
+     * @var \Address
+     *
+     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idEndAddress", referencedColumnName="id")
+     * })
+     */
+    private $idendaddress;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getStartlocalizationlink(): ?string
-    {
-        return $this->startlocalizationlink;
-    }
-
-    public function setStartlocalizationlink(string $startlocalizationlink): self
-    {
-        $this->startlocalizationlink = $startlocalizationlink;
-
-        return $this;
-    }
-
-    public function getEndlocalizationlink(): ?string
-    {
-        return $this->endlocalizationlink;
-    }
-
-    public function setEndlocalizationlink(string $endlocalizationlink): self
-    {
-        $this->endlocalizationlink = $endlocalizationlink;
-
-        return $this;
-    }
-
-    public function getStartlocalizationname(): ?string
-    {
-        return $this->startlocalizationname;
-    }
-
-    public function setStartlocalizationname(string $startlocalizationname): self
-    {
-        $this->startlocalizationname = $startlocalizationname;
-
-        return $this;
-    }
-
-    public function getEndlocalizationname(): ?string
-    {
-        return $this->endlocalizationname;
-    }
-
-    public function setEndlocalizationname(string $endlocalizationname): self
-    {
-        $this->endlocalizationname = $endlocalizationname;
-
-        return $this;
     }
 
     public function getDistance(): ?int
@@ -188,6 +123,18 @@ class LocalizationHistory
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdcar(): ?Car
     {
         return $this->idcar;
@@ -196,6 +143,30 @@ class LocalizationHistory
     public function setIdcar(?Car $idcar): self
     {
         $this->idcar = $idcar;
+
+        return $this;
+    }
+
+    public function getIdstartaddress(): ?Address
+    {
+        return $this->idstartaddress;
+    }
+
+    public function setIdstartaddress(?Address $idstartaddress): self
+    {
+        $this->idstartaddress = $idstartaddress;
+
+        return $this;
+    }
+
+    public function getIdendaddress(): ?Address
+    {
+        return $this->idendaddress;
+    }
+
+    public function setIdendaddress(?Address $idendaddress): self
+    {
+        $this->idendaddress = $idendaddress;
 
         return $this;
     }

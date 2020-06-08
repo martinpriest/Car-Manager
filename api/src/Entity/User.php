@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="idAvatarFile", columns={"idAvatarFile"})})
  * @ORM\Entity
  */
 class User
@@ -48,6 +48,16 @@ class User
      * @ORM\Column(name="creationDate", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $creationdate = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \File
+     *
+     * @ORM\ManyToOne(targetEntity="File")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idAvatarFile", referencedColumnName="id")
+     * })
+     */
+    private $idavatarfile;
 
     public function getId(): ?int
     {
@@ -98,6 +108,18 @@ class User
     public function setCreationdate(\DateTimeInterface $creationdate): self
     {
         $this->creationdate = $creationdate;
+
+        return $this;
+    }
+
+    public function getIdavatarfile(): ?File
+    {
+        return $this->idavatarfile;
+    }
+
+    public function setIdavatarfile(?File $idavatarfile): self
+    {
+        $this->idavatarfile = $idavatarfile;
 
         return $this;
     }

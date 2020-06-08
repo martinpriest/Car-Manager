@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * RepairHistory
  *
- * @ORM\Table(name="repair_history", indexes={@ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idFacture", columns={"idFacture"})})
+ * @ORM\Table(name="repair_history", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idFacture", columns={"idFacture"})})
  * @ORM\Entity
  */
 class RepairHistory
@@ -22,13 +22,6 @@ class RepairHistory
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     */
-    private $iduser;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=512, nullable=false)
@@ -41,6 +34,16 @@ class RepairHistory
      * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $date = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
+     * })
+     */
+    private $iduser;
 
     /**
      * @var \Car
@@ -67,18 +70,6 @@ class RepairHistory
         return $this->id;
     }
 
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -99,6 +90,18 @@ class RepairHistory
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
 
         return $this;
     }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Car
  *
- * @ORM\Table(name="car", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
+ * @ORM\Table(name="car", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idCarGroup", columns={"idCarGroup"}), @ORM\Index(name="idAvatarFile", columns={"idAvatarFile"})})
  * @ORM\Entity
  */
 class Car
@@ -20,6 +20,13 @@ class Car
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="isPublic", type="boolean", nullable=true)
+     */
+    private $ispublic = '0';
 
     /**
      * @var string
@@ -43,11 +50,18 @@ class Car
     private $model;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="year", type="smallint", nullable=false, options={"default"="2020"})
+     */
+    private $year = '2020';
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=6, nullable=false)
+     * @ORM\Column(name="hexColor", type="string", length=6, nullable=false)
      */
-    private $color;
+    private $hexcolor;
 
     /**
      * @var int
@@ -55,13 +69,6 @@ class Car
      * @ORM\Column(name="engineMileage", type="integer", nullable=false)
      */
     private $enginemileage;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="imgPath", type="string", length=64, nullable=false)
-     */
-    private $imgpath;
 
     /**
      * @var \DateTime
@@ -87,9 +94,41 @@ class Car
      */
     private $iduser;
 
+    /**
+     * @var \CarGroup
+     *
+     * @ORM\ManyToOne(targetEntity="CarGroup")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCarGroup", referencedColumnName="id")
+     * })
+     */
+    private $idcargroup;
+
+    /**
+     * @var \File
+     *
+     * @ORM\ManyToOne(targetEntity="File")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idAvatarFile", referencedColumnName="id")
+     * })
+     */
+    private $idavatarfile;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIspublic(): ?bool
+    {
+        return $this->ispublic;
+    }
+
+    public function setIspublic(?bool $ispublic): self
+    {
+        $this->ispublic = $ispublic;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -128,14 +167,26 @@ class Car
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getYear(): ?int
     {
-        return $this->color;
+        return $this->year;
     }
 
-    public function setColor(string $color): self
+    public function setYear(int $year): self
     {
-        $this->color = $color;
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function getHexcolor(): ?string
+    {
+        return $this->hexcolor;
+    }
+
+    public function setHexcolor(string $hexcolor): self
+    {
+        $this->hexcolor = $hexcolor;
 
         return $this;
     }
@@ -148,18 +199,6 @@ class Car
     public function setEnginemileage(int $enginemileage): self
     {
         $this->enginemileage = $enginemileage;
-
-        return $this;
-    }
-
-    public function getImgpath(): ?string
-    {
-        return $this->imgpath;
-    }
-
-    public function setImgpath(string $imgpath): self
-    {
-        $this->imgpath = $imgpath;
 
         return $this;
     }
@@ -196,6 +235,30 @@ class Car
     public function setIduser(?User $iduser): self
     {
         $this->iduser = $iduser;
+
+        return $this;
+    }
+
+    public function getIdcargroup(): ?CarGroup
+    {
+        return $this->idcargroup;
+    }
+
+    public function setIdcargroup(?CarGroup $idcargroup): self
+    {
+        $this->idcargroup = $idcargroup;
+
+        return $this;
+    }
+
+    public function getIdavatarfile(): ?File
+    {
+        return $this->idavatarfile;
+    }
+
+    public function setIdavatarfile(?File $idavatarfile): self
+    {
+        $this->idavatarfile = $idavatarfile;
 
         return $this;
     }

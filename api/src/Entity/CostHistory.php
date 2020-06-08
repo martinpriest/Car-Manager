@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CostHistory
  *
- * @ORM\Table(name="cost_history", indexes={@ORM\Index(name="idCostType", columns={"idCostType"}), @ORM\Index(name="idCar", columns={"idCar"})})
+ * @ORM\Table(name="cost_history", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idCostType", columns={"idCostType"}), @ORM\Index(name="idCar", columns={"idCar"})})
  * @ORM\Entity
  */
 class CostHistory
@@ -20,20 +20,6 @@ class CostHistory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=false)
-     */
-    private $iduser;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCar", type="integer", nullable=false)
-     */
-    private $idcar;
 
     /**
      * @var string
@@ -78,6 +64,16 @@ class CostHistory
     private $date = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \CostTypes
      *
      * @ORM\ManyToOne(targetEntity="CostTypes")
@@ -87,33 +83,19 @@ class CostHistory
      */
     private $idcosttype;
 
+    /**
+     * @var \Car
+     *
+     * @ORM\ManyToOne(targetEntity="Car")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCar", referencedColumnName="id")
+     * })
+     */
+    private $idcar;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
-    }
-
-    public function getIdcar(): ?int
-    {
-        return $this->idcar;
-    }
-
-    public function setIdcar(int $idcar): self
-    {
-        $this->idcar = $idcar;
-
-        return $this;
     }
 
     public function getFactureimagepath(): ?string
@@ -188,6 +170,18 @@ class CostHistory
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdcosttype(): ?CostTypes
     {
         return $this->idcosttype;
@@ -196,6 +190,18 @@ class CostHistory
     public function setIdcosttype(?CostTypes $idcosttype): self
     {
         $this->idcosttype = $idcosttype;
+
+        return $this;
+    }
+
+    public function getIdcar(): ?Car
+    {
+        return $this->idcar;
+    }
+
+    public function setIdcar(?Car $idcar): self
+    {
+        $this->idcar = $idcar;
 
         return $this;
     }
