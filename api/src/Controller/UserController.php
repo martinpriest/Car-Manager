@@ -72,6 +72,7 @@ class UserController extends AbstractController
         $user->setLogin($login)
             ->setPassword($hashedPassword)
             ->setEmail($email)
+            ->setIdavatarfile(2)
             ->setCreationdate(new \DateTime());
 
         $entityManager->persist($user);

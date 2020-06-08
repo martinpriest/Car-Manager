@@ -27,6 +27,9 @@ class CarController extends AbstractController
         $cars = $this->getDoctrine()->getRepository(Car::class)
         ->findByIduser($_SESSION['idUser']);
 
+        if(isset($data['onlyPublic']) && $data['onlyPublic'] == true) $cars->findBy(['isPublic' => true]);
+        if(isset($data['idCarGroup'])) $cars->findBy(['idCarGroup' => $data['idCarGroup']]);
+
         if(!$cars) return $this->json(['message' => 'No cars added'], 200);
 
         $response = [];
@@ -34,9 +37,11 @@ class CarController extends AbstractController
             array_push($response, [
                 'id' => $car->getId(),
                 'name' => $car->getName(),
+                'isPublic' => $car->getIspublic(),
                 'mark' => $car->getMark(),
                 'model' => $car->getModel(),
-                'color' => $car->getColor(),
+                'year' => $car->getYear(),
+                'hexColor' => $car->getHexcolor(),
                 'engineMileage' => $car->getEnginemileage(),
                 'imgPath' => $car->getImgpath(),
                 'creationDate' => $car->getCreationdate(),
@@ -65,8 +70,10 @@ class CarController extends AbstractController
             'id' => $car->getId(),
             'mark' => $car->getMark(),
             'name' => $car->getName(),
+            'isPublic' => $car->getIspublic(),
             'model' => $car->getModel(),
-            'color' => $car->getColor(),
+            'year' => $car->getYear(),
+            'hexColor' => $car->getHexcolor(),
             'engineMileage' => $car->getEnginemileage(),
             'imgPath' => $car->getImgpath(),
             'creationDate' => $car->getCreationdate(),
@@ -92,12 +99,15 @@ class CarController extends AbstractController
 
         $car = new Car();
         $car->setIduser($user[0])
+            ->setIdcargroup($data['idCarGroup'])
+            ->setIspublic(0)
             ->setName($data['name'])
             ->setMark($data['mark'])
             ->setModel($data['model'])
-            ->setColor($data['color'])
+            ->setYear($data['year'])
+            ->setHexcolor($data['hexColor'])
             ->setEnginemileage($data['engineMileage'])
-            ->setImgpath('img/car/car-default.png')
+            ->setIdavatarfile(1)
             ->setCreationdate(new \DateTime());
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -106,6 +116,16 @@ class CarController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'New car created'], 200);
+    }
+
+    public function update(int $id)
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) $this->json(['message' => 'No access'], 400);
+        $entityManager = $this->getDoctrine()->getManager();
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+        if($_SESSION['idUser'] != $car->getIduser()->getId()) return $this->json(['message' => 'No access to car'], 400);
+        if(!$user) return $this->json(['message' => 'User not exist'], 400);
     }
 
     /**
