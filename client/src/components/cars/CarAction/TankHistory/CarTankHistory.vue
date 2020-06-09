@@ -41,7 +41,7 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`http://marcin.innome.pl:8000/tank_history/`, requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/tank_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           this.tankHistory = result;

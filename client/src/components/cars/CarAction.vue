@@ -1,12 +1,12 @@
 <template>
   <div id="car-action">
-      <div class="localization-history">
+      <div class="history-container">
           <CarLocalizationHistory v-bind:actualCar="actualCar"/>
       </div>
-      <div class="tank-history">
+      <div class="history-container">
           <CarTankHistory v-bind:actualCar="actualCar"/>
       </div>
-      <div class="repair-history">
+      <div class="history-container">
           <CarRepairHistory v-bind:actualCar="actualCar"/>
       </div>
   </div>
@@ -36,33 +36,10 @@ export default {
   height: 100%;
 }
 
-.localization-history {
+.history-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: 90%;
-    background: rgb(36, 36, 36);
-    border-radius: 5px;
-    margin: 10px;
-}
-
-.tank-history {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    height: 90%;
-    background: rgb(36, 36, 36);
-    border-radius: 5px;
-    margin: 10px;
-}
-
-.repair-history {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
     height: 90%;
     background: rgb(36, 36, 36);
     border-radius: 5px;

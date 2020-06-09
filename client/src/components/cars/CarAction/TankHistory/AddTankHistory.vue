@@ -94,7 +94,7 @@ export default {
                 credentials: 'include'
             };
 
-            fetch("http://marcin.innome.pl:8000/tank_history/create", requestOptions)
+            fetch(`${process.env.VUE_APP_API_URL}/tank_history/create`, requestOptions)
             .then(response => response.json())
             .then((result) => {
               alert(result.message);

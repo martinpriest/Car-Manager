@@ -25,7 +25,7 @@ export default {
           credentials: 'include'
         };
 
-        fetch("http://marcin.innome.pl:8000/petrol_types/", requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/petrol_types/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           this.petrolTypes = result;

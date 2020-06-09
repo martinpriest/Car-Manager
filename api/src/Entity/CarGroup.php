@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CarGroup
  *
- * @ORM\Table(name="car_group")
+ * @ORM\Table(name="car_group", indexes={@ORM\Index(name="idUser", columns={"idUser"})})
  * @ORM\Entity
  */
 class CarGroup
@@ -20,13 +20,6 @@ class CarGroup
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="idUser", type="integer", nullable=true)
-     */
-    private $iduser;
 
     /**
      * @var string
@@ -49,21 +42,19 @@ class CarGroup
      */
     private $creationdate = 'CURRENT_TIMESTAMP';
 
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
+     * })
+     */
+    private $iduser;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIduser(): ?int
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?int $iduser): self
-    {
-        $this->iduser = $iduser;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -98,6 +89,18 @@ class CarGroup
     public function setCreationdate(\DateTimeInterface $creationdate): self
     {
         $this->creationdate = $creationdate;
+
+        return $this;
+    }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\User;
+use App\Entity\CarGroup;
 use App\Entity\File;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Return_;
@@ -80,6 +81,13 @@ class UserController extends AbstractController
             ->setCreationdate(new \DateTime());
 
         $entityManager->persist($user);
+        
+        $carGroup = new CarGroup();
+        $carGroup->setName("Default group")
+                ->setIduser($user)
+                ->setCreationdate(new \DateTime());
+
+        $entityManager->persist($carGroup);
         $entityManager->flush();
 
         return $this->json(['message' => 'Account created.'], 201);

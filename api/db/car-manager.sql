@@ -65,7 +65,8 @@ CREATE TABLE `car_group` (
   `name` varchar(32) NOT NULL DEFAULT "Default car group",
   `menuPosition` int(11) NOT NULL DEFAULT 1,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`idUser`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 -- --------------------------------------------------------
 

@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
-use App\Entity\User;
-use App\Entity\Car;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\Car;
+use App\Entity\User;
+use App\Entity\CarGroup;
+use App\Entity\File;
 
 /**
  * @Route("/car")
@@ -23,12 +25,10 @@ class CarController extends AbstractController
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
-
-        $cars = $this->getDoctrine()->getRepository(Car::class)
-        ->findByIduser($_SESSION['idUser']);
-
-        if(isset($data['onlyPublic']) && $data['onlyPublic'] == true) $cars->findBy(['isPublic' => true]);
-        if(isset($data['idCarGroup'])) $cars->findBy(['idCarGroup' => $data['idCarGroup']]);
+        // TODO: zamienic te ify na tablice kryterii i tylko raz wyszukiwac
+        if(!isset($data['onlyPublic']) && !isset($_GET['idCarGroup'])) $cars = $this->getDoctrine()->getRepository(Car::class)->findByIduser($_SESSION['idUser']);
+        if(isset($_GET['onlyPublic']) && $_GET['onlyPublic'] == 1) $cars = $this->getDoctrine()->getRepository(Car::class)->findBy(['ispublic' => true]);
+        else if(isset($_GET['idCarGroup'])) $cars = $this->getDoctrine()->getRepository(Car::class)->findBy(['idcargroup' => intval($_GET['idCarGroup'])]);
 
         if(!$cars) return $this->json(['message' => 'No cars added'], 200);
 
@@ -36,6 +36,7 @@ class CarController extends AbstractController
         foreach($cars as $car) {
             array_push($response, [
                 'id' => $car->getId(),
+                'idCarGroup' => $car->getIdcargroup()->getId(),
                 'name' => $car->getName(),
                 'isPublic' => $car->getIspublic(),
                 'mark' => $car->getMark(),
@@ -43,7 +44,7 @@ class CarController extends AbstractController
                 'year' => $car->getYear(),
                 'hexColor' => $car->getHexcolor(),
                 'engineMileage' => $car->getEnginemileage(),
-                'imgPath' => $car->getImgpath(),
+                'idAvatarFile' => $car->getIdavatarfile()->getId(),
                 'creationDate' => $car->getCreationdate(),
                 'purchaseDate' => $car->getPurchasedate()
             ]);
@@ -68,6 +69,7 @@ class CarController extends AbstractController
 
         $response = [
             'id' => $car->getId(),
+            'idCarGroup' => $car->getIdcargroup()->getId(),
             'mark' => $car->getMark(),
             'name' => $car->getName(),
             'isPublic' => $car->getIspublic(),
@@ -97,9 +99,15 @@ class CarController extends AbstractController
         
         $data = json_decode($request->getContent(), true);
 
+        $carGroup = $this->getDoctrine()->getRepository(CarGroup::class)
+         ->find($data['idCarGroup']);
+
+        $avatarFile = $this->getDoctrine()->getRepository(File::class)
+         ->find(2);
+
         $car = new Car();
         $car->setIduser($user[0])
-            ->setIdcargroup($data['idCarGroup'])
+            ->setIdcargroup($carGroup)
             ->setIspublic(0)
             ->setName($data['name'])
             ->setMark($data['mark'])
@@ -107,7 +115,7 @@ class CarController extends AbstractController
             ->setYear($data['year'])
             ->setHexcolor($data['hexColor'])
             ->setEnginemileage($data['engineMileage'])
-            ->setIdavatarfile(1)
+            ->setIdavatarfile($avatarFile)
             ->setCreationdate(new \DateTime());
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -121,7 +129,7 @@ class CarController extends AbstractController
     /**
      * @Route("/{idCar}", methods={"PUT"}, name="car_update")
      */
-    public function update(int $id)
+    public function update(Request $request, int $idCar)
     {
         session_start();
         $data = json_decode($request->getContent(), true);

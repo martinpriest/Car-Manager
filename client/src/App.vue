@@ -3,7 +3,7 @@
     <div
       v-show="this.loginStatus"
       id="main-nav"
-      class="navbar navbar-expand-lg navbar-light bg-light text-light"
+      class="navbar navbar-expand-lg navbar-light bg-light text-light justify-content-center"
     >
       <nav>
         <button
@@ -113,6 +113,7 @@ body {
   height: 100%;
   padding: 0px;
   margin: 0px;
+  background: black;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -146,8 +147,11 @@ body {
 .view {
   height: calc(100% - 54px);
   width: 100%;
+  max-width: 1600px;
+  background: black;
+  display: flex;
+  margin: 0 auto;
 }
-
 
 ::-webkit-scrollbar {
   width: 10px;

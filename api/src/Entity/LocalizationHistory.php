@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LocalizationHistory
  *
- * @ORM\Table(name="localization_history", indexes={@ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idEndAddress", columns={"idEndAddress"}), @ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idStartAddress", columns={"idStartAddress"})})
+ * @ORM\Table(name="localization_history", indexes={@ORM\Index(name="idCar", columns={"idCar"}), @ORM\Index(name="idStartAddress", columns={"idStartAddress"}), @ORM\Index(name="idUser", columns={"idUser"}), @ORM\Index(name="idEndAddress", columns={"idEndAddress"})})
  * @ORM\Entity
  */
 class LocalizationHistory
