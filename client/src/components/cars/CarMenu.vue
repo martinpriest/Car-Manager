@@ -1,11 +1,21 @@
 <template>
-<div class="w-100">
-    <ul class="car-list">
-        <li class="car-list-element w-100" v-for="car in cars" :key ="car.id" v-on:click="pickCar(car.id)">
-            <span>{{car.name}}</span>
-        </li>
-    </ul>
-    <button class="btn btn-success w-75" id="addCar" @click="addCar = true">Add Car</button>
+<div class="car-profile-box">
+<b-container class="bv-example-row">
+    <b-row>
+        <b-col>
+            <b-dropdown id="dropdown-left" text="Choose car" variant="primary" class="m-2" menu-class="w-100">
+                <b-dropdown-item class="menu-item" v-for="car in cars" :key ="car.id" v-on:click="pickCar(car.id, car.name)">{{car.name}}</b-dropdown-item>
+            </b-dropdown>
+        </b-col>
+    <b-col>
+        <button class="btn btn-success w-100" id="addCar" @click="addCar = true">Add Car</button>
+    </b-col>
+  </b-row>
+</b-container>
+
+    
+
+    
 
     <AddCarModal v-if="addCar" @close="addCar = false">
         <h3 slot="header">Add new car</h3>
@@ -30,31 +40,13 @@ export default {
         }
     },
     methods: {
-        pickCar(car) {
+        pickCar(car, name) {
             this.$emit("carId", car);
+            document.querySelector("#dropdown-left__BV_toggle_").textContent = name;
         }
     }
 }
 </script>
 
 <style>
-    .car-list {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        list-style-position: inside;
-    }
-
-    .car-list-element {
-        padding-top: 10px;
-        border-bottom: 1px solid black;
-    }
-
-    .car-list-element:hover {
-        padding-top: 10px;
-        border-bottom: 3px solid black;
-        color: blanchedalmond;
-        cursor: pointer;
-    }
 </style>

@@ -1,51 +1,37 @@
 <template>
   <div id="app">
-    <div
-      v-show="this.loginStatus"
-      id="main-nav"
-      class="navbar navbar-expand-lg navbar-light bg-light text-light justify-content-center"
-    >
-      <nav>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav text-light">
-            <router-link to="/dashboard">
-              <img class="menu-icon" src="./assets/menu-icon/dashboard-view.svg" alt="">
-              <a class="nav-item nav-link active" href="#dashboard">
-                Dashboard
-                <span class="sr-only">(current)</span>
-              </a>
-            </router-link>
-            <router-link to="/cars">
-              <img class="menu-icon" src="./assets/menu-icon/car-view.svg" alt="">
-              <a class="nav-item nav-link" href="#cars">Cars</a>
-            </router-link>
-            <router-link to="/reports">
-              <img class="menu-icon" src="./assets/menu-icon/report-view.svg" alt="">
-              <a class="nav-item nav-link disabled" href="#reports">Reports</a>
-            </router-link>
-            <router-link to="/setting">
-              <img class="menu-icon" src="./assets/menu-icon/setting-view.svg" alt="">
-              <a class="nav-item nav-link" href="#setting">Setting</a>
-            </router-link>
-            <router-link to="/">
-              <img class="menu-icon" src="./assets/menu-icon/logout-view.svg" alt="">
-              <a class="nav-item nav-link" href="#" v-on:click="logout()">Logout</a>
-            </router-link>
-          </div>
-        </div>
-      </nav>
-    </div>
+
+<div>
+  <b-navbar v-if="this.loginStatus" toggleable="lg" type="dark" variant="dark">
+    <b-navbar-brand href="#">CarManager</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <router-link to="/dashboard"><b-nav-item href="#dashboard">Dashboard</b-nav-item></router-link>
+        <router-link to="/cars"><b-nav-item href="#cars">
+              <img class="menu-icon" src="./assets/menu-icon/car-view.svg" alt="">Cars</b-nav-item></router-link>
+        <router-link to="/reports"><b-nav-item href="#" disabled>Reports</b-nav-item></router-link>
+        <router-link to="/shared-car"><b-nav-item href="#" disabled>Shared cars</b-nav-item></router-link>
+
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template v-slot:button-content>
+            <em>User</em>
+          </template>
+          <router-link to="/setting"><b-dropdown-item href="#setting">Profile</b-dropdown-item></router-link>
+          <router-link to="/"><b-dropdown-item href="#logout" v-on:click="logout()">Logout</b-dropdown-item></router-link>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 
     <div class="view">
       <router-view />
@@ -59,6 +45,7 @@ export default {
   components: {},
   data: function() {
     return {
+      isMobile: false,
       loginStatus: false
     };
   },
@@ -75,6 +62,9 @@ export default {
         let login = data.status;
         if (!login) {
           this.loginStatus = false;
+          this.$router.push({ path: "/" }).catch(err => {
+            console.log(err);
+          });
           alert("Nie zalogowales sie");
           return false;
         } else {
@@ -110,6 +100,7 @@ export default {
 
 <style>
 body {
+  width: 100%;
   height: 100%;
   padding: 0px;
   margin: 0px;
@@ -122,7 +113,6 @@ body {
   text-align: center;
   background: rgb(80, 77, 77);
   width: 100%;
-  height: 100%;
   padding: 0px;
   margin: 0px;
   display: flex;

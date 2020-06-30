@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-hover table-bordered table-dark w-100 overflow-auto m-auto" v-if="tankHistory.length">
+    <table class="table table-hover table-bordered table-dark w-75 overflow-auto m-auto" v-if="tankHistory.length">
       <thead>
         <tr>
           <th>Gdzie</th>

@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\LocalizationHistory;
 use App\Entity\Car;
+use App\Entity\User;
+use App\Entity\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,10 +37,10 @@ class LocalizationHistoryController extends AbstractController
             array_push($response, [
                 'id' => $record->getId(),
                 'idCar' => $record->getIdCar()->getId(),
-                'startLocalizationLink' => $record->getStartlocalizationlink(),
-                'endLocalizationLink' => $record->getEndlocalizationlink(),
-                'startLocalizationName' => $record->getStartlocalizationname(),
-                'endLocalizationName' => $record->getEndlocalizationname(),
+                'startLat' => $record->getIdstartaddress()->getLat(),
+                'startLng' => $record->getIdstartaddress()->getLng(),
+                'endLat' => $record->getIdendaddress()->getLat(),
+                'endLng' => $record->getIdendaddress()->getLng(),
                 'distance' => $record->getDistance(),
                 'description' => $record->getDescription(),
                 'date' => $record->getDate()
@@ -59,18 +61,18 @@ class LocalizationHistoryController extends AbstractController
         $localizationHistory = $this->getDoctrine()->getRepository(LocalizationHistory::class)->find($id);
         
         if(!$localizationHistory) return $this->json(['message' => 'No localization history records'], 200);
-        if($localizationHistory->getIduser() != $_SESSION['idUser']) return $this->json(['message' => 'No access to localization history'], 400);
+        if($localizationHistory->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to localization history'], 400);
 
         $response = [
-                'id' => $localizationHistory->getId(),
-                'idCar' => $localizationHistory->getIdCar()->getId(),
-                'startLocalizationLink' => $localizationHistory->getStartlocalizationlink(),
-                'endLocalizationLink' => $localizationHistory->getEndlocalizationlink(),
-                'startLocalizationName' => $localizationHistory->getStartlocalizationname(),
-                'endLocalizationName' => $localizationHistory->getEndlocalizationname(),
-                'distance' => $localizationHistory->getDistance(),
-                'description' => $localizationHistory->getDescription(),
-                'date' => $localizationHistory->getDate()
+            'id' => $localizationHistory->getId(),
+            'idCar' => $localizationHistory->getIdCar()->getId(),
+            'startLat' => $localizationHistory->getIdstartaddress()->getLat(),
+            'startLng' => $localizationHistory->getIdstartaddress()->getLng(),
+            'endLat' => $localizationHistory->getIdendaddress()->getLat(),
+            'endLng' => $localizationHistory->getIdendaddress()->getLng(),
+            'distance' => $localizationHistory->getDistance(),
+            'description' => $localizationHistory->getDescription(),
+            'date' => $localizationHistory->getDate()
         ];
 
         return $this->json($response, 200);
@@ -91,13 +93,23 @@ class LocalizationHistoryController extends AbstractController
         $car = $this->getDoctrine()->getRepository(Car::class)->find($data['idCar']);
         if($car->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to cost history with this id'], 400);
 
+        $user = $this->getDoctrine()->getRepository(User::class)->find($_SESSION['idUser']);
+
+        $startAddress = new Address();
+        $startAddress->setLat($data['startLat'])
+                    ->setLng($data['startLng']);
+        $entityManager->persist($startAddress);
+        
+        $endAddress = new Address();
+        $endAddress->setLat($data['endLat'])
+                    ->setLng($data['endLng']);
+        $entityManager->persist($endAddress);
+
         $localizationHistory = new LocalizationHistory();
         $localizationHistory->setIdcar($car)
-                            ->setIduser($_SESSION['idUser'])
-                            ->setStartlocalizationlink($data['startLocalizationLink'])
-                            ->setEndlocalizationlink($data['endLocalizationLink'])
-                            ->setStartlocalizationname($data['startLocalizationName'])
-                            ->setEndlocalizationname($data['endLocalizationName'])
+                            ->setIduser($user)
+                            ->setIdstartaddress($startAddress)
+                            ->setIdendaddress($endAddress)
                             ->setDate(new \DateTime($data['date']))
                             ->setDistance($data['distance'])
                             ->setDescription($data['description']);

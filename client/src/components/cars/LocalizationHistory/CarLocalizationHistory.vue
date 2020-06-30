@@ -1,5 +1,5 @@
 <template>
-  <div class="localization-history">
+  <div class="car-profile-box">
       <span>Localization History</span>
       <div class="action-table">
       <LocalizationHistoryTable v-bind:localizationHistory="localizationHistory"/>
@@ -17,7 +17,7 @@ export default {
     components: {
         LocalizationHistoryTable, AddLocalizationHistory
     },
-    created: function() {
+    beforeCreated: function() {
         var json = {
           idCar: this.actualCar
         };
@@ -71,16 +71,4 @@ export default {
 </script>
 
 <style>
-
-  .localization-history {
-    
-    color: white;
-    height: 100%;
-    overflow: auto;
-  }
-
-  .action-table {
-    height: 80%;
-    overflow: auto;
-  }
 </style>

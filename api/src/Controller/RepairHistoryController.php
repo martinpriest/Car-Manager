@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\RepairHistory;
 use App\Entity\Car;
+use App\Entity\User;
 use App\Entity\CostHistory;
 use App\Entity\CostTypes;
 use Doctrine\ORM\EntityManagerInterface;
@@ -84,10 +85,11 @@ class RepairHistoryController extends AbstractController
 
         $costType = $this->getDoctrine()->getRepository(CostTypes::class)->find(1);
 
+        $user = $this->getDoctrine()->getRepository(User::class)->find($_SESSION['idUser']);
         $costHistory = new CostHistory();
-        $costHistory->setIduser($_SESSION['idUser'])
+        $costHistory->setIduser($user)
                     ->setIdcosttype($costType)
-                    ->setIdcar($data['idCar'])
+                    ->setIdcar($car)
                     ->setFactureimagepath("img/default.jpg")
                     ->setAmount($data['amount'])
                     ->setCurrency($data['currency'])
@@ -99,7 +101,7 @@ class RepairHistoryController extends AbstractController
         $entityManager->persist($costHistory);
 
         $repairHistory = new RepairHistory();
-        $repairHistory->setIduser($_SESSION['idUser'])
+        $repairHistory->setIduser($user)
                     ->setIdcar($car)
                     ->setDescription($data['description'])
                     ->setIdfacture($costHistory)

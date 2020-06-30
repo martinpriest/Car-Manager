@@ -23,7 +23,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background: url("./../assets/tlo.jpg") no-repeat center top;
+  background: black;
   background-size: cover;
   font-family: sans-serif;
   height: 100vh;

@@ -126,7 +126,7 @@ class UserController extends AbstractController
         return $this->json(['message' => 'User deleted'], 200);
     }
     /**
-     * @Route("/edit", methods={"PUT"}, name="update")
+     * @Route("/", methods={"PUT"}, name="update")
      */
     public function update(Request $request)
     {

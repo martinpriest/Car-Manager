@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Car;
 use App\Entity\CostHistory;
+use App\Entity\User;
 use App\Entity\CostTypes;
 use App\Entity\PetrolTypes;
 use App\Entity\TankHistory;
@@ -30,9 +31,10 @@ class TankHistoryController extends AbstractController
         $costType = $this->getDoctrine()->getRepository(CostTypes::class)->find(2);
         $petrolType = $this->getDoctrine()->getRepository(PetrolTypes::class)->find($data['idPetrolType']);
 
+        $user = $this->getDoctrine()->getRepository(User::class)->find($_SESSION['idUser']);
         $facture = new CostHistory();
-        $facture->setIdcar($data['idCar'])
-                ->setIduser($_SESSION['idUser'])
+        $facture->setIdcar($car)
+                ->setIduser($user)
                 ->setIdcosttype($costType)
                 ->setExchangerate($data['exchangeRate'])
                 ->setCurrency($data['currency'])
@@ -45,7 +47,7 @@ class TankHistoryController extends AbstractController
         
         $tankHistory = new TankHistory();
         $tankHistory->setIdcar($car)
-                    ->setIduser($_SESSION['idUser'])
+                    ->setIduser($user)
                     ->setIdpetroltype($petrolType)
                     ->setPetrolstation($data['petrolStation'])
                     ->setDate(new \DateTime($data['date']))
@@ -78,7 +80,7 @@ class TankHistoryController extends AbstractController
         foreach($tankHistory as $record) {
             array_push($response, [
                 'id' => $record->getId(),
-                'idUser' => $record->getIdUser(),
+                'idUser' => $record->getIdUser()->getId(),
                 'idCar' => $record->getIdCar()->getId(),
                 'idPetrolType' => $record->getIdpetroltype()->getId(),
                 'petrolStation' => $record->getPetrolstation(),
@@ -107,7 +109,7 @@ class TankHistoryController extends AbstractController
 
         $response = [
             'id' => $tankHistory->getId(),
-            'idUser' => $tankHistory->getIdUser(),
+            'idUser' => $tankHistory->getIdUser()->getId(),
             'idCar' => $tankHistory->getIdCar()->getId(),
             'idPetrolType' => $tankHistory->getIdpetroltype()->getId(),
             'petrolTypeName' => $tankHistory->getIdpetroltype()->getName(),

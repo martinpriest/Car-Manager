@@ -52,10 +52,12 @@ export default {
     methods: {
       addCar() {
          var json = {
+                idCarGroup: 1,
                 name: this.name,
                 mark: this.mark,
+                year: 2020,
                 model: this.model,
-                color: this.color,
+                hexColor: this.color,
                 engineMileage: parseInt(this.engineMileage)
             };
 
@@ -66,7 +68,7 @@ export default {
                 credentials: 'include'
             };
 
-            fetch(`${process.env.VUE_APP_API_URL}/car/create`, requestOptions)
+            fetch(`${process.env.VUE_APP_API_URL}/car/`, requestOptions)
             .then(response => response.json())
             .then((result) => {
               alert(result.message);

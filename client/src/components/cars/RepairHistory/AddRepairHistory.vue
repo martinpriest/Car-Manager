@@ -88,6 +88,7 @@ export default {
             .then(response => response.json())
             .then((result) => {
               alert(result.message);
+              this.repairHistory.push(json);
               this.$emit('close')
             })
             .catch(error => console.log('error', error));

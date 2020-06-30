@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Notification;
 use App\Entity\NotificationTypes;
 use App\Entity\Car;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,12 +88,13 @@ class NotificationController extends AbstractController
 
         $notificationType = $this->getDoctrine()->getRepository(NotificationTypes::class)->find($data['idNotificationType']);
 
+        $user = $this->getDoctrine()->getRepository(User::class)->find($_SESSION['idUser']);
         $notification = new Notification();
         $notification->setIdcar($car)
             ->setIdnotificationtype($notificationType)
             ->setDescription($data['description'])
             ->setNotificationdate(new \DateTime($data['date']))
-            ->setIduser($_SESSION['idUser'])
+            ->setIduser($user)
             ->setStatus(1);
 
         $entityManager->persist($notification);

@@ -14,12 +14,12 @@ use App\Entity\CarGroup;
 use App\Entity\File;
 
 /**
- * @Route("/car")
+ * @Route("/car", name="car_")
  */
 class CarController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="car_show")
+     * @Route("/", methods={"GET"}, name="show")
      */
     public function index()
     {
@@ -37,6 +37,7 @@ class CarController extends AbstractController
             array_push($response, [
                 'id' => $car->getId(),
                 'idCarGroup' => $car->getIdcargroup()->getId(),
+                'carGroupName' => $car->getIdcargroup()->getName(),
                 'name' => $car->getName(),
                 'isPublic' => $car->getIspublic(),
                 'mark' => $car->getMark(),
@@ -54,7 +55,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{idCar}", methods={"GET"}, name="car_showById")
+     * @Route("/{idCar}", methods={"GET"}, name="showById")
      */
     public function show(int $idCar)
     {
@@ -70,6 +71,7 @@ class CarController extends AbstractController
         $response = [
             'id' => $car->getId(),
             'idCarGroup' => $car->getIdcargroup()->getId(),
+            'carGroupName' => $car->getIdcargroup()->getName(),
             'mark' => $car->getMark(),
             'name' => $car->getName(),
             'isPublic' => $car->getIspublic(),
@@ -77,7 +79,6 @@ class CarController extends AbstractController
             'year' => $car->getYear(),
             'hexColor' => $car->getHexcolor(),
             'engineMileage' => $car->getEnginemileage(),
-            'imgPath' => $car->getImgpath(),
             'creationDate' => $car->getCreationdate(),
             'purchaseDate' => $car->getPurchasedate()
         ];
@@ -86,7 +87,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/create", methods={"POST"}, name="car_new")
+     * @Route("/", methods={"POST"}, name="create")
      */
     public function create(Request $request)
     {
@@ -127,29 +128,52 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{idCar}", methods={"PUT"}, name="car_update")
+     * @Route("/{idCar}", methods={"PUT"}, name="update")
      */
     public function update(Request $request, int $idCar)
     {
         session_start();
-        $data = json_decode($request->getContent(), true);
         if(!isset($_SESSION['idUser'])) $this->json(['message' => 'No access'], 400);
-        $entityManager = $this->getDoctrine()->getManager();
-        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($idCar);
         if($_SESSION['idUser'] != $car->getIduser()->getId()) return $this->json(['message' => 'No access to car'], 400);
-        if(!$user) return $this->json(['message' => 'User not exist'], 400);
+        if(!$car) return $this->json(['message' => 'Car not exist'], 400);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+
+        // update car group
+        if(isset($data['idCarGroup'])) {
+            $carGroup = $this->getDoctrine()->getRepository(CarGroup::class)->find($data['idCarGroup']);
+            if(!$carGroup) return $this->json(['message' => 'No car group'], 400);
+            if($carGroup->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to car group'], 400);
+            
+            $car->setIdcargroup($carGroup);
+        }
+        
+        if(isset($data['isPublic'])) $car->setIspublic($data['isPublic']);
+        if(isset($data['name'])) $car->setName($data['name']);
+        if(isset($data['mark'])) $car->setMark($data['mark']);
+        if(isset($data['model'])) $car->setModel($data['model']);
+        if(isset($data['year'])) $car->setYear($data['year']);
+        if(isset($data['hexColor'])) $car->setHexcolor($data['hexColor']);
+        if(isset($data['engineMileage'])) $car->setEnginemileage($data['engineMileage']);
+        
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Car updated']);
     }
 
     /**
-     * @Route("/{id}", methods={"DELETE"}, name="car_delete")
+     * @Route("/{idCar}", methods={"DELETE"}, name="delete")
      */
-    public function delete(int $id)
+    public function delete(int $idCar)
     {
         session_start();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
         $entityManager = $this->getDoctrine()->getManager();
 
-        $carToDelete =$this->getDoctrine()->getRepository(Car::class)->find($id);
+        $carToDelete =$this->getDoctrine()->getRepository(Car::class)->find($idCar);
 
         if(!$carToDelete) return $this->json(['message' => 'No car with this ID'], 404);
 

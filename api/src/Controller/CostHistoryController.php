@@ -58,7 +58,7 @@ class CostHistoryController extends AbstractController
                             'id' => $cost->getId(),
                             'idCostType' => $cost->getIdcosttype()->getId(),
                             'costType' =>  $cost->getIdcosttype()->getName(),
-                            'idCar' => $cost->getIdcar(),
+                            'idCar' => $cost->getIdcar()->getId(),
                             'factureImagePath' => $cost->getFactureimagepath(),
                             'amount' => $cost->getAmount(),
                             'currency' => $cost->getCurrency(),
@@ -94,7 +94,7 @@ class CostHistoryController extends AbstractController
             'id' => $cost->getId(),
             'idCostType' => $cost->getIdcosttype()->getId(),
             'costType' =>  $cost->getIdcosttype()->getName(),
-            'idCar' => $cost->getIdcar(),
+            'idCar' => $cost->getIdcar()->getId(),
             'factureImagePath' => $cost->getFactureimagepath(),
             'amount' => $cost->getAmount(),
             'currency' => $cost->getCurrency(),
@@ -120,12 +120,13 @@ class CostHistoryController extends AbstractController
         $car = $this->getDoctrine()->getRepository(Car::class)->find($data['idCar']);
         if($car->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to cost history with this id'], 400);
 
+        $user = $this->getDoctrine()->getRepository(User::class)->find($_SESSION['idUser']);
         $costType = $this->getDoctrine()->getRepository(CostTypes::class)->find($data['idCostType']);
 
         $costHistory = new CostHistory();
-        $costHistory->setIduser($_SESSION['idUser'])
+        $costHistory->setIduser($user)
                     ->setIdcosttype($costType)
-                    ->setIdcar($data['idCar'])
+                    ->setIdcar($car)
                     ->setFactureimagepath("img/default.jpg")
                     ->setAmount($data['amount'])
                     ->setCurrency($data['currency'])

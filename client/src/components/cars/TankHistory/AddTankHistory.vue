@@ -57,7 +57,7 @@ export default {
             date: "",
             fuelAmount: Number,
             priceAmount: Number,
-            description: "Default desc",
+            description: "Default description",
             showModal: false
         }
     },

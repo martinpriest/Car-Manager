@@ -1,31 +1,31 @@
 <template>
-  <div class="repair-history">
-      <span>Repair history</span>
+  <div class="car-profile-box">
+      <span>Tank history</span>
       <div class="action-table">
-        <RepairHistoryTable v-bind:repairHistory="repairHistory"/>
+      <TankHistoryTable v-bind:tankHistory="tankHistory"/>
       </div>
-      <AddRepairHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
-        <h3 slot="header">Add repair record</h3>
-      </AddRepairHistory>
-      <button class="btn btn-success w-50 m-auto" id="show-modal" @click="showModal = true">Add repair</button>
+      <AddTankHistory v-bind:actualCar="actualCar" v-if="showModal" @close="showModal = false">
+        <h3 slot="header">Add tank record</h3>
+      </AddTankHistory>
+      <button class="btn btn-success w-50 m-auto" id="show-modal" @click="showModal = true">Add tank</button>
   </div>
 </template>
 
 <script>
-import RepairHistoryTable from './RepairHistoryTable';
-import AddRepairHistory from './AddRepairHistory';
+import TankHistoryTable from './TankHistoryTable';
+import AddTankHistory from './AddTankHistory';
 
 export default {
-    name: 'CarRepairHistory',
+    name: 'CarTankHistory',
     components: {
-      RepairHistoryTable, AddRepairHistory
+      TankHistoryTable, AddTankHistory
     },
     props: {
       actualCar: Number
     },
     data: function() {
         return {
-            repairHistory: [],
+            tankHistory: [],
             showModal: false
         }
     },
@@ -41,10 +41,10 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`${process.env.VUE_APP_API_URL}/repair_history/`, requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/tank_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          this.repairHistory = result;
+          this.tankHistory = result;
         })
         .catch(error => console.log('error', error));
     },
@@ -61,10 +61,10 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`http://marcin.innome.pl:8000/repair_history/`, requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/tank_history/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          this.repairHistory = result;
+          this.tankHistory = result;
         })
         .catch(error => console.log('error', error));
       }
@@ -73,17 +73,17 @@ export default {
 </script>
 
 <style scoped>
-  .repair-history {
-    color: white;
-    height: 100%;
-    overflow: auto;
+  
 
+  .tank-history {
+    
+    color: white;
   }
+
   .action-table {
     width: 100%;
-    height: 80%;
-    overflow: auto;
   }
+  
   span {
     color: white;
   }

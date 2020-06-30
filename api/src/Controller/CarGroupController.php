@@ -88,6 +88,35 @@ class CarGroupController extends AbstractController
     }
 
     /**
+     * @Route("/{idCarGroup}", methods={"PUT"}, name="update")
+     */
+    public function update(Request $request, int $idCarGroup)
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
+
+        // check if car group belong to user
+        $entityManager = $this->getDoctrine()->getManager();
+        $carGroup = $this->getDoctrine()->getRepository(CarGroup::class)
+        ->find($idCarGroup);
+        if(!$carGroup) return $this->json(['message' => 'Car group not exist'], 400);
+        if($carGroup->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to car group'], 400);
+
+        // get request data
+        $data = json_decode($request->getContent(), true);
+        if(isset($data['name'])) {
+            if(empty($data['name'])) return $this->json(['message' => 'Car group name cannot be empty'], 400);
+            if($data['name'] == "Default car group") return $this->json(['message' => 'Wrong name'], 400);
+            $carGroup->setName($data['name']);
+        }
+        if(isset($data['menuPosition'])) $carGroup->setMenuposition($data['menuPosition']);
+
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Car group updated']);
+    }
+
+    /**
      * @Route("/{idCarGroup}", methods={"DELETE"}, name="delete")
      */
     public function delete(int $idCarGroup)
