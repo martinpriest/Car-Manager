@@ -6,10 +6,9 @@
     >
       <thead>
         <tr>
-          <th>Skąd</th>
-          <th>Do</th>
-          <th>Dystans</th>
-          <th>Kiedy</th>
+          <th>Description</th>
+          <th>Distance</th>
+          <th>Date</th>
         </tr>
       </thead>
 
@@ -19,10 +18,9 @@
           :key="record.id"
           :data-id-localization="record.id"
         >
-          <td>{{ record.startLocalizationName }}</td>
-          <td>{{ record.endLocalizationName }}</td>
+          <td>{{ record.description }}</td>
           <td>{{ record.distance }} km</td>
-          <td>{{ record.date.date }}</td>
+          <td>{{ record.date }}</td>
         </tr>
       </tbody>
     </table>

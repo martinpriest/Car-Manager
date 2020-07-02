@@ -1,14 +1,11 @@
 <template>
-  <div class="notification-box mx">
+  <div>
     <div v-if="showTable">
-        <b-table v-if="items.length" dark striped hover :items="items" :fields="fields"></b-table>
-
+      <b-table v-if="items.length" dark striped hover :items="items" :fields="fields"></b-table>
       <p v-else>No notification</p>
-      <b-button variant="success" @click="showNotificationForm">Add notification</b-button>
-
+      <b-button variant="success" @click="showAddNotificationForm">Add notification</b-button>
     </div>
-    <div v-if="showAddNotification">
-      <CarSelect @idCar="updateCar" class="mb-2 mt-2"/>
+    <div v-if="showNotificationForm">
       <NotificationTypeSelect @notificationType="updateNotification" />
       <!-- DESCRIPTION -->
       <b-row class="pt-1">
@@ -21,64 +18,88 @@
       </b-row>
       <b-form-input v-model="addNotificationForm.date" type="date" placeholder></b-form-input>
       <b-button variant="success" @click="addNotification">Add notification</b-button>
-
     </div>
   </div>
 </template>
 
 <script>
 import NotificationTypeSelect from "../reusable/NotificationTypeSelect";
-import CarSelect from "../reusable/CarSelect";
 export default {
-  name: "Notification",
+  name: "NotificationTable",
   components: {
-    NotificationTypeSelect, CarSelect
+    NotificationTypeSelect
   },
   props: {
-    cars: Array
+    actualCar: Number
   },
-  data: function() {
+  data() {
     return {
       showTable: true,
-      showAddNotification: false,
+      showNotificationForm: false,
       items: [],
+      fields: [
+        { key: "carName", sortable: true },
+        { key: "notificationType", sortable: true },
+        { key: "notificationDate", sortable: true }
+      ],
       addNotificationForm: {
         idCar: 1,
         idNotificationType: 1,
         date: "01-01-2020",
         description: "Default description"
-      },
-            fields: [
-                {key: 'carName', sortable: true },
-                {key: 'notificationType', sortable: true },
-                {key: 'notificationDate', sortable: true }
-            ],
+      }
     };
   },
   created: function() {
+    var json = {
+      idCar: this.actualCar
+    };
+
     var requestOptions = {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify(json),
       redirect: "follow",
       credentials: "include"
     };
 
-    fetch(`${process.env.VUE_APP_API_URL}/notification/recent`, requestOptions)
+    fetch(`${process.env.VUE_APP_API_URL}/notification/`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        result.forEach((element) => {
-                    this.items.push(element)
-                })
+        result.forEach(element => {
+          this.items.push(element);
+        });
       })
       .catch(error => console.log("error", error));
   },
-  methods: {
-    showNotificationForm() {
-      this.showTable = false;
-      this.showAddNotification = true;
-    },
-    addNotification() {
+  watch: {
+    actualCar: function() {
+      var json = {
+        idCar: this.actualCar
+      };
 
       var requestOptions = {
+        method: "POST",
+        body: JSON.stringify(json),
+        redirect: "follow",
+        credentials: "include"
+      };
+
+      fetch(`${process.env.VUE_APP_API_URL}/notification/`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          this.items = [];
+          result.forEach(element => {
+            this.items.push(element);
+          });
+        })
+        .catch(error => console.log("error", error));
+    }
+  },
+  methods: {
+      addNotification() {
+
+        this.addNotificationForm.idCar = this.actualCar;
+          var requestOptions = {
         method: "POST",
         body: JSON.stringify(this.addNotificationForm),
         redirect: "follow",
@@ -93,26 +114,22 @@ export default {
         .then(result => {
           alert(result.message);
           this.showTable = true;
-          this.showAddNotification = false;
+          this.showNotificationForm = false;
         })
         .catch(() => {
           alert("Cos nie poszlo");
         });
+      },
+    showAddNotificationForm() {
+      this.showTable = false;
+      this.showNotificationForm = true;
     },
     updateNotification: function(notificationType) {
-      console.log(`W FUNKCJI: ${notificationType}`);
       this.addNotificationForm.idNotificationType = parseInt(notificationType);
     },
-    updateCar: function(car) {
-      console.log(`W FUNKCJI idCar: ${car}`);
-      this.addNotificationForm.idCar = parseInt(car);
-    }
   }
 };
 </script>
 
 <style>
-.notification-box {
-  color: #fff;
-}
 </style>

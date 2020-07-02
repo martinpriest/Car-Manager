@@ -1,30 +1,48 @@
 <template>
-  <div id="cars">
-    <div class="car-menu">
-      <CarMenu v-bind:cars="cars" @carId="updateCarId"/>
-    </div>
-    
-  <b-tabs content-class="mt-3" class="car-profile-box">
+
+<div class="mx-auto">
+<b-container>
+  <!-- CAR MENU -->
+  <b-row class="mt-2" style="max-height: 60px;">
+    <b-col cols="12">
+      <CarMenu v-bind:cars="cars" @carId="updateCarId" :actualCar="actualCar"/>
+    </b-col>
+  </b-row>
+  <!-- CAR TABS -->
+  <b-row class="pt-3">
+    <b-col>
+
+  <b-tabs content-class="mt-3" fill class="car-profile-box">
     <b-tab title="Profile" active>
-      <div class="car-profile">
-        <CarProfile v-bind:actualCar="actualCar"/>
+      <div class="m-3">
+        <CarProfile car-groups="carGroups" v-bind:actualCar="actualCar"/>
       </div>
     </b-tab>
     <b-tab title="Map">
       <div class="car-map">
-          <GoogleMap/>
+          <GoogleMap v-bind:actualCar="actualCar"/>
         </div>
     </b-tab>
-    <b-tab title="Localization">
+    <b-tab title="Localization" class="m-3">
       <CarLocalizationHistory v-bind:actualCar="actualCar"/>
     </b-tab>
-    <b-tab title="Repair history">
+    <b-tab title="Repair" class="m-3">
       <CarRepairHistory v-bind:actualCar="actualCar"/>
     </b-tab>
-    <b-tab title="Tank history">
+    <b-tab title="Tank" class="m-3">
       <CarTankHistory v-bind:actualCar="actualCar"/>
     </b-tab>
+    <b-tab title="Notification" class="m-3">
+      <NotificationTable v-bind:actualCar="actualCar"/>
+    </b-tab>
   </b-tabs>
+
+
+    </b-col>
+  </b-row>
+</b-container>
+    
+  
     </div>
 </template>
 
@@ -35,17 +53,18 @@ import GoogleMap from './../components/cars/GoogleMap'
 import CarLocalizationHistory from './../components/cars/LocalizationHistory/CarLocalizationHistory'
 import CarRepairHistory from './../components/cars/RepairHistory/CarRepairHistory'
 import CarTankHistory from './../components/cars/TankHistory/CarTankHistory'
+import NotificationTable from './../components/cars/NotificationTable'
 
 export default {
     name: 'Cars',
     components: {
-      CarMenu, CarProfile, GoogleMap, CarLocalizationHistory, CarRepairHistory, CarTankHistory
+      CarMenu, CarProfile, GoogleMap, CarLocalizationHistory, CarRepairHistory, CarTankHistory, NotificationTable
     },
     data: function() {
       return {
         cars: [],
         carGroups: [],
-        actualCar: 1
+        actualCar: null
       }
     },
     created: function() {
@@ -65,10 +84,11 @@ export default {
         })
         .catch(error => console.log('error', error));
 
-        fetch(`${process.env.VUE_APP_API_URL}/car_group`, requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/car_group/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
           this.carGroups = result;
+          console.log(`Actual car groups: ${this.carGroups}`)
         })
         .catch(error => console.log('error', error));
       },
@@ -81,73 +101,21 @@ export default {
 </script>
 
 <style>
-
   #cars {
     display: grid;
-    grid-auto-rows: auto;
-    grid-template-columns: 1fr;
     width: 100%;
+
   }
-.car-view-box {
-  display: grid;
-  background: rgb(36, 36, 36);;
-}
-
-.car-profile-box {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-    background: rgb(36, 36, 36);
-    border-radius: 5px;
-    margin: 10px;
-}
-
-
-    .car-list {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    background: olive;
-        list-style-type: none;
-        list-style-position: inside;
-    }
-
-    .car-list-element {
-        padding-top: 10px;
-        border-bottom: 1px solid black;
-    }
-
-    .car-list-element:hover {
-        padding-top: 10px;
-        border-bottom: 3px solid black;
-        color: blanchedalmond;
-        cursor: pointer;
-    }
-
   .car-map {
     width: 100%;
-    height: 300px;
-  }
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 120px) 
-and (max-device-width : 480px) {
-
-  .car-menu {
-    display: flex;
-    color: white;
-    font-size: 16px;
-    width: 100%;
-    border-right: black solid 4px;
+    height: 400px;
   }
 
 .car-profile-box {
     color: #fff;
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: 90%;
+    height: 100%;
     background: rgb(36, 36, 36);
     border-radius: 5px;
     margin: auto;
@@ -171,14 +139,7 @@ and (max-device-width : 480px) {
     border-radius: 5px;
     margin: 10px;
 }
-}
-
 @media all and (max-width: 480px) {
-  #cars {
-    display: grid;
-    width: 100%;
-
-  }
 }
 @media all and (min-width: 480px) and (max-width: 768px) { }
 @media all and (min-width: 768px) and (max-width: 1024px) { }

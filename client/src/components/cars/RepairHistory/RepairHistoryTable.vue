@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr v-for="repair in repairHistory" :key="repair.id">
-          <td>{{ repair.date.date }}</td>
+          <td>{{ repair.date }}</td>
           <td>{{ repair.description }}</td>
         </tr>
       </tbody>

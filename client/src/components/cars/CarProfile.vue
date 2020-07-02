@@ -1,15 +1,96 @@
 <template>
-  <div class="car-profile-box">
-    <p>
-      <img src="./../../assets/car-default.svg" alt="Car image" />
-    </p>
-    <p>Name: {{ carName }}</p>
-    <p>Make: {{ carMake }}</p>
-    <p>Model: {{ carModel }}</p>
-    <p>Color: {{ carColor }}</p>
-    <p>Mileage: {{ carMileage }} km</p>
-    <p>Car group: {{ carGroup }}</p>
-    <button class="btn btn-success">Add notification</button>
+  <div>
+    <b-container>
+      <b-form @change="onChange" @submit="onSubmit" @reset="onReset" v-if="show">
+        <!-- CAR IMAGE -->
+        <b-row class="pt-1">
+          <b-col cols="12">
+            <img src="./../../assets/car-default.svg" alt="Car image" />
+          </b-col>
+        </b-row>
+        <!-- CAR NAME -->
+        <b-row class="pt-1">
+          <b-col cols="4">Name:</b-col>
+          <b-col cols="8">
+            <b-form-input id="car-profile-name" v-model="name">{{name}}</b-form-input>
+          </b-col>
+        </b-row>
+        <!-- MARK -->
+        <b-row class="pt-1">
+          <b-col cols="4">Mark:</b-col>
+          <b-col cols="8">
+            <b-form-input id="car-profile-mark" v-model="mark">{{mark}}</b-form-input>
+          </b-col>
+        </b-row>
+        <!-- MODEL -->
+        <b-row class="pt-1">
+          <b-col cols="4">Model:</b-col>
+          <b-col cols="8">
+            <b-form-input id="car-profile-model" v-model="model">{{model}}</b-form-input>
+          </b-col>
+        </b-row>
+        <!-- YEAR -->
+        <b-row class="pt-1">
+          <b-col cols="4">Year:</b-col>
+          <b-col cols="8">
+            <b-form-input id="car-profile-year" v-model="year" type="number">{{year}}</b-form-input>
+          </b-col>
+        </b-row>
+        <!-- Car group: -->
+        <b-row class="pt-1">
+          <b-col cols="4">Car group:</b-col>
+          <b-col cols="8">
+            <b-form-select
+              placeholder="Choose group"
+              v-model="this.$parent.carGroups"
+              :options="carGroupOptions"
+            ></b-form-select>
+          </b-col>
+        </b-row>
+        <!-- ENGINE MILEAGE -->
+        <b-row class="pt-1">
+          <b-col cols="4">Mileage:</b-col>
+          <b-col cols="8">
+            <b-form-input
+              id="car-profile-engine-mileage"
+              v-model="engineMileage"
+              type="number"
+            >{{year}}</b-form-input>
+          </b-col>
+        </b-row>
+        <!-- COLOR -->
+        <b-row class="pt-1">
+          <b-col cols="4">Color:</b-col>
+          <b-col cols="8">
+            <b-form-input id="car-profile-hex-color" v-model="hexColor" type="color"></b-form-input>
+          </b-col>
+        </b-row>
+        <!-- PUBLIC STATUS -->
+        <b-row class="pt-1">
+          <b-col cols="4">Public:</b-col>
+          <b-col cols="8">
+            <b-form-checkbox
+              id="car-profile-is-public"
+              v-model="isPublic"
+              name="car-profile-is-public"
+            ></b-form-checkbox>
+          </b-col>
+        </b-row>
+        <b-row class="pt-1">
+          <b-col cols="6">
+            <b-button
+              id="edit-profile-button"
+              variant="success"
+              v-if="showEditButton"
+              @click="editCar"
+            >Change</b-button>
+          </b-col>
+          <b-col cols="6">
+            <b-button type="reset" variant="danger" v-if="showEditButton">Reset</b-button>
+          </b-col>
+        </b-row>
+      </b-form>
+    </b-container>
   </div>
 </template>
 
@@ -18,20 +99,92 @@ export default {
   name: "CarProfile",
   data: function() {
     return {
-      carName: "",
-      carMake: "",
-      carModel: "",
-      carColor: "",
-      carMileage: "",
-      carImageUrl: "",
-      carGroup: ""
+      selectedCarGroup: null,
+
+      carGroupOptions: [],
+      name: "",
+      carGroup: {
+        id: "",
+        name: ""
+      },
+      mark: "",
+      model: "",
+      year: "",
+      isPublic: "",
+      hexColor: "",
+      engineMileage: "",
+      show: true,
+      showEditButton: false
     };
   },
   props: {
-    actualCar: Number
+    actualCar: Number,
+    carGroups: Array
+  },
+  methods: {
+    onChange() {
+      this.showEditButton = true;
+    },
+    onSubmit(evt) {
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
+    },
+    onReset(evt) {
+      evt.preventDefault();
+      // Reset our form values
+      this.form.email = "";
+      this.form.name = "";
+      this.form.food = null;
+      this.form.checked = [];
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    },
+    editCar() {
+      
+      var json = {
+        idCarGroup: this.carGroup.id,
+        name: this.name,
+        mark: this.mark,
+        year: this.year,
+        model: this.model,
+        hexColor: this.hexColor,
+        engineMileage: parseInt(this.engineMileage).actualCar,
+        isPublic: this.isPublic
+      };
+
+      var requestOptions = {
+        method: "PUT",
+        body: JSON.stringify(json),
+        redirect: "follow",
+        credentials: "include"
+      };
+
+      fetch(`${process.env.VUE_APP_API_URL}/car/${this.actualCar}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          alert(result.message);
+        })
+        .catch(error => console.log("error", error));
+    }
   },
   created() {
-    // this.actualCar = 1;
+    var requestOptions = {
+          method: 'GET',
+          redirect: 'follow',
+          credentials: 'include'
+        };
+    fetch(`${process.env.VUE_APP_API_URL}/car_group/`, requestOptions)
+        .then(response => response.json())
+        .then((carGroups) => {
+          carGroups.forEach((carGroup) => {
+            this.carGroupOptions.push({value: carGroup.id, text: carGroup.name})
+          })
+          console.log(`Car proifle - car gorups: ${this.carGroups}`)
+        })
+        .catch(error => console.log('error', error));
   },
   watch: {
     actualCar: function() {
@@ -41,18 +194,29 @@ export default {
         credentials: "include"
       };
 
-    fetch(`${process.env.VUE_APP_API_URL}/car/${this.actualCar}`, requestOptions)
-    .then(response => response.json())
-    .then(result => {
-        this.carName = result.name;
-        this.carMake = result.mark;
-        this.carModel = result.model;
-        this.carColor = result.color;
-        this.carMileage = result.engineMileage;
-        this.carGroup = result.carGroupName;
-        this.carImageUrl = `${result.imgPath}`;
-    })
-      .catch(error => console.log("error", error));
+      fetch(
+        `${process.env.VUE_APP_API_URL}/car/${this.actualCar}`,
+        requestOptions
+      )
+        .then(response => response.json())
+        .then(result => {
+          this.name = result.name;
+          this.isPublic = result.isPublic;
+          this.mark = result.mark;
+          this.year = parseInt(result.year);
+          this.model = result.model;
+          this.hexColor = result.hexColor;
+          this.engineMileage = result.engineMileage;
+          this.carGroup.id = result.idCarGroup;
+          this.carGroup.name = result.carGroupName;
+          // this.carGroupOptions.push({
+          //   value: result.idCarGroup,
+          //   text: result.carGroupName
+          // });
+          console.log(`GRUPY: ${this.$parent.carGroups}`);
+
+        })
+        .catch(error => console.log("error", error));
     }
   }
 };

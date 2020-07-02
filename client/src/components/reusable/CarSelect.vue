@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <select class="form-control w-100" name="car-group" id="car-group" v-model="actualCarGroup" @change="pickCarGroup($event)">
-            <option v-for="carGroup in carGroups" :value="carGroup.id" :key ="carGroup.id">{{carGroup.name}}</option>
-        </select>
-    </div>
+  <div>
+    <b-form-select v-model="selected" :options="options" @change="pickCar($event)"></b-form-select>
+  </div>
 </template>
 
 <script>
@@ -11,11 +9,9 @@ export default {
     name: 'CarSelect',
     data: function() {
         return {
-            cars: []
+            selected: null,
+            options: []
         }
-    },
-    props: {
-      actualCar: Number
     },
     created: function() {
         var requestOptions = {
@@ -27,13 +23,16 @@ export default {
         fetch(`${process.env.VUE_APP_API_URL}/car/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          this.cars = result;
+          result.forEach((car) => {
+              this.options.push({value: car.id, text: car.name})
+          })
         })
         .catch(error => console.log('error', error));
     },
     methods: {
-      pickPetrolType(event) {
-        this.$emit("petrolTypeId", parseInt(event.target.value));
+      pickCar(event) {
+          console.log(`EMITOWALEM idCar: ${event}`)
+        this.$emit("idCar", event);
       }
     }
 }

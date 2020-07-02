@@ -1,6 +1,7 @@
 <template>
 <div>
-  <select class="form-control w-100" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType($event)">
+
+  <select class="form-control" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType($event)">
       <option v-for="type in petrolTypes" :value="type.id" :key ="type.id">{{type.name}}</option>
   </select>
 </div>
@@ -9,7 +10,7 @@
 
 <script>
 export default {
-    name: 'SelectPetrolType',
+    name: 'PetrolTypeSelect',
     data: function() {
         return {
             petrolTypes: []

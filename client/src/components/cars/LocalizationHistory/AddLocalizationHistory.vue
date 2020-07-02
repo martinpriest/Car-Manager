@@ -13,13 +13,13 @@
 
               <div class="modal-body">
                 <slot name="body">
-                  <input class="form-control w-100" v-model="startLocalizationLink" type="text" placeholder="Google maps link1">
+                  <input class="form-control w-100" v-model="startLocalizationLink" type="text" placeholder="Google maps linkwq1">
                   <input class="form-control w-100" v-model="endLocalizationLink" type="text" placeholder="Google maps link2">
-                  <input class="form-control w-100" v-model="startLocalizationName" type="text" placeholder="Start location">
+                  <input class="form-control w-100" v-model="startPoint.lat" type="text" placeholder="Start location">
                   <input class="form-control w-100" v-model="endLocalizationName" type="text" placeholder="End location">
                   <input class="form-control w-100" v-model="distance" type="number" placeholder="Google maps link1">
                   <input class="form-control w-100" v-model="description" type="text" placeholder="Google maps link1">
-                  <input class="form-control w-100" v-model="date" type="date" placeholder="">
+                  <input class="form-control w-100" v-model="date" type="date">
                 </slot>
               </div>
 
@@ -44,7 +44,9 @@
 export default {
     name: 'AddLocalizationHistory',
     props: {
-      actualCar: Number
+      actualCar: Number,
+      endPoint: Object,
+      startPoint: Object
     },
     data: function() {
         return {

@@ -12,7 +12,7 @@
       <tbody>
         <tr v-for="tank in tankHistory" :key="tank.id">
           <td>{{ tank.petrolStation }}</td>
-          <td>{{ tank.date.date }}</td>
+          <td>{{ tank.date }}</td>
           <td>{{ tank.amount }} l</td>
           <td>{{ tank.idPetrolType }}</td>
         </tr>

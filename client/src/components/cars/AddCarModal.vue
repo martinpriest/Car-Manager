@@ -17,6 +17,7 @@
                 <input class="form-control w-100" v-model="model" type="text" placeholder="Enter car's model">
                 <input class="form-control w-100" type="color" v-model="color" name="favcolor" value="#ff0000">
                 <input class="form-control w-100" v-model="engineMileage" type="number" placeholder="Mileage" value="10000">
+                <CarGroupSelect @idCarGroup="updateIdCarGroup"/>
               </div>
 
               <div class="modal-footer">
@@ -38,10 +39,15 @@
 </template>
 
 <script>
+
+
+import CarGroupSelect from './../reusable/CarGroupSelect'
 export default {
     name: 'AddCarModal',
+    components: { CarGroupSelect },
     data: function() {
         return {
+            idCarGroup: "",
             name: "",
             mark: "",
             model: "",
@@ -52,7 +58,7 @@ export default {
     methods: {
       addCar() {
          var json = {
-                idCarGroup: 1,
+                idCarGroup: this.idCarGroup,
                 name: this.name,
                 mark: this.mark,
                 year: 2020,
@@ -75,7 +81,10 @@ export default {
               this.$emit('close')
             })
             .catch(error => console.log('error', error));
-      }
+      },
+    updateIdCarGroup: function(carGroup) {
+      this.idCarGroup = parseInt(carGroup);
+    }
     }
 }
 </script>

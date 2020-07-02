@@ -1,12 +1,12 @@
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" @change="pickCarGroup($event)"></b-form-select>
+    <b-form-select v-model="selected" :options="options" @change="pickNotificationType($event)"></b-form-select>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'CarGroupSelect',
+    name: 'NotificationTypeSelect',
     data: function() {
         return {
             selected: null,
@@ -20,18 +20,19 @@ export default {
           credentials: 'include'
         };
 
-        fetch(`${process.env.VUE_APP_API_URL}/car_group/`, requestOptions)
+        fetch(`${process.env.VUE_APP_API_URL}/notification_types/`, requestOptions)
         .then(response => response.json())
         .then((result) => {
-          result.forEach((carGroup) => {
-              this.options.push({value: carGroup.id, text: carGroup.name})
+          result.forEach((type) => {
+              this.options.push({value: type.id, text: type.name})
           })
         })
         .catch(error => console.log('error', error));
     },
     methods: {
-      pickCarGroup(event) {
-        this.$emit("idCarGroup", event);
+      pickNotificationType(event) {
+          console.log(`EMITOWALEM ${event}`)
+        this.$emit("notificationType", event);
       }
     }
 }

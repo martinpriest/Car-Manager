@@ -45,7 +45,6 @@ export default {
   components: {},
   data: function() {
     return {
-      isMobile: false,
       loginStatus: false
     };
   },
@@ -120,15 +119,6 @@ body {
 
 }
 
-#main-nav {
-  display: flex;
-  width: 100%;
-  height: 54px;
-}
-#main-nav .nav-link {
-  padding-top: 0px;
-}
-
 .menu-icon {
   width: 25px;
   padding: 2px;
@@ -137,8 +127,10 @@ body {
 .view {
   height: calc(100% - 54px);
   width: 100%;
+  min-height: 100vh;
   max-width: 1600px;
   background: black;
+  background-attachment: fixed;
   display: flex;
   margin: 0 auto;
 }
