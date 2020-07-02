@@ -84,7 +84,7 @@ class TankHistoryController extends AbstractController
                 'idCar' => $record->getIdCar()->getId(),
                 'idPetrolType' => $record->getIdpetroltype()->getId(),
                 'petrolStation' => $record->getPetrolstation(),
-                'date' => $record->getDate(),
+                'date' => $record->getDate()->format('Y-m-d'),
                 'idFacture' => $record->getIdfacture()->getId(),
                 'amount' => $record->getAmount()
             ]);
@@ -114,7 +114,7 @@ class TankHistoryController extends AbstractController
             'idPetrolType' => $tankHistory->getIdpetroltype()->getId(),
             'petrolTypeName' => $tankHistory->getIdpetroltype()->getName(),
             'petrolStation' => $tankHistory->getPetrolstation(),
-            'date' => $tankHistory->getDate(),
+            'date' => $tankHistory->getDate()->format('Y-m-d'),
             'amount' => $tankHistory->getAmount()
         ];
 

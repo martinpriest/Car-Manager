@@ -37,11 +37,48 @@ class NotificationController extends AbstractController
             array_push($response, [
                 'id' => $notification->getId(),
                 'idCar' => $notification->getIdcar()->getId(),
+                'carName' => $notification->getIdcar()->getName(),
                 'notificationType' => $notification->getIdnotificationtype()->getName(),
                 'description' => $notification->getDescription(),
-                'notificationDate' => $notification->getNotificationdate(),
+                'notificationDate' => $notification->getNotificationdate()->format('Y-m-d'),
                 'status' => $notification->getStatus()
             ]);
+        }
+
+        return $this->json($response, 200);
+    }
+
+    /**
+     * @Route("/recent", methods={"GET"}, name="showWeekRecent")
+     */
+    public function getRecent()
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No logged in'], 400);
+
+        $today = new \DateTime("now");
+        $date = new \DateTime("now");
+        $date->modify('+1week');
+
+        $notificationList = $this->getDoctrine()->getRepository(Notification::class)->findBy(array('iduser' => $_SESSION['idUser'], 'status' => 1));
+        $response = [];
+        foreach($notificationList as $notification) {
+            $notificationDate = $notification->getNotificationdate();
+            $interval = date_diff($today, $notificationDate);
+
+            // koniec testow daty
+
+            if($interval->format('%R%a') <= 7 ) {
+                array_push($response, [
+                    'id' => $notification->getId(),
+                    'idCar' => $notification->getIdcar()->getId(),
+                    'carName' => $notification->getIdcar()->getName(),
+                    'notificationType' => $notification->getIdnotificationtype()->getName(),
+                    'description' => $notification->getDescription(),
+                    'notificationDate' => $notification->getNotificationdate()->format('Y-m-d'),
+                    'status' => $notification->getStatus()
+                ]);
+            }
         }
 
         return $this->json($response, 200);
@@ -58,14 +95,15 @@ class NotificationController extends AbstractController
         $notification = $this->getDoctrine()->getRepository(Notification::class)
         ->find($id);
         if(!$notification) return $this->json(['message' => 'No active notification'], 400);
-        if($notification->getIduser() != $_SESSION['idUser']) return $this->json(['message' => 'No access to notification'], 400);
+        if($notification->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to notification'], 400);
 
         $response = [
             'id' => $notification->getId(),
             'idCar' => $notification->getIdcar()->getId(),
+            'carName' => $notification->getIdcar()->getName(),
             'notificationType' => $notification->getIdnotificationtype()->getName(),
             'description' => $notification->getDescription(),
-            'notificationDate' => $notification->getNotificationdate(),
+            'notificationDate' => $notification->getNotificationdate()->format('Y-m-d'),
             'status' => $notification->getStatus()
         ];
 

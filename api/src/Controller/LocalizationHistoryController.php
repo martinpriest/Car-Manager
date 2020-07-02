@@ -43,7 +43,7 @@ class LocalizationHistoryController extends AbstractController
                 'endLng' => $record->getIdendaddress()->getLng(),
                 'distance' => $record->getDistance(),
                 'description' => $record->getDescription(),
-                'date' => $record->getDate()
+                'date' => $record->getDate()->format('Y-m-d')
             ]);
         }
 
@@ -72,7 +72,7 @@ class LocalizationHistoryController extends AbstractController
             'endLng' => $localizationHistory->getIdendaddress()->getLng(),
             'distance' => $localizationHistory->getDistance(),
             'description' => $localizationHistory->getDescription(),
-            'date' => $localizationHistory->getDate()
+            'date' => $localizationHistory->getDate()->format('Y-m-d')
         ];
 
         return $this->json($response, 200);

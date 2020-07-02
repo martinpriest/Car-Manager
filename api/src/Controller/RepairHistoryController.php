@@ -40,7 +40,7 @@ class RepairHistoryController extends AbstractController
                 'idCar' => $repair->getIdcar()->getId(),
                 'description' => $repair->getDescription(),
                 'idFacture' => $repair->getIdfacture()->getId(),
-                'date' => $repair->getDate()
+                'date' => $repair->getDate()->format('Y-m-d')
             ]);
         }
 
@@ -64,7 +64,7 @@ class RepairHistoryController extends AbstractController
             'idCar' => $repairHistory->getIdcar()->getId(),
             'description' => $repairHistory->getDescription(),
             'idFacture' => $repairHistory->getIdfacture()->getId(),
-            'date' => $repairHistory->getDate()
+            'date' => $repairHistory->getDate()->format('Y-m-d')
         ];
 
         return $this->json($response, 200);

@@ -75,6 +75,78 @@ class CostHistoryController extends AbstractController
     }
 
     /**
+     * @Route("/aggregate", methods={"GET"}, name="aggregateByIdCostType")
+     */
+    public function aggregate()
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No access'], 404);
+
+        $response = [];
+
+        $costList = $this->getDoctrine()->getRepository(CostHistory::class)->findByIduser($_SESSION['idUser']);
+
+        if($costList) {
+            $temp = ["1" => 0,
+                    "2" => 0,
+                    "3" => 0,
+                    "4" => 0,
+                    "5" => 0,
+                    "6" => 0,
+                    "7" => 0];
+            foreach($costList as $cost) {
+
+                if(!array_key_exists($cost->getIdcosttype()->getId(), $temp)) {
+                    $temp[$cost->getIdcosttype()->getId()] = 0;
+                }
+                $temp[$cost->getIdcosttype()->getId()] += $cost->getAmount() * $cost->getExchangerate();
+            }
+        }
+
+        return $this->json($temp, 200);
+    }
+
+    /**
+     * @Route("/aggregate2", methods={"GET"}, name="aggregateCostByCars")
+     */
+    public function aggregateCostByCars()
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No access'], 404);
+
+        $cars = $this->getDoctrine()->getRepository(Car::class)->findByIduser($_SESSION['idUser']);
+        if(!$cars) return $this->json(['message' => 'No cars'], 404);
+
+        $response = [];
+        foreach($cars as $car) {
+            $totalCost = 0;
+            $totalTankCost = 0;
+            $totalRepairCost = 0;
+            
+            // count total cost
+            $costList = $this->getDoctrine()->getRepository(CostHistory::class)->findByIdcar($car->getId());
+            
+            foreach ($costList as $cost) {
+                $totalCost += $cost->getAmount() * $cost->getExchangerate();
+                // naprawy
+                if($cost->getIdcosttype()->getId() == 1) $totalRepairCost += $cost->getAmount() * $cost->getExchangerate();
+                if($cost->getIdcosttype()->getId() == 2) $totalTankCost += $cost->getAmount() * $cost->getExchangerate();
+            }
+
+            $actualCar = [
+                'idCar' => $car->getId(),
+                'carName' => $car->getName(),
+                'carGroupName' =>  $car->getIdcargroup()->getName(),
+                'totalCost' => round($totalCost,2),
+                'totalTankCost' => round($totalTankCost,2),
+                'totalRepairCost' => round($totalRepairCost,2)
+            ];
+            array_push($response, $actualCar);
+        }
+
+        return $this->json($response, 200);
+    }
+    /**
      * @Route("/{id}", methods={"GET"}, name="getOneById")
      */
     public function show($id)

@@ -59,7 +59,7 @@ class Car
     /**
      * @var string
      *
-     * @ORM\Column(name="hexColor", type="string", length=6, nullable=false)
+     * @ORM\Column(name="hexColor", type="string", length=7, nullable=false)
      */
     private $hexcolor;
 
