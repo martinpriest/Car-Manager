@@ -64,9 +64,9 @@ export default {
           this.$router.push({ path: "/" }).catch(err => {
             console.log(err);
           });
-          alert("Nie zalogowales sie");
           return false;
-        } else {
+        } 
+        else {
           this.$router.push({ path: "/cars" }).catch(err => {
             console.log(err);
           });
