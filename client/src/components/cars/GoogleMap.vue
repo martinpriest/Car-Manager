@@ -223,7 +223,7 @@ export default {
         idCar: 1,
         amount: 20,
         currency: "PLN",
-        exchangeRate: 20,
+        exchangeRate: 1,
         description: "Wymiana sprzegla",
         lng: 1,
         lat: 1,

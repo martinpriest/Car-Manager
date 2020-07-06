@@ -9,6 +9,24 @@ import Chart from 'chart.js';
   export default {
     name: "CostChart",
     data () {
+      // fetch data
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            credentials: 'include'
+        };
+
+        var tempArr = [];
+        fetch(`${process.env.VUE_APP_API_URL}/cost_history/aggregate`, requestOptions)
+            .then(response => response.json())
+            .then((data) => {
+                for (const [key, value] of Object.entries(data)) {
+                    console.log(`${key}: ${value}`);
+                    tempArr.push(value.toFixed(2));
+                }
+            })
+            .catch(error => console.log('error', error));
+      
       return {
 
         planetChartData: {
@@ -18,7 +36,7 @@ import Chart from 'chart.js';
                 datasets: [
                     { // one line graph
                 label: 'Type of cost',
-                data: [127.6899,366.2428,32.712,0,32.712,0,0],
+                data: tempArr,
                 backgroundColor: [
                 'rgba(54,73,93,.5)', // Blue
                 'rgba(54,173,93,.5)',
@@ -64,25 +82,6 @@ import Chart from 'chart.js';
             options: {},
         });
         console.log(myChart)
-
-        // fetch data
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            credentials: 'include'
-        };
-
-        fetch(`${process.env.VUE_APP_API_URL}/cost_history/aggregate`, requestOptions)
-            .then(response => response.json())
-            .then((data) => {
-                var tempArr = [];
-                for (const [key, value] of Object.entries(data)) {
-                    console.log(`${key}: ${value}`);
-                    tempArr.push(value);
-                }
-                this.planetChartData.data.data = tempArr;
-            })
-            .catch(error => console.log('error', error));
 
         // Create chart
         this.createChart('planet-chart', this.planetChartData);
