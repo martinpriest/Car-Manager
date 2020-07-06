@@ -1,7 +1,7 @@
 <template>
 <div class="car-profile-box">
   <div class="logo"><img src="./../assets/logo.png" style="width: 300px" alt=""></div>
-    <b-tabs content-class="mt-3 w-100" justified>
+    <b-tabs content-class="p-4 mt-3 w-100" justified>
     <b-tab title="Login" active>
       <b-form @submit="login" @reset="onResetLoginForm" v-if="show">
       <b-form-group id="input-group-1">

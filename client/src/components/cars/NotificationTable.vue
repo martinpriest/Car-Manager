@@ -60,7 +60,7 @@ export default {
         { key: "notificationDate", sortable: true }
       ],
       addNotificationForm: {
-        idCar: 1,
+        idCar: this.actualCar,
         idNotificationType: 1,
         date: today,
         description: "Default description"
