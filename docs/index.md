@@ -1,5 +1,7 @@
 Celem aplikacji jest prowadzenie dziennika samochodów.
 
+# Funkcjonalności aplikacji
+
 Główne funkcjonalności obejmują:
 
 - Prowadzenie listy pojazdów
@@ -9,7 +11,7 @@ Główne funkcjonalności obejmują:
 - Prowadzenie dziennika kosztów pojazdów
 - Podsumowanie (dashboard)
 
-Po zalogowaniu do aplikacji użytkownik ma możliwość dodawania samochodów (przycisk ‘Add cars’) wprowadzając nazwę samochodu, markę, model, kolor, rocznik, przebieg oraz grupę w formularzu który wyświetla się w postaci modala.
+Po zalogowaniu do aplikacji użytkownik ma możliwość dodawania samochodów (przycisk ‘Add car’) wprowadzając nazwę samochodu, markę, model, kolor, rocznik, przebieg oraz grupę w formularzu który wyświetla się w postaci modala.
 Po dodaniu samochód aktualizuje się w bazie a wgląd mamy poprzez rozwijaną listę.
 Informacje nadane na początku można modyfikować w zakładce ‘Profile’ wprowadzając daną zmianę i zapisując za pomocą przycisku ‘Change’.
 
@@ -17,7 +19,7 @@ Informacje nadane na początku można modyfikować w zakładce ‘Profile’ wpr
 
 Kolejne informacje jakie można wprowadzać to historia lokalizacji, naprawy ze specyfikacją czego one dotyczą i jaki jest ich koszt i w jakiej walucie, tankowanie z informacjami na jakiej stacji benzynowej, ile litrów, rodzaj paliwa, koszt (+waluta).
 Wgląd do tych informacji jest w kolejnych zakładkach odpowiednio ‘Localization’, ‘Repair’ oraz ‘Tank’.
-Możliwe jest też dodawanie powiadomień w zakładce ‘Notification’ dzięki czemu aplikacja będzie nas informować o zbliżających się wydarzeniach wprowadzonych przez nas - takich jak Przegląd rejestracyjny, opłata ubezpieczenia czy wymiana kół.
+Możliwe jest też dodawanie powiadomień w zakładce ‘Notification’ dzięki czemu aplikacja będzie nas informować o zbliżających się wydarzeniach wprowadzonych przez nas – takich jak Przegląd rejestracyjny, opłata ubezpieczenia czy wymiana kół.
 
 ![Samochody - mapa](assets/img/cars-map.png)
 
@@ -29,3 +31,13 @@ Użytkownik ma możliwość zmiany ustawień poprzez wejście w zakładkę ‘Us
 Umożliwia to zmianę danych użytkownika w ‘Profile setting’ – loginu, hasła, maila czy stworzenie nowej grupy samochodów w ‘Car groups’.
 
 ![Profil użytkownika](assets/img/settings.png)
+
+# Linki
+
+Zgłoszenie projektu: <https://e-uczelnia.uek.krakow.pl/mod/forum/discuss.php?d=120985>
+
+Aplikacja: <https://martinpriest.github.io/Car-Manager/>
+
+Repozytorium: <https://github.com/martinpriest/Car-Manager>
+
+Zarządzanie projektem: <https://github.com/martinpriest/Car-Manager/projects>
