@@ -42,7 +42,7 @@
           <b-col cols="8">
             <b-form-select
               placeholder="Choose group"
-              v-model="this.carGroup.id"
+              v-model="carGroup.id"
               :options="carGroupOptions"
               @change="pickCarGroup($event)"
             ></b-form-select>
@@ -110,7 +110,7 @@ export default {
       model: "",
       year: "",
       isPublic: "",
-      hexColor: "",
+      hexColor: "#aaaaaa",
       engineMileage: "",
       show: true,
     };
@@ -179,6 +179,8 @@ export default {
     fetch(`${process.env.VUE_APP_API_URL}/car_group/`, requestOptions)
         .then(response => response.json())
         .then((carGroups) => {
+          this.carGroup.id = carGroups[0].id;
+          this.carGroup.name = carGroups[0].name;
           carGroups.forEach((carGroup) => {
             this.carGroupOptions.push({value: carGroup.id, text: carGroup.name})
           })

@@ -65,9 +65,12 @@ export default {
     fetch(`${process.env.VUE_APP_API_URL}/notification/`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        result.forEach(element => {
+        if(!result.message) {
+          result.forEach(element => {
           this.items.push(element);
         });
+        }
+        
       })
       .catch(error => console.log("error", error));
   },
@@ -88,10 +91,12 @@ export default {
         .then(response => response.json())
         .then(result => {
           this.items = [];
-          
-          result.forEach(element => {
+          if(!result.message) {
+result.forEach(element => {
             this.items.push(element);
           });
+          }
+          
         })
         .catch(error => console.log("error", error));
     }

@@ -61,7 +61,7 @@ export default {
         cars: Array
     },
     mounted() {
-        document.querySelector("#dropdown-left__BV_toggle_").textContent = this.cars[0].name;
+        // document.querySelector("#dropdown-left__BV_toggle_").textContent = this.cars[0].name;
     },
     data: function() {
         return {
@@ -71,7 +71,7 @@ export default {
                 name: "",
                 mark: "",
                 model: "",
-                color: "",
+                color: "#aaaaaa",
                 engineMileage: "",
                 year: 2020
             }

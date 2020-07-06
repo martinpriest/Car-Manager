@@ -12,14 +12,14 @@ export default {
     name: 'CurrencySelect',
     data: function() {
         return {
-            currency: [],
+          actualCurrency: {
+            code: "PLN",
+            mid: 1,
+          },
+          currency: [],
         }
     },
     props: {
-      actualCurrency: {
-        code: String,
-        mid: Number
-      }
     },
     created: function() {
         var requestOptions = {

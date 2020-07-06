@@ -1,8 +1,8 @@
 <template>
 <div>
 
-  <select class="form-control" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType($event)">
-      <option v-for="type in petrolTypes" :value="type.id" :key ="type.id">{{type.name}}</option>
+  <select class="form-control" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType()">
+      <option v-for="type in petrolTypes" :value="{id: type.id, name: type.name}" :key ="type.id">{{type.name}}</option>
   </select>
 </div>
 
@@ -13,11 +13,15 @@ export default {
     name: 'PetrolTypeSelect',
     data: function() {
         return {
+            
+          actualPetrolType: {
+            id: 1,
+            name: "LPG"
+          },
             petrolTypes: []
         }
     },
     props: {
-      actualPetrolType: Number
     },
     created: function() {
         var requestOptions = {
@@ -34,10 +38,12 @@ export default {
         .catch(error => console.log('error', error));
     },
     methods: {
-      pickPetrolType(event) {
-        this.$emit("petrolTypeId", parseInt(event.target.value));
-        // console.log(event)
-        // this.$emit("petrolTypeName", parseInt(event.target.value));
+      pickPetrolType() {
+        let petrolType = {
+          id: this.actualPetrolType.id,
+          name: this.actualPetrolType.name,
+        }
+        this.$emit("petrolTypeId", petrolType);
       }
     }
 }

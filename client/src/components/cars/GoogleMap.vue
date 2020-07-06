@@ -81,7 +81,6 @@
           <b-col cols="4">Petrol type:</b-col>
           <b-col cols="8">
             <PetrolTypeSelect
-              v-bind:actualPetrolType="actualPetrolType"
               @petrolTypeId="updatePetrolId"
             />
           </b-col>
@@ -91,7 +90,7 @@
         <b-row class="pt-1">
           <b-col cols="4">Currency:</b-col>
           <b-col cols="8">
-            <CurrencySelect v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency" />
+            <CurrencySelect @tempCurrency="updateCurrency" />
           </b-col>
         </b-row>
         <b-col class="pt-1" cols="12">
@@ -123,11 +122,12 @@
         <b-row class="pt-1">
           <b-col cols="4">Currency:</b-col>
           <b-col cols="8">
-            <CurrencySelect v-bind:actualCurrency="actualCurrency" @tempCurrency="updateCurrency" />
+            <CurrencySelect @tempCurrency="updateCurrency" />
           </b-col>
         </b-row>
         <b-col class="pt-1" cols="12">
-          <b-form-input v-model="addRepairForm.date" type="date" placeholder></b-form-input>
+          <!-- <b-form-input v-model="addRepairForm.date" type="date" placeholder></b-form-input> -->
+          <b-form-datepicker id="example-datepicker" v-model="addRepairForm.date" class="mb-2"></b-form-datepicker>
           <b-button variant="success" @click="addRepairHistory">Confirm</b-button>
           <b-button variant="danger" @click="hideForms">Close</b-button>
         </b-col>
@@ -167,6 +167,7 @@ export default {
   },
   components: { PetrolTypeSelect, CurrencySelect },
   data() {
+    // var today = new Date();
     return {
       markers: [
       ],
@@ -180,9 +181,9 @@ export default {
         startLng: 131.036,
         endLat: -25.344,
         endLng: 131.036,
-        distance: 170,
+        distance: 0,
         description: "",
-        date: "20-04-2020"
+        date: "01-01-2020"
       },
       addTankForm: {
         idCar: 1,
@@ -196,7 +197,7 @@ export default {
         description: "New record",
         lng: 1,
         lat: 1,
-        date: "20-04-2020"
+        date: "01-01-2020"
       },
       addRepairForm: {
         idCar: 1,
@@ -206,7 +207,7 @@ export default {
         description: "Wymiana sprzegla",
         lng: 1,
         lat: 1,
-        date: "20-04-2020"
+        date: "01-01-2020"
       },
       showMap: true,
       showMapTooltip: false,
@@ -342,6 +343,7 @@ export default {
     addTankHistory() {
 
         this.addTankForm.idCar = this.actualCar;
+        this.addTankForm.amount = this.addTankForm.fuelAmount;
       var requestOptions = {
         method: "POST",
         body: JSON.stringify(this.addTankForm),
@@ -419,8 +421,9 @@ export default {
     },
 
     updatePetrolId: function(petrolTypeId) {
-      this.addTankForm.idPetrolType = petrolTypeId;
-      // this.addTankForm.petrolTypeName = 
+      // console.log(`ELO: ${petrolTypeId.id} + ${petrolTypeId.name}`)
+      this.addTankForm.idPetrolType = petrolTypeId.id;
+      this.addTankForm.petrolTypeName = petrolTypeId.name;
     },
     updateCurrency: function(tempCurrency) {
       this.addTankForm.currency = tempCurrency.code;
