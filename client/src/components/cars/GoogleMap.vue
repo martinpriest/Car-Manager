@@ -167,6 +167,8 @@ export default {
   },
   components: { PetrolTypeSelect, CurrencySelect },
   data() {
+
+    let today = new Date().toISOString().substr(0, 10);
     // var today = new Date();
     return {
       markers: [
@@ -183,7 +185,7 @@ export default {
         endLng: 131.036,
         distance: 0,
         description: "",
-        date: "01-01-2020"
+        date: today
       },
       addTankForm: {
         idCar: 1,
@@ -197,7 +199,7 @@ export default {
         description: "New record",
         lng: 1,
         lat: 1,
-        date: "01-01-2020"
+        date: today
       },
       addRepairForm: {
         idCar: 1,
@@ -207,7 +209,7 @@ export default {
         description: "Wymiana sprzegla",
         lng: 1,
         lat: 1,
-        date: "01-01-2020"
+        date: today
       },
       showMap: true,
       showMapTooltip: false,
