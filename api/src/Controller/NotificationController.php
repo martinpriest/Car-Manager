@@ -30,7 +30,7 @@ class NotificationController extends AbstractController
 
         if(isset($data['idCar'])) $notificationList = $this->getDoctrine()->getRepository(Notification::class)->findByIdcar($data['idCar']);
         else $notificationList = $this->getDoctrine()->getRepository(Notification::class)->findByIduser($_SESSION['idUser']);
-        if(!$notificationList) return $this->json(['message' => 'No active notification'], 400);
+        if(!$notificationList) return $this->json(['message' => 'No active notification'], 200);
 
         $response = [];
         foreach($notificationList as $notification) {
@@ -44,7 +44,6 @@ class NotificationController extends AbstractController
                 'status' => $notification->getStatus()
             ]);
         }
-
         return $this->json($response, 200);
     }
 
@@ -94,7 +93,7 @@ class NotificationController extends AbstractController
         
         $notification = $this->getDoctrine()->getRepository(Notification::class)
         ->find($id);
-        if(!$notification) return $this->json(['message' => 'No active notification'], 400);
+        if(!$notification) return $this->json(['message' => 'No active notification'], 200);
         if($notification->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to notification'], 400);
 
         $response = [
@@ -138,7 +137,8 @@ class NotificationController extends AbstractController
         $entityManager->persist($notification);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Notification added'], 200);
+        return $this->json(['message' => 'Notification added',
+        'id' => $notification->getId()]);
     }
 
      /**

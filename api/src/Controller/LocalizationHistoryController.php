@@ -117,7 +117,8 @@ class LocalizationHistoryController extends AbstractController
         $entityManager->persist($localizationHistory);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Localization history added']);
+        return $this->json(['message' => 'Localization history added',
+                            'id' => $localizationHistory->getId()]);
     }
 
     /**
@@ -131,7 +132,7 @@ class LocalizationHistoryController extends AbstractController
 
         $localizationHistory = $this->getDoctrine()->getRepository(LocalizationHistory::class)
         ->find($id);
-        if(!$localizationHistory || $localizationHistory->getIduser() != $_SESSION['idUser']) return $this->json(['message' => 'No access'], 404);
+        if(!$localizationHistory || $localizationHistory->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access'], 404);
         
         $entityManager->remove($localizationHistory);
         $entityManager->flush();

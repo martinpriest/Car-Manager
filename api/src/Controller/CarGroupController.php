@@ -32,8 +32,7 @@ class CarGroupController extends AbstractController
         foreach($carGroups as $carGroup) {
             array_push($response, [
                 'id' => $carGroup->getId(),
-                'name' => $carGroup->getName(),
-                'menuPosition' => $carGroup->getMenuposition()
+                'name' => $carGroup->getName()
             ]);
         }
 
@@ -54,8 +53,7 @@ class CarGroupController extends AbstractController
         if($carGroup->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to car group'], 400);
         $response = [
             'id' => $carGroup->getId(),
-            'name' => $carGroup->getName(),
-            'menuPosition' => $carGroup->getMenuposition()
+            'name' => $carGroup->getName()
         ];
 
         return $this->json($response, 200);
@@ -84,7 +82,7 @@ class CarGroupController extends AbstractController
         $entityManager->persist($carGroup);
         $entityManager->flush();
 
-        return $this->json(['message' => 'New car group created'], 200);
+        return $this->json(['message' => 'New car group created', 'id' => $carGroup->getId()], 200);
     }
 
     /**
@@ -133,13 +131,17 @@ class CarGroupController extends AbstractController
         $cars = $this->getDoctrine()->getRepository(Car::class)
         ->findByIdcargroup($idCarGroup);
 
+        
+        $defaultCarGroup = $this->getDoctrine()->getRepository(CarGroup::class)
+        ->findByIduser($_SESSION['idUser']);
+        if(count($defaultCarGroup) <= 1) return $this->json(['message' => 'You cant remove last group'], 400);
+
         if($cars) {
             // get user default car group
-            $defaultCarGroup = $this->getDoctrine()->getRepository(CarGroup::class)
-            ->findByIduser($_SESSION['idUser']);
+
 
             foreach($cars as $car) {
-                $car->setIdcargroup();
+                $car->setIdcargroup($defaultCarGroup[0]);
                 $entityManager->flush($defaultCarGroup[0]);
             }
         }

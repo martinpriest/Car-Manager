@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container>
-      <b-form @change="onChange" @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form @submit="onSubmit" v-if="show">
         <!-- CAR IMAGE -->
         <b-row class="pt-1">
           <b-col cols="12">
@@ -42,8 +42,9 @@
           <b-col cols="8">
             <b-form-select
               placeholder="Choose group"
-              v-model="this.$parent.carGroups"
+              v-model="this.carGroup.id"
               :options="carGroupOptions"
+              @change="pickCarGroup($event)"
             ></b-form-select>
           </b-col>
         </b-row>
@@ -81,12 +82,11 @@
             <b-button
               id="edit-profile-button"
               variant="success"
-              v-if="showEditButton"
               @click="editCar"
             >Change</b-button>
           </b-col>
           <b-col cols="6">
-            <b-button type="reset" variant="danger" v-if="showEditButton">Reset</b-button>
+        <b-button variant="danger" @click="deleteCar">Delete car</b-button>
           </b-col>
         </b-row>
       </b-form>
@@ -100,7 +100,6 @@ export default {
   data: function() {
     return {
       selectedCarGroup: null,
-
       carGroupOptions: [],
       name: "",
       carGroup: {
@@ -114,33 +113,33 @@ export default {
       hexColor: "",
       engineMileage: "",
       show: true,
-      showEditButton: false
     };
   },
   props: {
-    actualCar: Number,
-    carGroups: Array
+    actualCar: Number
   },
   methods: {
-    onChange() {
-      this.showEditButton = true;
+    deleteCar() {
+      var requestOptions = {
+        method: "DELETE",
+        redirect: "follow",
+        credentials: "include"
+      };
+
+      fetch(`${process.env.VUE_APP_API_URL}/car/${this.actualCar}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          alert(result.message);
+          location.reload();
+        })
+        .catch(error => console.log("error", error));
+    },
+    pickCarGroup(event) {
+      this.carGroup.id = event;
     },
     onSubmit(evt) {
       evt.preventDefault();
       alert(JSON.stringify(this.form));
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
     },
     editCar() {
       
@@ -165,6 +164,7 @@ export default {
       fetch(`${process.env.VUE_APP_API_URL}/car/${this.actualCar}`, requestOptions)
         .then(response => response.json())
         .then(result => {
+          document.querySelector("#dropdown-left__BV_toggle_").textContent = this.name;
           alert(result.message);
         })
         .catch(error => console.log("error", error));
@@ -182,7 +182,6 @@ export default {
           carGroups.forEach((carGroup) => {
             this.carGroupOptions.push({value: carGroup.id, text: carGroup.name})
           })
-          console.log(`Car proifle - car gorups: ${this.carGroups}`)
         })
         .catch(error => console.log('error', error));
   },
@@ -209,11 +208,6 @@ export default {
           this.engineMileage = result.engineMileage;
           this.carGroup.id = result.idCarGroup;
           this.carGroup.name = result.carGroupName;
-          // this.carGroupOptions.push({
-          //   value: result.idCarGroup,
-          //   text: result.carGroupName
-          // });
-          console.log(`GRUPY: ${this.$parent.carGroups}`);
 
         })
         .catch(error => console.log("error", error));

@@ -15,7 +15,7 @@
   <b-tabs content-class="mt-3" fill class="car-profile-box">
     <b-tab title="Profile" active>
       <div class="m-3">
-        <CarProfile car-groups="carGroups" v-bind:actualCar="actualCar"/>
+        <CarProfile v-bind:actualCar="actualCar"/>
       </div>
     </b-tab>
     <b-tab title="Map">
@@ -63,7 +63,6 @@ export default {
     data: function() {
       return {
         cars: [],
-        carGroups: [],
         actualCar: null
       }
     },
@@ -80,15 +79,6 @@ export default {
         .then((result) => {
           this.cars = result;
           this.actualCar = result[0].id;
-          console.log(`Actual car: ${this.actualCar}`)
-        })
-        .catch(error => console.log('error', error));
-
-        fetch(`${process.env.VUE_APP_API_URL}/car_group/`, requestOptions)
-        .then(response => response.json())
-        .then((result) => {
-          this.carGroups = result;
-          console.log(`Actual car groups: ${this.carGroups}`)
         })
         .catch(error => console.log('error', error));
       },
@@ -101,11 +91,6 @@ export default {
 </script>
 
 <style>
-  #cars {
-    display: grid;
-    width: 100%;
-
-  }
   .car-map {
     width: 100%;
     height: 400px;

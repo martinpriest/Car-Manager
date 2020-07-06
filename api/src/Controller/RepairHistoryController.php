@@ -109,7 +109,8 @@ class RepairHistoryController extends AbstractController
         
         $entityManager->persist($repairHistory);
         $entityManager->flush();
-        return $this->json(['message' => 'Repair history added']);
+        return $this->json(['message' => 'Repair history added',
+        'id' => $repairHistory->getId()]);
 
     }
 
@@ -122,11 +123,13 @@ class RepairHistoryController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'No access'], 404);
 
-        $repairHistory = $this->getDoctrine()->getRepository(RepairHistory::class)
-        ->find($idRepairHistory);
-        if(!$repairHistory || $repairHistory->getIduser() != $_SESSION['idUser']) return $this->json(['message' => 'No access'], 404);
+        $repairHistory = $this->getDoctrine()->getRepository(RepairHistory::class)->find($idRepairHistory);
+        if(!$repairHistory || $repairHistory->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access'], 404);
+
+        $costToDelete = $this->getDoctrine()->getRepository(CostHistory::class)->find($repairHistory->getIdfacture());
         
         $entityManager->remove($repairHistory);
+        $entityManager->remove($costToDelete);
         $entityManager->flush();
         return $this->json(['message' => 'Repair history removed']);
 

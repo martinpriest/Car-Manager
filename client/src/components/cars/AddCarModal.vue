@@ -16,6 +16,7 @@
                 <input class="form-control w-100" v-model="mark" type="text" placeholder="Enter car's brand">
                 <input class="form-control w-100" v-model="model" type="text" placeholder="Enter car's model">
                 <input class="form-control w-100" type="color" v-model="color" name="favcolor" value="#ff0000">
+                <input class="form-control w-100" type="number" v-model="year" placeholder="Type car year" name="favcolor" value="2020">
                 <input class="form-control w-100" v-model="engineMileage" type="number" placeholder="Mileage" value="10000">
                 <CarGroupSelect @idCarGroup="updateIdCarGroup"/>
               </div>
@@ -52,7 +53,8 @@ export default {
             mark: "",
             model: "",
             color: "",
-            engineMileage: ""
+            engineMileage: "",
+            year: ""
         }
     },
     methods: {
@@ -61,7 +63,7 @@ export default {
                 idCarGroup: this.idCarGroup,
                 name: this.name,
                 mark: this.mark,
-                year: 2020,
+                year: this.year,
                 model: this.model,
                 hexColor: this.color,
                 engineMileage: parseInt(this.engineMileage)

@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Logout from './views/Logout.vue';
 import Dashboard from './views/Dashboard.vue';
-import Cars from './views/Cars.vue';
+// import Cars from './views/Cars.vue';
+import CarsNew from './views/CarsNew.vue';
 import Setting from './views/Setting.vue';
 import Raports from './views/Raports.vue';
 
@@ -23,7 +24,7 @@ export default new Router({
     {
       path: '/cars',
       name: 'Cars',
-      component: Cars,
+      component: CarsNew,
       meta: {
         requiresAuth: true
       }

@@ -57,7 +57,8 @@ class TankHistoryController extends AbstractController
         $entityManager->persist($tankHistory);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Tank added']);
+        return $this->json(['message' => 'Tank added',
+        'id' => $tankHistory->getId()]);
     }
 
     /**
@@ -83,6 +84,7 @@ class TankHistoryController extends AbstractController
                 'idUser' => $record->getIdUser()->getId(),
                 'idCar' => $record->getIdCar()->getId(),
                 'idPetrolType' => $record->getIdpetroltype()->getId(),
+                'petrolTypeName' => $record->getIdpetroltype()->getName(),
                 'petrolStation' => $record->getPetrolstation(),
                 'date' => $record->getDate()->format('Y-m-d'),
                 'idFacture' => $record->getIdfacture()->getId(),
@@ -119,5 +121,28 @@ class TankHistoryController extends AbstractController
         ];
 
         return $this->json($response, 200);
+    }
+
+    /**
+     * @Route("/{id}", methods={"DELETE"}, name="delete")
+     */
+    public function delete(int $id)
+    {
+        session_start();
+        if(!isset($_SESSION['idUser'])) return $this->json(['message' => 'You have to login'], 400);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $tankToDelete = $this->getDoctrine()->getRepository(TankHistory::class)->find($id);
+
+        if(!$tankToDelete) return $this->json(['message' => 'No car with this ID'], 404);
+        if($tankToDelete->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'Its not your car'], 400);
+
+        $costToDelete = $this->getDoctrine()->getRepository(CostHistory::class)->find($tankToDelete->getIdfacture());
+
+        $entityManager->remove($tankToDelete);
+        $entityManager->remove($costToDelete);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Tank deleted'], 200);
     }
 }

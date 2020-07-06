@@ -1,21 +1,49 @@
 <template>
-<div class="userchange-box">
-      <img src="./../../assets/logocar.jpg" class="avatar" alt="Car logo">
-      <h1>Change User Settings</h1>
-      <form>
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Enter Old Password">
-        <label for="change-username">New Login</label>
-        <input id="change-username" type="text" placeholder="Enter New Login">
-        <label for="change-email">Change E-mail</label>
-        <input id="change-email" type="text" placeholder="Enter New E-mail">
-        <label for="change-password">New Password</label>
-        <input id="change-password" type="password" placeholder="Create New Password">
-        <label for="change-password2">New Password</label>
-        <input id="change-password2" type="password" placeholder="Repeat New Password">
-        <input type="submit" value="Update" v-on:click="update()">
-        </form>
-    </div>
+  <div>
+    <h3>User setting</h3>
+
+  <b-form>
+        <!-- Login -->
+        <b-row class="pt-2">
+          <b-col cols="4">Login:</b-col>
+          <b-col cols="8">
+            <b-form-input v-model="login" type="text"></b-form-input>
+          </b-col>
+        </b-row>
+        <!-- New password -->
+        <b-row class="pt-2">
+          <b-col cols="4">New password:</b-col>
+          <b-col cols="8">
+            <b-form-input v-model="newPassword" type="password"></b-form-input>
+          </b-col>
+        </b-row>
+        <!-- Repeat new password -->
+        <b-row class="pt-2">
+          <b-col cols="4">Repeat new password:</b-col>
+          <b-col cols="8">
+            <b-form-input v-model="newPassword2" type="password"></b-form-input>
+          </b-col>
+        </b-row>
+        <!-- New email -->
+        <b-row class="pt-2">
+          <b-col cols="4">Email:</b-col>
+          <b-col cols="8">
+            <b-form-input v-model="newEmail" type="email"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="pt-2">
+          <b-col cols="12">
+            <b-button
+              variant="success"
+              @click="update"
+            >Change</b-button>
+          </b-col>
+        </b-row>
+      </b-form>
+
+
+
+  </div>
 </template>
 
 <script>
@@ -23,17 +51,13 @@ export default {
     name: 'UserSetting',
     methods: {
       update: function() {
-        let password = document.querySelector("#password");
-        let newLogin = document.querySelector("#change-username");
-        let newMail = document.querySelector("#change-email");
-        let newPassword = document.querySelector("#change-password");
-        //let password2 = document.querySelector("#change-password2");
 
         var json = {
-          password: password.value,
-          newLogin: newLogin.value,
-          newMail: newMail.value,
-          newPassword: newPassword.value
+          password: this.password,
+          newLogin: this.login,
+          newMail: this.newEmail,
+          newPassword: this.newPassword,
+          newPassword2: this.newPassword2
         };
 
         var requestOptions = {
@@ -51,78 +75,20 @@ export default {
         .catch(error => console.log('error', error));
       }
     },
-    data: function() {
-        return {
-            counter: 0
-        }
+    data() {
+      return {
+        login: '',
+        password: '',
+        newPassword: '',
+        newPassword2: '',
+        newEmail: ''
+      }
+    },
+    created() {
+
     }
 }
 </script>
 
 <style>
-.userchange-box {
-  width: 320px;
-  height: 420px;
-  background: #000;
-  color: #fff;
-  top: 50%;
-  left: 25%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-  padding: 70px 30px;
-}
-
-.userchange-box .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  position: absolute;
-  top: -50px;
-  left: calc(50% - 50px);
-}
-
-.userchange-box h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: center;
-  font-size: 22px;
-}
-
-.userchange-box label {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  display: block;
-}
-
-.userchange-box input {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.userchange-box input[type="text"], .userchange-box input[type="password"] {
-  border: none;
-  border-bottom: 1px solid #fff;
-  background: transparent;
-  outline: none;
-  height: 40px;
-  color: #fff;
-  font-size: 16px;
-}
-
-.userchange-box input[type="submit"] {
-  border: none;
-  outline: none;
-  height: 40px;
-  background: #b80f22;
-  color: #fff;
-  font-size: 18px;
-  border-radius: 20px;
-}
-
-.userchange-box input[type="submit"]:hover {
-  cursor: pointer;
-  background: #ffc107;
-}
 </style>

@@ -12,8 +12,8 @@
         <router-link to="/dashboard"><b-nav-item href="#dashboard">Dashboard</b-nav-item></router-link>
         <router-link to="/cars"><b-nav-item href="#cars">
               <img class="menu-icon" src="./assets/menu-icon/car-view.svg" alt="">Cars</b-nav-item></router-link>
-        <router-link to="/reports"><b-nav-item href="#" disabled>Reports</b-nav-item></router-link>
-        <router-link to="/shared-car"><b-nav-item href="#" disabled>Shared cars</b-nav-item></router-link>
+        <!-- <router-link to="/reports"><b-nav-item href="#" disabled>Reports</b-nav-item></router-link>
+        <router-link to="/shared-car"><b-nav-item href="#" disabled>Shared cars</b-nav-item></router-link> -->
 
       </b-navbar-nav>
 

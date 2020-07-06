@@ -160,7 +160,10 @@ import CurrencySelect from "./../reusable/CurrencySelect";
 export default {
   name: "GoogleMap",
   props: {
-    actualCar: Number
+    actualCar: Number,
+    localizationHistory: [Object, Array],
+    repairHistory: [Object, Array],
+    tankHistory: [Object, Array]
   },
   components: { PetrolTypeSelect, CurrencySelect },
   data() {
@@ -184,6 +187,7 @@ export default {
       addTankForm: {
         idCar: 1,
         idPetrolType: 1,
+        petrolTypeName: '',
         petrolStation: "Orlen",
         fuelAmount: 20,
         priceAmount: 3,
@@ -304,6 +308,9 @@ export default {
           alert(result.message);
           this.showMap = true;
           this.tooltipMessage = "No action";
+          console.log(`dodalem rekord o id ${result.id}`)
+          json.id = result.id;
+          this.localizationHistory.push(json);
           this.showAddLocalizationForm = false;
         })
         .catch(() => {
@@ -352,6 +359,9 @@ export default {
           this.showMap = true;
           this.tooltipMessage = "No action";
           this.showAddTankForm = false;
+          console.log(`dodalem rekord o id ${result.id}`)
+          this.addTankForm.id = result.id;
+          this.tankHistory.push(this.addTankForm);
         })
         .catch(() => {
           alert("Cos nie poszlo");
@@ -399,6 +409,9 @@ export default {
           this.showMap = true;
           this.tooltipMessage = "No action";
           this.showRepairForm = false;
+          console.log(`dodalem rekord o id ${result.id}`)
+          this.addRepairForm.id = result.id;
+          this.repairHistory.push(this.addRepairForm);
         })
         .catch(() => {
           alert("Cos nie poszlo");
@@ -407,6 +420,7 @@ export default {
 
     updatePetrolId: function(petrolTypeId) {
       this.addTankForm.idPetrolType = petrolTypeId;
+      // this.addTankForm.petrolTypeName = 
     },
     updateCurrency: function(tempCurrency) {
       this.addTankForm.currency = tempCurrency.code;

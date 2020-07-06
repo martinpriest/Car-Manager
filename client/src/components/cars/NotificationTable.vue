@@ -38,7 +38,7 @@ export default {
       showNotificationForm: false,
       items: [],
       fields: [
-        { key: "carName", sortable: true },
+        { key: "carName", sortable: false },
         { key: "notificationType", sortable: true },
         { key: "notificationDate", sortable: true }
       ],
@@ -88,6 +88,7 @@ export default {
         .then(response => response.json())
         .then(result => {
           this.items = [];
+          
           result.forEach(element => {
             this.items.push(element);
           });

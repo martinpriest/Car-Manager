@@ -124,7 +124,7 @@ class CarController extends AbstractController
         $entityManager->persist($car);
         $entityManager->flush();
 
-        return $this->json(['message' => 'New car created'], 200);
+        return $this->json(['message' => 'New car created', 'id' => $car->getId()], 200);
     }
 
     /**

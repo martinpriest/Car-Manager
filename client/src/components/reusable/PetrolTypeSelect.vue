@@ -36,6 +36,8 @@ export default {
     methods: {
       pickPetrolType(event) {
         this.$emit("petrolTypeId", parseInt(event.target.value));
+        // console.log(event)
+        // this.$emit("petrolTypeName", parseInt(event.target.value));
       }
     }
 }
