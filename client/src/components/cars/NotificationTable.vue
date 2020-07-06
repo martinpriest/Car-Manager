@@ -13,7 +13,7 @@
           <th>Car name</th>
           <th>Notification</th>
           <th>Date</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
           <th>Action</th>
         </tr>
       </thead>
@@ -27,12 +27,12 @@
           <td>{{ record.carName }}</td>
           <td>{{ record.notificationType }}</td>
           <td>{{ record.notificationDate }}</td>
-          <td>
+          <!-- <td>
             <b-form-checkbox
               id="car-profile-is-public"
               name="car-profile-is-public"
             ></b-form-checkbox>
-          </td>
+          </td> -->
           <td><b-button variant="danger" @click="deleteNotification(record)">Delete</b-button></td>
         </tr>
       </tbody>
