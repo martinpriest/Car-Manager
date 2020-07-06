@@ -38,6 +38,8 @@ export default {
     cars: Array
   },
   data: function() {
+    
+    let today = new Date().toISOString().substr(0, 10);
     return {
       showTable: true,
       showAddNotification: false,
@@ -45,7 +47,7 @@ export default {
       addNotificationForm: {
         idCar: 1,
         idNotificationType: 1,
-        date: "01-01-2020",
+        date: today,
         description: "Default description"
       },
             fields: [

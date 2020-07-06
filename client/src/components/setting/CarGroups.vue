@@ -13,14 +13,6 @@
             <td><b-button variant="danger" @click="deleteCarGroup(item)">Delete</b-button></td>
           </tr>
         </tbody>
-        <!-- <li v-for="item in carGroups" :key="item.id">
-        <b-col cols=12>
-
-        </b-col>
-          <b-col cols="6">{{item.name}}</b-col>
-
-          <b-col cols="6">DELETE</b-col>
-        </li> -->
       </table>
   </div>
 </template>

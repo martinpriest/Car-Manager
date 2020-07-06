@@ -2,7 +2,7 @@
   <div>
     <h3>User setting</h3>
 
-  <b-form>
+  <b-form class="mx-auto w-75">
         <!-- Login -->
         <b-row class="pt-2">
           <b-col cols="4">Login:</b-col>

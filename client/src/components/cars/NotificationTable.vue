@@ -5,8 +5,14 @@
       <p v-else>No notification</p>
       <b-button variant="success" @click="showAddNotificationForm">Add notification</b-button>
     </div>
-    <div v-if="showNotificationForm">
-      <NotificationTypeSelect @notificationType="updateNotification" />
+    <div v-if="showNotificationForm" class="w-75 mx-auto">
+      <!-- TYPE -->
+      <b-row class="pt-1">
+        <b-col cols="4">Type:</b-col>
+        <b-col cols="8">
+          <NotificationTypeSelect @notificationType="updateNotification" />
+        </b-col>
+      </b-row>
       <!-- DESCRIPTION -->
       <b-row class="pt-1">
         <b-col cols="4">Description:</b-col>
@@ -16,8 +22,17 @@
           >{{addNotificationForm.description}}</b-form-input>
         </b-col>
       </b-row>
+
+      <!-- DATE -->
+      <b-row class="pt-1">
+        <b-col cols="4">Date:</b-col>
+        <b-col cols="8">
+          
       <b-form-input v-model="addNotificationForm.date" type="date" placeholder></b-form-input>
-      <b-button variant="success" @click="addNotification">Add notification</b-button>
+        </b-col>
+      </b-row>
+
+      <b-button class="mt-2" variant="success" @click="addNotification">Add notification</b-button>
     </div>
   </div>
 </template>
@@ -33,6 +48,8 @@ export default {
     actualCar: Number
   },
   data() {
+    
+    let today = new Date().toISOString().substr(0, 10);
     return {
       showTable: true,
       showNotificationForm: false,
@@ -45,7 +62,7 @@ export default {
       addNotificationForm: {
         idCar: 1,
         idNotificationType: 1,
-        date: "01-01-2020",
+        date: today,
         description: "Default description"
       }
     };

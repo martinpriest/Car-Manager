@@ -1,9 +1,11 @@
 <template>
 <div>
 
-  <select class="form-control" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType()">
+  <select class="form-control w-100" name="petrol-type" id="petrol-type" v-model="actualPetrolType" @change="pickPetrolType()">
       <option v-for="type in petrolTypes" :value="{id: type.id, name: type.name}" :key ="type.id">{{type.name}}</option>
   </select>
+
+  <!-- <b-form-select v-model="selected" :options="petrolTypes" @change="pickNotificationType($event)"></b-form-select> -->
 </div>
 
 </template>
@@ -13,12 +15,16 @@ export default {
     name: 'PetrolTypeSelect',
     data: function() {
         return {
-            
+
           actualPetrolType: {
+            id: 1,
+            name: "LPG",
+          },
+          selected: {
             id: 1,
             name: "LPG"
           },
-            petrolTypes: []
+          petrolTypes: []
         }
     },
     props: {
@@ -39,11 +45,11 @@ export default {
     },
     methods: {
       pickPetrolType() {
-        let petrolType = {
+        let petrolTypeId = {
           id: this.actualPetrolType.id,
           name: this.actualPetrolType.name,
         }
-        this.$emit("petrolTypeId", petrolType);
+        this.$emit("petrolTypeId", petrolTypeId);
       }
     }
 }

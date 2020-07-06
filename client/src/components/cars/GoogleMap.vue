@@ -1,6 +1,5 @@
 <template>
   <div>
-    <b-container>
       <!-- SHOW MAPS-->
       <b-row v-if="showMap" class="pt-1">
         <b-col cols="12">
@@ -23,36 +22,40 @@
           </GmapMap>
         </b-col>
       </b-row>
+
+
       <!-- SHOW ADD LOCALIZATION FORM -->
-      <b-row v-if="showAddLocalizationForm" class="pt-1">
+      <b-form class="mx-auto w-75">
+      <b-row v-if="showAddLocalizationForm" class="w-75 mx-auto">
         <b-col cols="12">
           <h3>Add localization</h3>
-          <b-form-input v-model="addLocalizationForm.description" placeholder="Type description"></b-form-input>
+          <b-form-input class="mt-2" v-model="addLocalizationForm.description" placeholder="Type description"></b-form-input>
         </b-col>
         <b-col cols="6">
-          <b-form-input v-model="clickedLocalization[0].lat" placeholder="Start lat"></b-form-input>
+          <b-form-input class="mt-2" v-model="clickedLocalization[0].lat" placeholder="Start lat"></b-form-input>
         </b-col>
         <b-col cols="6">
-          <b-form-input v-model="clickedLocalization[0].lng" placeholder="Start lng"></b-form-input>
+          <b-form-input class="mt-2" v-model="clickedLocalization[0].lng" placeholder="Start lng"></b-form-input>
         </b-col>
         <b-col cols="6">
-          <b-form-input v-model="clickedLocalization[1].lat" placeholder="End lat"></b-form-input>
+          <b-form-input class="mt-2" v-model="clickedLocalization[1].lat" placeholder="End lat"></b-form-input>
         </b-col>
         <b-col cols="6">
-          <b-form-input v-model="clickedLocalization[1].lng" placeholder="End lng"></b-form-input>
+          <b-form-input class="mt-2" v-model="clickedLocalization[1].lng" placeholder="End lng"></b-form-input>
         </b-col>
         <b-col cols="12">
-          <b-form-input v-model="addLocalizationForm.distance" placeholder="Distance"></b-form-input>
+          <b-form-input class="mt-2" v-model="addLocalizationForm.distance" placeholder="Type distance [km]" type="number"></b-form-input>
         </b-col>
         <b-col cols="12">
-          <b-form-input v-model="addLocalizationForm.date" type="date" placeholder></b-form-input>
-          <b-button variant="success" @click="addLocalizationHistory">Add localization</b-button>
-          <b-button variant="danger" @click="hideForms">Close</b-button>
+          <b-form-input class="mt-2" v-model="addLocalizationForm.date" type="date" placeholder></b-form-input>
+          <b-button class="mt-2" variant="success" @click="addLocalizationHistory">Add localization</b-button>
+          <b-button class="mt-2" variant="danger" @click="hideForms">Close</b-button>
         </b-col>
       </b-row>
+      </b-form>
 
       <!-- SHOW ADD TANK FORM -->
-      <b-row v-if="showAddTankForm">
+      <div v-if="showAddTankForm" class="w-75 mx-auto">
         <!-- Petrol station input -->
         <!-- CAR NAME -->
         <b-row class="pt-1">
@@ -61,6 +64,8 @@
             <b-form-input v-model="addTankForm.petrolStation">{{addTankForm.petrolStation}}</b-form-input>
           </b-col>
         </b-row>
+
+        
         <!-- Fuel amount -->
         <b-row class="pt-1">
           <b-col cols="4">Fuel amount:</b-col>
@@ -93,15 +98,23 @@
             <CurrencySelect @tempCurrency="updateCurrency" />
           </b-col>
         </b-row>
+
+         <!-- Date-->
+        <b-row class="pt-1">
+          <b-col cols="4">Date:</b-col>
+          <b-col cols="8">
+            <b-form-input v-model="addTankForm.date" type="date" placeholder></b-form-input>
+          </b-col>
+        </b-row>
         <b-col class="pt-1" cols="12">
-          <b-form-input v-model="addTankForm.date" type="date" placeholder></b-form-input>
+          
           <b-button variant="success" @click="addTankHistory">Confirm</b-button>
           <b-button variant="danger" @click="hideForms">Close</b-button>
         </b-col>
-      </b-row>
+      </div>
 
       <!-- SHOW ADD REPAIR FORM -->
-      <b-row v-if="showRepairForm">
+      <div v-if="showRepairForm" class="mx-auto w-75">
           <!-- DESCRIPTION -->
         <b-row class="pt-1">
           <b-col cols="4">Description:</b-col>
@@ -125,32 +138,37 @@
             <CurrencySelect @tempCurrency="updateCurrency" />
           </b-col>
         </b-row>
-        <b-col class="pt-1" cols="12">
-          <!-- <b-form-input v-model="addRepairForm.date" type="date" placeholder></b-form-input> -->
+
+        <!-- Currency select-->
+        <b-row class="pt-1">
+          <b-col cols="4">Currency:</b-col>
+          <b-col cols="8">
           <b-form-datepicker id="example-datepicker" v-model="addRepairForm.date" class="mb-2"></b-form-datepicker>
+          </b-col>
+        </b-row>
+        <b-col class="pt-1" cols="12">
           <b-button variant="success" @click="addRepairHistory">Confirm</b-button>
           <b-button variant="danger" @click="hideForms">Close</b-button>
         </b-col>
-      </b-row>
+      </div>
       <!-- BOTTOM BUTTONS -->
-      <b-row>
+      <b-row v-if="showMap">
         <!-- ADD LOCALIZATION -->
         <b-col cols="4">
-          <b-button @click="addLocalization">Add localization</b-button>
+          <b-button variant="success" class="mt-2" @click="addLocalization">Add localization</b-button>
         </b-col>
         <!-- ADD TANK -->
         <b-col cols="4">
-          <b-button @click="addTank">Add tank</b-button>
+          <b-button variant="success" class="mt-2" @click="addTank">Add tank</b-button>
         </b-col>
         <!-- ADD REPAIR -->
         <b-col cols="4">
-          <b-button @click="addRepair">Add repair</b-button>
+          <b-button variant="success" class="mt-2" @click="addRepair">Add repair</b-button>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col cols="12">Tooltip message: {{this.tooltipMessage}}</b-col>
+      <b-row v-if="showMap">
+        <b-col cols="12">Tooltip: {{this.tooltipMessage}}</b-col>
       </b-row>
-    </b-container>
   </div>
 </template>
 <script>
@@ -169,7 +187,7 @@ export default {
   data() {
 
     let today = new Date().toISOString().substr(0, 10);
-    // var today = new Date();
+    
     return {
       markers: [
       ],
@@ -183,7 +201,7 @@ export default {
         startLng: 131.036,
         endLat: -25.344,
         endLng: 131.036,
-        distance: 0,
+        distance: undefined,
         description: "",
         date: today
       },
