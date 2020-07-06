@@ -33,7 +33,7 @@
       <TankHistoryTable :tankHistory="tankHistory"/>
     </b-tab>
     <b-tab title="Notification" class="m-3">
-      <NotificationTable :actualCar="actualCar" :notification="notification"/>
+      <NotificationTable :actualCarName="actualCarName" :actualCar="actualCar" :notification="notification"/>
     </b-tab>
   </b-tabs>
 
@@ -85,6 +85,7 @@ export default {
         .then((result) => {
             if(!result.message) {
                 this.actualCar = result[0].id;
+                this.actualCarName = result[0].name;
                 document.querySelector("#dropdown-left__BV_toggle_").textContent = result[0].name;
                 this.cars = result;
             }

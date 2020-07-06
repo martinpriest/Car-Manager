@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" @change="pickNotificationType($event)"></b-form-select>
+    <b-form-select id="notificationSelect" v-model="selected" :options="options" @change="pickNotificationType($event)"></b-form-select>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
     name: 'NotificationTypeSelect',
     data: function() {
         return {
-            selected: null,
+            selected: 1,
             options: []
         }
     },

@@ -154,7 +154,7 @@ class NotificationController extends AbstractController
          ->find($id);
 
         if(!$notification) return $this->json(['message' => 'No notification with this ID'], 400);
-        if($notification->getIduser() != $_SESSION['idUser']) return $this->json(['message' => 'No access to notification'], 400);
+        if($notification->getIduser()->getId() != $_SESSION['idUser']) return $this->json(['message' => 'No access to notification'], 400);
 
          $entityManager->remove($notification);
          $entityManager->flush();

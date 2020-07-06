@@ -1,16 +1,51 @@
 <template>
   <div>
-    <div v-if="showTable">
-      <b-table v-if="items.length" dark striped hover :items="items" :fields="fields"></b-table>
-      <p v-else>No notification</p>
-      <b-button variant="success" @click="showAddNotificationForm">Add notification</b-button>
-    </div>
+
+<div v-if="showTable">
+  <b-button class="mb-2" variant="success" @click="showAddNotificationForm">Add notification</b-button>
+
+    <table
+      class="table table-bordered table-hover table-dark w-75 overflow-auto m-auto"
+      v-if="notification.length"
+    >
+      <thead>
+        <tr>
+          <th>Car name</th>
+          <th>Notification</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          v-for="record in notification"
+          :key="record.id"
+          :data-id-notification="record.id"
+        >
+          <td>{{ record.carName }}</td>
+          <td>{{ record.notificationType }}</td>
+          <td>{{ record.notificationDate }}</td>
+          <td>
+            <b-form-checkbox
+              id="car-profile-is-public"
+              name="car-profile-is-public"
+            ></b-form-checkbox>
+          </td>
+          <td><b-button variant="danger" @click="deleteNotification(record)">Delete</b-button></td>
+        </tr>
+      </tbody>
+    </table>
+    <p v-else>No notification</p>
+</div>
+
     <div v-if="showNotificationForm" class="w-75 mx-auto">
       <!-- TYPE -->
       <b-row class="pt-1">
         <b-col cols="4">Type:</b-col>
         <b-col cols="8">
-          <NotificationTypeSelect @notificationType="updateNotification" />
+          <NotificationTypeSelect @notificationType="updateNotification"/>
         </b-col>
       </b-row>
       <!-- DESCRIPTION -->
@@ -33,6 +68,7 @@
       </b-row>
 
       <b-button class="mt-2" variant="success" @click="addNotification">Add notification</b-button>
+      
     </div>
   </div>
 </template>
@@ -45,7 +81,9 @@ export default {
     NotificationTypeSelect
   },
   props: {
-    actualCar: Number
+    actualCar: Number,
+    actualCarName: String,
+    notification: [Object, Array]
   },
   data() {
     
@@ -53,12 +91,7 @@ export default {
     return {
       showTable: true,
       showNotificationForm: false,
-      items: [],
-      fields: [
-        { key: "carName", sortable: false },
-        { key: "notificationType", sortable: true },
-        { key: "notificationDate", sortable: true }
-      ],
+      
       addNotificationForm: {
         idCar: this.actualCar,
         idNotificationType: 1,
@@ -67,58 +100,26 @@ export default {
       }
     };
   },
-  created: function() {
-    var json = {
-      idCar: this.actualCar
-    };
-
-    var requestOptions = {
-      method: "POST",
-      body: JSON.stringify(json),
-      redirect: "follow",
-      credentials: "include"
-    };
-
-    fetch(`${process.env.VUE_APP_API_URL}/notification/`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if(!result.message) {
-          result.forEach(element => {
-          this.items.push(element);
-        });
-        }
-        
-      })
-      .catch(error => console.log("error", error));
-  },
-  watch: {
-    actualCar: function() {
-      var json = {
-        idCar: this.actualCar
-      };
-
+  methods: {
+      deleteNotification(notToDelete) {
       var requestOptions = {
-        method: "POST",
-        body: JSON.stringify(json),
+        method: "DELETE",
         redirect: "follow",
         credentials: "include"
       };
 
-      fetch(`${process.env.VUE_APP_API_URL}/notification/`, requestOptions)
+      fetch(`${process.env.VUE_APP_API_URL}/notification/${notToDelete.id}`, requestOptions)
         .then(response => response.json())
         .then(result => {
-          this.items = [];
-          if(!result.message) {
-result.forEach(element => {
-            this.items.push(element);
-          });
-          }
-          
+          console.log(result);
+          var index = this.notification.map(x => {
+            return x.id;
+          }).indexOf(notToDelete.id);
+
+          this.notification.splice(index, 1);
         })
         .catch(error => console.log("error", error));
-    }
-  },
-  methods: {
+      },
       addNotification() {
 
         this.addNotificationForm.idCar = this.actualCar;
@@ -136,11 +137,27 @@ result.forEach(element => {
         .then(response => response.json())
         .then(result => {
           alert(result.message);
-          this.showTable = true;
+
+          var e = document.getElementById("notificationSelect");
+          var notTypeName = e.options[e.selectedIndex].text;
+
+          var newRecord = {
+            idCar: this.addNotificationForm.idCar,
+            notificationDate: this.addNotificationForm.date,
+            status: 0,
+            notificationType: notTypeName,
+            id: result.id,
+            carName: this.actualCarName,
+            description: "Default"
+          }
+        console.log(newRecord);
+          this.notification.push(newRecord)
+          
           this.showNotificationForm = false;
+          this.showTable = true;
         })
-        .catch(() => {
-          alert("Cos nie poszlo");
+        .catch((err) => {
+          alert(`${err}`);
         });
       },
     showAddNotificationForm() {

@@ -4,13 +4,12 @@
         <b-table v-if="items.length" dark striped hover :items="items" :fields="fields"></b-table>
 
       <p v-else>No notification</p>
-      <b-button variant="success" @click="showNotificationForm">Add notification</b-button>
+      <!-- <b-button variant="success" @click="showNotificationForm">Add notification</b-button> -->
 
     </div>
-    <div v-if="showAddNotification">
+    <!-- <div v-if="showAddNotification">
       <CarSelect @idCar="updateCar" class="mb-2 mt-2"/>
       <NotificationTypeSelect @notificationType="updateNotification" />
-      <!-- DESCRIPTION -->
       <b-row class="pt-1">
         <b-col cols="4">Description:</b-col>
         <b-col cols="8">
@@ -22,17 +21,17 @@
       <b-form-input v-model="addNotificationForm.date" type="date" placeholder></b-form-input>
       <b-button variant="success" @click="addNotification">Add notification</b-button>
 
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import NotificationTypeSelect from "../reusable/NotificationTypeSelect";
-import CarSelect from "../reusable/CarSelect";
+// import NotificationTypeSelect from "../reusable/NotificationTypeSelect";
+// import CarSelect from "../reusable/CarSelect";
 export default {
   name: "Notification",
   components: {
-    NotificationTypeSelect, CarSelect
+    // NotificationTypeSelect, CarSelect
   },
   props: {
     cars: Array
